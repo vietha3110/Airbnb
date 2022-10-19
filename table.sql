@@ -42,13 +42,16 @@ CREATE TABLE Reviews(
     updated_at:DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, 
 );
 
-CREATE TABLE ReviewImages(
+CREATE TABLE Images(
     id: INTEGER PRIMARY KEY AUTOINCREMENT, 
     url: VARCHAR,
-    reviewId: INTEGER REFERENCES Reviews(id)
+    reviewId: INTEGER REFERENCES Reviews(id),
+    spotId: INTEGER REFERENCES Spots(id)
 );
 
 CREATE TABLE Bookings(
     id: INTEGER PRIMARY KEY AUTOINCREMENT, 
     spotId: INTEGER REFERENCES Spots(id),
+    start_date: DATE,
+    end_date: DATE
 );
