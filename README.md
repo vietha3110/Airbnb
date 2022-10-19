@@ -52,7 +52,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: ? /users/:userId
+  * URL: /users/:userId
   * Body: none
 
 * Successful Response
@@ -78,8 +78,8 @@ information.
 
 * Require Authentication: false
 * Request
-  * Method: ?POST
-  * URL: ?
+  * Method: POST
+  * URL:/users/login
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -146,7 +146,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /users
+  * URL: /users/signup
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -459,7 +459,7 @@ Create and return a new image for a spot specified by id.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: POST
-  * URL: /spots/:spotId/image 
+  * URL: /spots/:spotId/spotimages 
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -632,7 +632,7 @@ Returns all the reviews written by the current user.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /reviews
+  * URL: /users/:userId/reviews
   * Body: none
 
 * Successful Response
@@ -825,7 +825,7 @@ Create and return a new image for a review specified by id.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: POST
-  * URL: reviews/:reviewId/images
+  * URL: /reviews/:reviewId/reviewimages
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1336,7 +1336,7 @@ Delete an existing image for a Spot.
 * Require proper authorization: Spot must belong to the current user
 * Request
   * Method: DELETE
-  * URL: spots/:spotId/images/:imageId
+  * URL: spots/:spotId/spotimages/:spotImagesid
   * Body: none
 
 * Successful Response
@@ -1373,7 +1373,7 @@ Delete an existing image for a Review.
 * Require proper authorization: Review must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /reviews/:reviewId/images/:imageId
+  * URL: /reviews/:reviewId/reviewimages/:reviewImageId
   * Body: none
 
 * Successful Response
