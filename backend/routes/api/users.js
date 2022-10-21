@@ -24,6 +24,12 @@ const validateSignup = [
         .exists({ checkFalsy: true })
         .isLength({ min: 6 })
         .withMessage('Password must be 6 characters or more.'),
+    check('firstName')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide your first name.'),
+    check('lastName')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide your last name.'),
     handleValidationErrors
 ];
 
@@ -33,11 +39,13 @@ router.post(
     '/',
     validateSignup,
     async (req, res) => {
-        const { username, password, email } = req.body;
+        const { username, password, email, firstName, lastName } = req.body;
         const user = await User.signup({
             username,
             password,
-            email
+            email,
+            firstName,
+            lastName
         });
         await setTokenCookie(res, user);
 
