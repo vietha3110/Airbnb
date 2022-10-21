@@ -1,0 +1,23 @@
+{
+  "name": "airbnb",
+  "version": "1.0.0",
+  "description": "## Database Schema Design",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vietha3110/Airbnb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vietha3110/Airbnb/issues"
+  },
+  "homepage": "https://github.com/vietha3110/Airbnb#readme",
+  "dependencies": {
+    "pg": "^8.8.0"
+  }
+}
