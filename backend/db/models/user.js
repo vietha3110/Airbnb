@@ -122,7 +122,7 @@ module.exports = (sequelize, DataTypes) => {
       currentUser: {
         attributes: {
           exclude: [
-            'hasedPassword',
+            'hashedPassword',
             'createdAt',
             'updatedAt'
           ]

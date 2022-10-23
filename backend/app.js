@@ -46,6 +46,7 @@ app.use(
 
 // add routes 
 const routes = require('./routes');
+const e = require('express');
 
 app.use(routes);
 
@@ -63,8 +64,23 @@ app.use((_req, _res, next) => {
 app.use((err, _req, _res, next) => {
   // check if error is a Sequelize error:
   if (err instanceof ValidationError) {
-    err.errors = err.errors.map((e) => e.message);
-    err.title = 'Validation error';
+    if (err.fields.includes('email')) {
+      err.message = 'User already exists';
+      err.status = 403;
+      err.errors = {
+        "email": "User with that email already exists"
+      }
+    } else if (err.fields.includes('username')) {
+      err.message = 'User already exists';
+      err.status = 403;
+      err.errors = {
+        "username": "User with that username already exists"
+      }
+    } else {
+      err.errors = err.errors.map((e) => e.message);
+      err.title = 'Validation error';
+    }
+   
   }
   next(err);
 });
