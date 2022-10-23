@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User } = require('../db/models');
+const { User, Spot } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -59,10 +59,36 @@ const requireAuth = function (req, _res, next) {
         return next();
     }
     const err = new Error('Unauthorized'); 
-    err.title = 'Unauthorized';
-    err.errors = ['Unauthorized'];
+    // err.title = 'Unauthorized';
+    // err.errors = ['Unauthorized'];
+    err.message = 'Authentication required'
     err.status = 401;
     return next(err);
 }
 
-module.exports = { setTokenCookie, restoreUser, requireAuth };
+//proper required 
+const requireAuthor = async function (req, res, next) {
+    const spotId = req.params.spotId; 
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+        // const err = new Error('Couldnt find Spot');
+        // err.message = `Spot couldn't be found`;
+        // err.status = 404;
+        // return next(err);
+        return res.status(404).json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    } 
+    const ownerId = spot.ownerId;
+    const userId = req.user.id; 
+    if (userId === ownerId) {
+        return next(); 
+    } else {
+        const err = new Error('Unauthorized');
+        err.message = 'Forbidden';
+        err.status = 403; 
+        return next(err);
+    }
+}
+module.exports = { setTokenCookie, restoreUser, requireAuth, requireAuthor };

@@ -1,11 +1,12 @@
 const express = require('express');
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth.js');
+const { setTokenCookie, requireAuth, requireAuthor } = require('../../utils/auth.js');
 const { User, Spot, Review, SpotImage, sequelize } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Sequelize } = require('sequelize'); 
 const { route } = require('./session.js');
+const spotimage = require('../../db/models/spotimage.js');
 
 const router = express.Router();
 
@@ -151,6 +152,51 @@ router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
         console.log(e.message)
     }
 });
+
+//Add an image to a spot 
+
+router.post('/:spotId/images', requireAuth,requireAuthor, async (req, res, next) => {
+    const spotId = req.params.spotId; 
+    const { url, preview } = req.body;
+    const spot = await Spot.findByPk(spotId); 
+    // if (spot) {
+    //     const spotImage = await spot.createSpotImage({
+    //         url,
+    //         preview
+    //     }, {
+    //         fields: [
+    //             []
+    //         ]
+    //     });
+    //     // const imageData = spotImage.toJSON();
+    //     // delete imageData.createdAt;
+    //     // delete imageData.updatedAt;
+    //     res.json({
+    //         ...imageData
+    //     }
+    //     )
+    // } else {
+    //     res.status
+    // }
+    if (spot) {
+        const image = await SpotImage.create({
+            url,
+            preview,
+            spotId
+        }); 
+        const newId = image.id; 
+        const imageData = await SpotImage.scope('defaultScope').findByPk(newId);
+        res.json(imageData)
+    } else {
+        res.status(404).json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+    
+    
+
+})
 
 
 module.exports = router;
