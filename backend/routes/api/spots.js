@@ -155,10 +155,10 @@ router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
 
 //Add an image to a spot 
 
-router.post('/:spotId/images', requireAuth,requireAuthor, async (req, res, next) => {
-    const spotId = req.params.spotId; 
+router.post('/:spotId/images', requireAuth, requireAuthor, async (req, res, next) => {
+    const spotId = req.params.spotId;
     const { url, preview } = req.body;
-    const spot = await Spot.findByPk(spotId); 
+    const spot = await Spot.findByPk(spotId);
     // if (spot) {
     //     const spotImage = await spot.createSpotImage({
     //         url,
@@ -183,8 +183,8 @@ router.post('/:spotId/images', requireAuth,requireAuthor, async (req, res, next)
             url,
             preview,
             spotId
-        }); 
-        const newId = image.id; 
+        });
+        const newId = image.id;
         const imageData = await SpotImage.scope('defaultScope').findByPk(newId);
         res.json(imageData)
     } else {
@@ -193,10 +193,44 @@ router.post('/:spotId/images', requireAuth,requireAuthor, async (req, res, next)
             "statusCode": 404
         })
     }
-    
-    
+});
 
-})
+router.put('/:spotId', requireAuth, requireAuthor, validateCreateSpot, async (req, res, next) => {
+    const spotId = req.params.spotId; 
+    const spot = await Spot.findByPk(spotId); 
+   
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        if (address) {
+            spot.address = address;
+        } 
+        if (city) {
+            spot.city = city;
+        }
+        if (state) {
+            spot.state = state;
+        }
+        if (country) {
+            spot.country = country;
+        }
+        if (lat) {
+            spot.lat = lat;
+        }
+        if (lng) {
+            spot.lng = lng;
+        }
+        if (name) {
+            spot.name = name;
+        }
+        if (description) {
+            spot.description = description;
+        }
+        if (price) {
+            spot.price = price
+        }
+        await spot.save();
+    res.json(spot);
+    
+} )
 
 
 module.exports = router;
