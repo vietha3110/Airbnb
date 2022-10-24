@@ -12,29 +12,60 @@ const router = express.Router();
 
 //get all spot
 router.get('/', async (req, res, next) => {
-    const spots = await Spot.findAll({
-        attributes: {
-            include: [
-                [
-                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
-                ],
-                [
-                    sequelize.col('SpotImages.url'), 'previewImage'
-                ]
-            ]
-        },
-        include: [
-            {
-                model: Review,
-                attributes: []
-            }, {
-                model: SpotImage,
-                attributes: []
+    // const spots = await Spot.findAll({
+    //     attributes: {
+    //         include: [
+    //             [
+    //                 sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
+    //             ],
+    //             [
+    //                 sequelize.col('SpotImages.url'), 'previewImage'
+    //             ]
+    //         ]
+    //     },
+    //     include: [
+    //         {
+    //             model: Review,
+    //             attributes: []
+    //         }, {
+    //             model: SpotImage,
+    //             attributes: []
                 
-            }
-        ],
-    });
-    res.json({ "Spots": spots })
+    //         }
+    //     ],
+    // });
+    // res.json({ "Spots": spots })
+    const spots = await Spot.findAll({
+        raw: true
+    }
+    ); 
+    for (let spot of spots) {
+        const review = await Review.findAll({
+            where: {
+                spotId: spot.id
+            },
+            attributes: {
+                include: [
+                    [
+                        sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
+                    ],
+                ],
+            },
+            raw: true
+        })
+        spot.avgRating = review[0]['avgRating'];
+        const image = await SpotImage.findAll({
+            where: {
+                spotId: spot.id
+            },
+            attributes: {
+                include: ['url']
+            },
+            raw: true
+        });
+        spot.previewImage = image[0]['url'];
+    }
+    res.json({"Spots" : spots})
 })
 
 
