@@ -196,41 +196,52 @@ router.post('/:spotId/images', requireAuth, requireAuthor, async (req, res, next
 });
 
 router.put('/:spotId', requireAuth, requireAuthor, validateCreateSpot, async (req, res, next) => {
-    const spotId = req.params.spotId; 
-    const spot = await Spot.findByPk(spotId); 
+    const spotId = req.params.spotId;
+    const spot = await Spot.findByPk(spotId);
    
-        const { address, city, state, country, lat, lng, name, description, price } = req.body;
-        if (address) {
-            spot.address = address;
-        } 
-        if (city) {
-            spot.city = city;
-        }
-        if (state) {
-            spot.state = state;
-        }
-        if (country) {
-            spot.country = country;
-        }
-        if (lat) {
-            spot.lat = lat;
-        }
-        if (lng) {
-            spot.lng = lng;
-        }
-        if (name) {
-            spot.name = name;
-        }
-        if (description) {
-            spot.description = description;
-        }
-        if (price) {
-            spot.price = price
-        }
-        await spot.save();
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    if (address) {
+        spot.address = address;
+    }
+    if (city) {
+        spot.city = city;
+    }
+    if (state) {
+        spot.state = state;
+    }
+    if (country) {
+        spot.country = country;
+    }
+    if (lat) {
+        spot.lat = lat;
+    }
+    if (lng) {
+        spot.lng = lng;
+    }
+    if (name) {
+        spot.name = name;
+    }
+    if (description) {
+        spot.description = description;
+    }
+    if (price) {
+        spot.price = price
+    }
+    await spot.save();
     res.json(spot);
-    
-} )
+});
+
+//Delete a spot
+
+router.delete('/:spotId', requireAuth, requireAuthor, async (req, res, next) => {
+    const spotId = req.params.spotId;
+    const spot = await Spot.findByPk(spotId);
+    await spot.destroy();
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
+})
 
 
 module.exports = router;
