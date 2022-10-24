@@ -7,6 +7,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Sequelize } = require('sequelize'); 
 const { route } = require('./session.js');
 const spotimage = require('../../db/models/spotimage.js');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -56,14 +57,22 @@ router.get('/', async (req, res, next) => {
         spot.avgRating = review[0]['avgRating'];
         const image = await SpotImage.findAll({
             where: {
-                spotId: spot.id
-            },
-            attributes: {
-                include: ['url']
+                [Op.and]: [
+                    {
+                        spotId: spot.id,
+                    },
+                    {
+                        preview: true
+                    }
+                ] 
             },
             raw: true
         });
-        spot.previewImage = image[0]['url'];
+        if (!image.length) {
+            spot.previewImage = null;
+        } else {
+            spot.previewImage = image[0]['url'];
+        } 
     }
     res.json({"Spots" : spots})
 })
@@ -95,14 +104,22 @@ router.get('/current', requireAuth, async (req, res, next) => {
         spot.avgRating = review[0]['avgRating'];
         const image = await SpotImage.findAll({
             where: {
-                spotId: spot.id
-            },
-            attributes: {
-                include: ['url']
+                [Op.and]: [
+                    {
+                        spotId: spot.id,
+                    },
+                    {
+                        preview: true
+                    }
+                ] 
             },
             raw: true
         });
-        spot.previewImage = image[0]['url'];
+        if (!image.length) {
+            spot.previewImage = null;
+        } else {
+            spot.previewImage = image[0]['url'];
+        }  
     }
 
     res.json({ "Spots": spots });

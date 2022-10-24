@@ -7,6 +7,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Sequelize } = require('sequelize'); 
 const { route } = require('./session.js');
 const spotimage = require('../../db/models/spotimage.js');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -14,29 +15,62 @@ const router = express.Router();
 
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
-    const reviews = await Review.findOne({
+    const reviews = await Review.findAll({
         where: {
             userId: id
-        },
-        include: [
-            {
-                model: User,
-                attribute: {
-                    include: ['id', 'firstName', 'lastName']
-                }
-            },
-            {
-                model: Spot,
-                attribute: {
-                    exclude: ['description', 'createdAt', 'updatedAt']
-                }
-            },
-            {
-                model: ReviewImage
+        }, 
+        include: {
+            model: User, 
+            attributes: {
+                exclude: ['username', 'hashedPassword','createdAt', 'updatedAt', 'email']
             }
-        ]
+        }, 
+        raw: true
     });
+    for (let review of reviews) {
+        const spots = await Spot.findAll({
+            where: {
+               ownerId: id
+            },
+            raw: true
+        });
+        for (let spot of spots) {
+            const spotImages = await SpotImage.findAll({
+                where: {
+                    [Op.and]: [
+                        {
+                            spotId: spot.id,
+                        },
+                        {
+                            preview: true
+                        }
+                    ] 
+                },
+                attributes: {
+                    exclude: ['id', 'preview']
+                },
+                raw: true
+            });
+            if (!spotImages.length) {
+                spot.previewImage = null
+            } else {
+                spot.previewImage = spotImages[0]['url'];
+            }     
+        }
+        review.Spot = spots;
+        const images = await ReviewImage.findAll({
+            where: {
+                reviewId: review.id
+            },
+            attributes: {
+                exclude: ['reviewId', 'createdAt', 'updatedAt']
+            },
+            raw: true
+        });
+        review.ReviewImages = images
+    }
     res.json(reviews);
+    
 })
 
 
