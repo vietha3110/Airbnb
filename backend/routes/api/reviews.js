@@ -18,19 +18,23 @@ router.get('/current', requireAuth, async (req, res, next) => {
     const reviews = await Review.findAll({
         where: {
             userId: id
-        }, 
-        include: {
-            model: User, 
-            attributes: {
-                exclude: ['username', 'hashedPassword','createdAt', 'updatedAt', 'email']
-            }
-        }, 
+        },
         raw: true
     });
     for (let review of reviews) {
+        const user = await User.findOne({
+            where: {
+                id
+            }, 
+            attributes: {
+                        exclude: ['username', 'hashedPassword', 'createdAt', 'updatedAt', 'email']
+                    }
+
+        });
+        review.User = user;
         const spots = await Spot.findAll({
             where: {
-               ownerId: id
+                ownerId: id
             },
             raw: true
         });
@@ -44,7 +48,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
                         {
                             preview: true
                         }
-                    ] 
+                    ]
                 },
                 attributes: {
                     exclude: ['id', 'preview']
@@ -55,7 +59,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 spot.previewImage = null
             } else {
                 spot.previewImage = spotImages[0]['url'];
-            }     
+            }
         }
         review.Spot = spots;
         const images = await ReviewImage.findAll({
@@ -70,8 +74,13 @@ router.get('/current', requireAuth, async (req, res, next) => {
         review.ReviewImages = images
     }
     res.json(reviews);
+});
+
+//get all reviews by a spot id 
+
     
-})
+    
+
 
 
 

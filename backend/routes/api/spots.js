@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { setTokenCookie, requireAuth, requireAuthor } = require('../../utils/auth.js');
-const { User, Spot, Review, SpotImage, sequelize } = require('../../db/models');
+const { User, Spot, Review, SpotImage, ReviewImage, sequelize } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Sequelize } = require('sequelize'); 
@@ -301,6 +301,30 @@ router.delete('/:spotId', requireAuth, requireAuthor, async (req, res, next) => 
         "statusCode": 200
     })
 })
-
+//get all review by a spot
+router.get('/:spotId/reviews', async (req, res, next) => {
+        const spotId = req.params.spotId;
+        const spot = await Spot.findByPk(spotId);
+        if (spot) {
+            const reviews = await Review.findAll({
+                where: {
+                    spotId
+                },
+                include: {
+                    model: ReviewImage,
+                    attributes: {
+                        exclude: ['reviewId', 'createdAt', 'updatedAt']
+                    }
+                }
+            });
+            res.json({ "Reviews": reviews });
+        } else {
+            res.status(404).json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+            })
+        }
+    
+});
 
 module.exports = router;
