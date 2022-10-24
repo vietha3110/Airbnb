@@ -12,7 +12,7 @@ const router = express.Router();
 
 //get all spot
 router.get('/', async (req, res, next) => {
-    const Spots = await Spot.findAll({
+    const spots = await Spot.findAll({
         attributes: {
             include: [
                 [
@@ -34,14 +34,14 @@ router.get('/', async (req, res, next) => {
             }
         ],
     });
-    res.json({ Spots })
+    res.json({ "Spots": spots })
 })
 
 
 //get all spots owned by the current
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
-    const Spots = await Spot.findByPk(id, {
+    const spots = await Spot.findByPk(id, {
         attributes: {
             include: [
                 [
@@ -63,7 +63,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             }
         ],
     });
-    res.json({ Spots })
+    res.json({"Spots": spots})
 });
 
 //Get details of a Spot from an id
