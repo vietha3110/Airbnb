@@ -64,13 +64,13 @@ app.use((_req, _res, next) => {
 app.use((err, _req, _res, next) => {
   // check if error is a Sequelize error:
   if (err instanceof ValidationError) {
-    if (err.fields.includes('email')) {
+    if (err.path.includes('email')) {
       err.message = 'User already exists';
       err.status = 403;
       err.errors = {
         "email": "User with that email already exists"
       }
-    } else if (err.fields.includes('username')) {
+    } else if (err.path.includes('username')) {
       err.message = 'User already exists';
       err.status = 403;
       err.errors = {
@@ -80,7 +80,7 @@ app.use((err, _req, _res, next) => {
       err.errors = err.errors.map((e) => e.message);
       err.title = 'Validation error';
     }
-   
+ 
   }
   next(err);
 });

@@ -311,12 +311,20 @@ router.get('/:spotId/reviews', async (req, res, next) => {
                 where: {
                     spotId
                 },
-                include: {
+                include: [
+                    {
+                        model: User, 
+                        attributes: {
+                            exclude: ['username', 'hashedPassword', 'email', 'createdAt', 'updatedAt']
+                        }
+                    },
+                    {
                     model: ReviewImage,
                     attributes: {
                         exclude: ['reviewId', 'createdAt', 'updatedAt']
                     }
-                }
+                },
+                ]
             });
             res.json({ "Reviews": reviews });
         } else {
