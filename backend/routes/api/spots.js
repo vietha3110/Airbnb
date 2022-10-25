@@ -339,7 +339,7 @@ const validateReview = [
 ];
 //create a review for a spot based on 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
-    const userId = req.user.id; 
+    const userId = req.user.id;
     const spotId = req.params.spotId;
     const spot = await Spot.findByPk(spotId);
     if (!spot) {
@@ -364,9 +364,9 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         res.status(403).json({
             "message": "User already has a review for this spot",
             "statusCode": 403
-          })
-    } else { 
-        const { review, stars } = req.body; 
+        })
+    } else {
+        const { review, stars } = req.body;
         const newReview = await Review.create({
             userId,
             spotId,
@@ -375,6 +375,10 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         });
         res.json(newReview);
     }
-})
+});
+
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    
+});
 
 module.exports = router;
