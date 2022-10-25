@@ -115,4 +115,34 @@ const requireAuthorReview = async function (req, res, next) {
     }
 }
 
-module.exports = { setTokenCookie, restoreUser, requireAuth, requireAuthor , requireAuthorReview};
+//proper required for create bookings 
+const requireAuthorCreateBooking = async function (req, res, next) {
+    const userId = req.user.id;
+    const spotId = req.params.spotId; 
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+        return res.status(404).json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
+        })
+    }
+    const ownerId = spot.ownerId;
+    if (userId === ownerId) {
+        const err = new Error('Unauthorized');
+        err.message = 'Forbidden';
+        err.status = 403;
+        return next(err);
+    } else { 
+        return next();
+    }
+}
+//propere required for booking(edit/delete)
+
+const requireAuthorUpdateBooking = async function (req, res, next) {
+    const userId = req.user.id; 
+    
+}
+
+
+
+module.exports = { setTokenCookie, restoreUser, requireAuth, requireAuthor , requireAuthorReview, requireAuthorCreateBooking};
