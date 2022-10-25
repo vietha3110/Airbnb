@@ -138,28 +138,5 @@ router.delete('/:reviewId', requireAuth, requireAuthorReview, async (req, res, n
         "statusCode": 200
     })
 })    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;
