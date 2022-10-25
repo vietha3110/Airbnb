@@ -47,11 +47,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isValid(value) {
-          if (value < 1 || value > 5) {
-            throw new Error (`Stars must be an integer from 1 to 5`)
-          }
-        }
+        min: 1,
+        max: 5
       }
     }
   }, {

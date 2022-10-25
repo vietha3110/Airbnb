@@ -37,6 +37,7 @@ router.post(
       await setTokenCookie(res, user);
       const userData = user.toJSON();
       userData.token = "";
+      console.log('why it not return???')
       return res.json({
         ...userData
       });
@@ -61,10 +62,8 @@ router.get(
     (req, res) => {
       const { user } = req;
       if (user) {
-        // const userData = user.toSafeObject()
         user.toSafeObject();
         return res.json(
-          // ...userData
           user
         );
       } else return res.json({});
