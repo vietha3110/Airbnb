@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User, Spot } = require('../db/models');
+const { User, Spot, Review, Booking } = require('../db/models');
+const review = require('../db/models/review');
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -66,9 +67,9 @@ const requireAuth = function (req, _res, next) {
     return next(err);
 }
 
-//proper required 
+//proper required for spot
 const requireAuthor = async function (req, res, next) {
-    const spotId = req.params.spotId; 
+    const spotId = req.params.spotId;
     const spot = await Spot.findByPk(spotId);
     if (!spot) {
         // const err = new Error('Couldnt find Spot');
@@ -79,16 +80,39 @@ const requireAuthor = async function (req, res, next) {
             "message": "Spot couldn't be found",
             "statusCode": 404
         })
-    } 
+    }
     const ownerId = spot.ownerId;
-    const userId = req.user.id; 
+    const userId = req.user.id;
     if (userId === ownerId) {
-        return next(); 
+        return next();
     } else {
         const err = new Error('Unauthorized');
         err.message = 'Forbidden';
-        err.status = 403; 
+        err.status = 403;
+        return next(err);
+    }
+};
+
+// proper required for review
+const requireAuthorReview = async function (req, res, next) {
+    const reviewId = req.params.reviewId; 
+    const userId = req.user.id; 
+    const review = await Review.findByPk(reviewId);
+    if (!review) {
+        return res.status(404).json({
+            "message": "Review couldn't be found",
+            "statusCode": 404
+        })
+    }
+    const userReviewId = review.userId; 
+    if (userId === userReviewId) {
+        return next();
+    } else {
+        const err = new Error('Unauthorized');
+        err.message = 'Forbidden';
+        err.status = 403;
         return next(err);
     }
 }
-module.exports = { setTokenCookie, restoreUser, requireAuth, requireAuthor };
+
+module.exports = { setTokenCookie, restoreUser, requireAuth, requireAuthor , requireAuthorReview};

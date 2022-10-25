@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { setTokenCookie, requireAuth, requireAuthor } = require('../../utils/auth.js');
+const { setTokenCookie, requireAuth, requireAuthor, requireAuthorReview } = require('../../utils/auth.js');
 const { User, Spot, Review, SpotImage,ReviewImage, sequelize } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -76,9 +76,68 @@ router.get('/current', requireAuth, async (req, res, next) => {
     res.json(reviews);
 });
 
-//get all reviews by a spot id 
+//add an image to a review based on review id
 
-    
+router.post('/:reviewId/images', requireAuth, requireAuthorReview, async (req, res, next) => {
+    const reviewId = req.params.reviewId;
+    const review = await Review.findByPk(reviewId);
+    const reviewImages = await ReviewImage.findAll({
+        where: {
+            reviewId
+        }
+    });
+    console.log('here')
+    if (reviewImages.length === 10) {
+        return res.status(403).json({
+            "message": "Maximum number of images for this resource was reached",
+            "statusCode": 403
+        })
+    }
+    const { url } = req.body;
+    const reviewImage = await ReviewImage.create({
+        reviewId,
+        url,
+    });
+    const imageData = await ReviewImage.scope('defaultScope').findByPk(reviewImage.id)
+    res.json(imageData);
+});
+
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
+//edit review
+
+router.put('/:reviewId', requireAuth, requireAuthorReview, validateReview, async (req, res, next) => {
+    const reviewId = req.params.reviewId;
+    const updateReview = await Review.findByPk(reviewId);
+    const { review, stars } = req.body;
+    if (review) {
+        updateReview.review = review
+    }
+    if (stars) {
+        updateReview.stars = stars
+    }
+    await updateReview.save();
+    res.json(updateReview)
+})
+
+//delete review
+router.delete('/:reviewId', requireAuth, requireAuthorReview, async (req, res, next) => {
+    const reviewId = req.params.reviewId;
+    const deleteReview = await Review.findByPk(reviewId);
+    await deleteReview.destroy();
+    res.json({
+        "message": "Successfully deleted",
+        "statusCode": 200
+    })
+})    
     
 
 
