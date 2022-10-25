@@ -150,6 +150,7 @@ router.get('/:spotId', async (req, res, next) => {
                 ],
             ]
         },
+        group: ['Review.id'],
     });
     if (spot.id) {
         res.json(spot);
@@ -379,6 +380,35 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
 
 router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const spotId = req.params.spotId; 
+    const userId = req.user.id;
+    const spot = await Spot.findByPk(spotId);
+    const ownerId = spot.ownerId;
+
+    //if you are not owner 
+    if (userId !== ownerId) {
+        const userBookings = await Booking.findAll({
+            where: {
+                [Op.and]: [
+                    { userId },
+                    { spotId }
+                ]
+            },
+            attributes: {
+                exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+            }
+        });
+        res.json({
+            'Bookings': userBookings
+        })
+    }
+    // if you are owner 
+    if (userId === ownerId) {
+        const ownerBookings = await Booking.findAll({
+            where: {
+                spotId
+            }
+        });
+    }
     
 });
 
