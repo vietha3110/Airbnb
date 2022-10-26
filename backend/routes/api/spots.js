@@ -34,7 +34,7 @@ router.get('/', async (req, res, next) => {
                 attributes: []
             }
         ],
-        group: ['Spot.id']
+        group: ['Spot.id', 'SpotImages.url']
     });
     res.json({ "Spots": spots })
     // return;
