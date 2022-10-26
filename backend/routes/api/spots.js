@@ -13,68 +13,74 @@ const router = express.Router();
 
 //get all spot
 router.get('/', async (req, res, next) => {
-    // const spots = await Spot.findAll({
-    //     attributes: {
-    //         include: [
-    //             [
-    //                 sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
-    //             ],
-    //             [
-    //                 sequelize.col('SpotImages.url'), 'previewImage'
-    //             ]
-    //         ]
-    //     },
-    //     include: [
-    //         {
-    //             model: Review,
-    //             attributes: []
-    //         }, {
-    //             model: SpotImage,
-    //             attributes: []
-                
-    //         }
-    //     ],
-    // });
-    // res.json({ "Spots": spots })
     const spots = await Spot.findAll({
-        raw: true
-    }
-    ); 
-    for (let spot of spots) {
-        const review = await Review.findAll({
-            where: {
-                spotId: spot.id
-            },
-            attributes: {
-                include: [
-                    [
-                        sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
-                    ],
+        attributes: {
+            include: [
+                [
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
                 ],
+                [
+                    sequelize.col('SpotImages.url'), 'previewImage'
+                ]
+            ]
+        },
+        include: [
+            {
+                model: Review,
+                attributes: []
             },
-            raw: true
-        })
-        spot.avgRating = review[0]['avgRating'];
-        const image = await SpotImage.findAll({
-            where: {
-                [Op.and]: [
-                    {
-                        spotId: spot.id,
-                    },
-                    {
-                        preview: true
-                    }
-                ] 
-            },
-            raw: true
-        });
-        if (!image.length) {
-            spot.previewImage = null;
-        } else {
-            spot.previewImage = image[0]['url'];
-        } 
-    }
-    res.json({"Spots" : spots})
+            {
+                model: SpotImage,
+                attributes: []
+            }
+        ],
+        group: ['Spot.id']
+    });
+    res.json({ "Spots": spots })
+    // return;
+    // const spots = await Spot.findAll({
+    //     raw: true
+    // }
+    // ); 
+    // for (let spot of spots) {
+    //     const review = await Review.findAll({
+    //         where: {
+    //             spotId: spot.id
+    //         },
+    //         attributes: {
+    //             exclude: [
+    //                 `id`, `spotId`, `userId`, `review`, `stars`, `createdAt`, `updatedAt`,
+    //             ],
+    //             include: [
+    //                 [
+    //                     sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
+    //                 ],
+    //             ],
+    //         },
+    //         group: ['spotId'],
+    //         raw: true
+    //     });
+    //     spot.avgRating = review[0] ? review[0]['avgRating'] : null;
+    //     const image = await SpotImage.findAll({
+    //         where: {
+    //             [Op.and]: [
+    //                 {
+    //                     spotId: spot.id,
+    //                 },
+    //                 {
+    //                     preview: true
+    //                 }
+    //             ] 
+    //         },
+    //         raw: true
+    //     });
+    //     if (!image.length) {
+    //         spot.previewImage = null;
+    //     } else {
+    //         spot.previewImage = image[0]['url'];
+    //     } 
+    // }
+    // res.json({"Spots" : spots})
 })
 
 
@@ -99,6 +105,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
                     ],
                 ],
             },
+            group: ['spotId'],
             raw: true
         })
         spot.avgRating = review[0]['avgRating'];
@@ -193,24 +200,22 @@ const validateCreateSpot = [
 
 
 router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
-    try {
-        const { ownerId, address, city, state, country, lat, lng, name, description, price } = req.body;
-        const spot = await Spot.create({
-            ownerId,
-            address,
-            city,
-            state,
-            country,
-            lat,
-            lng,
-            name,
-            description,
-            price
-        });
-        res.json(spot);
-    } catch (e) {
-        console.log(e.message)
-    }
+    const ownerId = req.user.id;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const spot = await Spot.create({
+        ownerId,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    });
+    res.json(spot);
+    
 });
 
 //Add an image to a spot 
@@ -219,25 +224,7 @@ router.post('/:spotId/images', requireAuth, requireAuthor, async (req, res, next
     const spotId = req.params.spotId;
     const { url, preview } = req.body;
     const spot = await Spot.findByPk(spotId);
-    // if (spot) {
-    //     const spotImage = await spot.createSpotImage({
-    //         url,
-    //         preview
-    //     }, {
-    //         fields: [
-    //             []
-    //         ]
-    //     });
-    //     // const imageData = spotImage.toJSON();
-    //     // delete imageData.createdAt;
-    //     // delete imageData.updatedAt;
-    //     res.json({
-    //         ...imageData
-    //     }
-    //     )
-    // } else {
-    //     res.status
-    // }
+
     if (spot) {
         const image = await SpotImage.create({
             url,
