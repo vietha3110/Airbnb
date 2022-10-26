@@ -413,8 +413,8 @@ router.post('/:spotId/bookings', requireAuth, requireAuthorCreateBooking, async 
     })
     const { startDate, endDate } = req.body;
     for (let booking of bookings) {
-        if (new Date(booking.startDate).toDateString() === new Date(startDate).toDateString() || new Date(booking.startDate).toDateString() === new Date(endDate).toDateString()) {
-            res.status(403).json({
+        if (new Date(booking.startDate).getTime() === new Date(startDate).getTime()) {
+            return res.status(403).json({
                 "message": "Sorry, this spot is already booked for the specified dates",
                 "statusCode": 403,
                 "errors": {
@@ -424,8 +424,8 @@ router.post('/:spotId/bookings', requireAuth, requireAuthorCreateBooking, async 
             });
         }
     }
-    if (new Date(endDate).toDateString() <= new Date(startDate).toDateString()) {
-        res.status(400).json({
+    if (new Date(endDate) <= new Date(startDate)) {
+        return res.status(400).json({
             "message": "Validation error",
             "statusCode": 400,
             "errors": {

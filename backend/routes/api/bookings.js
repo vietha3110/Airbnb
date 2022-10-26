@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth.js');
+const { setTokenCookie, requireAuth, requireAuthorCreateBooking, requireAuthorUpdateBooking, requireAuthorDeleteBooking } = require('../../utils/auth.js');
 const { User, Booking, Spot, SpotImage } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -54,14 +54,91 @@ router.get('/current', requireAuth, async (req, res, next) => {
 });
 
 //edit booking 
+const validateBooking = [
+    check('startDate')
+        .exists({ checkFalsy: true })
+        .isDate({checkFalsy: true})
+        .withMessage('Start Date is required'),
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .isDate({checkFalsy: true})
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
 
-// router.put('/:bookingId', requireAuth, requireAuthorBooking, async (req, res, next) => {
+router.put('/:bookingId', requireAuth, requireAuthorUpdateBooking, async (req, res, next) => {
+    const bookingId = req.params.bookingId; 
+    const updateBooking = await Booking.findByPk(bookingId);
+    const spotId = updateBooking.spotId;
+    const { startDate, endDate } = req.body;
+    let today = new Date();
     
-// });
+    if (new Date(endDate).getTime() <= new Date(startDate).getTime()) {
+        return res.status(400).json({
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+                "endDate": "endDate cannot be on or before startDate"
+            }
+        });
+    }
 
-// router.delete('/:bookingId', requireAuth, requireAuthorDeleteBooking, async (req, res, next) => {
+    if (new Date(endDate).getTime() <= today.getTime()) {
+        return res.status(403).json({
+            "message": "Past bookings can't be modified",
+            "statusCode": 403
+        });
+    }
 
-// });
+    const bookings = await Booking.findAll({
+        where: {
+            spotId
+        }
+    });
+    for (let booking of bookings) {
+        if (new Date(booking.startDate).getTime() === new Date(startDate).getTime()) {
+            return res.status(403).json({
+                "message": "Sorry, this spot is already booked for the specified dates",
+                "statusCode": 403,
+                "errors": {
+                    "startDate": "Start date conflicts with an existing booking",
+                    "endDate": "End date conflicts with an existing booking"
+                }
+            });
+        }
+    }
+
+    if (startDate) {
+        updateBooking.startDate = startDate;
+    }
+    if (endDate) {
+        updateBooking.endDate = endDate;
+    }
+    await updateBooking.save();
+    return res.json(updateBooking)
+
+});
+
+router.delete('/:bookingId', requireAuth, requireAuthorDeleteBooking, async (req, res, next) => {
+    const bookingId = req.params.bookingId;
+    const deleteBooking = await Booking.findByPk(bookingId);
+    if (new Date(deleteBooking.startDate).getTime() < new Date().getTime()) {
+        return res.status(403).json(
+            {
+                "message": "Bookings that have been started can't be deleted",
+                "statusCode": 403
+            }
+        )
+    }
+    await deleteBooking.destroy();
+    res.json(
+        {
+        "message": "Successfully deleted",
+        "statusCode": 200
+        }
+    );
+});
 
 
 module.exports = router;
