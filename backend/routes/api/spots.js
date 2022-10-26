@@ -132,10 +132,9 @@ router.get('/:spotId', async (req, res, next) => {
             ]
         },
         group: ['Spot.id', 'SpotImages.id', 'Reviews.id', 'Owner.id'],
-        raw: true
     });
   
-    if (spot.id) {
+    if (spot) {
         res.json(spot);
     } else {
         res.status(404).json({
