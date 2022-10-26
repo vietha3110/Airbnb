@@ -1,60 +1,38 @@
 const express = require('express');
 
-const { setTokenCookie, requireAuth, requireAuthor } = require('../../utils/auth.js');
-const { User, Spot, Review, SpotImage, ReviewImage, sequelize } = require('../../db/models');
+const { setTokenCookie, requireAuth, requireAuthor, requireAuthorCreateBooking } = require('../../utils/auth.js');
+const { User, Spot, Review, SpotImage, ReviewImage, Booking, sequelize } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Sequelize } = require('sequelize'); 
 const { route } = require('./session.js');
 const spotimage = require('../../db/models/spotimage.js');
 const { Op } = require('sequelize');
+const spot = require('../../db/models/spot.js');
 
 const router = express.Router();
 
 //get all spot
 router.get('/', async (req, res, next) => {
-    // const spots = await Spot.findAll({
-    //     attributes: {
-    //         include: [
-    //             [
-    //                 sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
-    //             ],
-    //             [
-    //                 sequelize.col('SpotImages.url'), 'previewImage'
-    //             ]
-    //         ]
-    //     },
-    //     include: [
-    //         {
-    //             model: Review,
-    //             attributes: []
-    //         }, {
-    //             model: SpotImage,
-    //             attributes: []
-                
-    //         }
-    //     ],
-    // });
-    // res.json({ "Spots": spots })
     const spots = await Spot.findAll({
-        raw: true
-    }
-    ); 
-    for (let spot of spots) {
-        const review = await Review.findAll({
-            where: {
-                spotId: spot.id
-            },
-            attributes: {
-                include: [
-                    [
-                        sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
-                    ],
+        attributes: {
+            include: [
+                [
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
                 ],
+            ]
+        },
+        include: [
+            {
+                model: Review,
+                attributes: []
             },
-            raw: true
-        })
-        spot.avgRating = review[0]['avgRating'];
+        ],
+        group: ['Spot.id'],
+        raw: true
+    });
+
+    for (let spot of spots) {
         const image = await SpotImage.findAll({
             where: {
                 [Op.and]: [
@@ -74,34 +52,37 @@ router.get('/', async (req, res, next) => {
             spot.previewImage = image[0]['url'];
         } 
     }
-    res.json({"Spots" : spots})
+    res.json({ "Spots": spots })
 })
 
 
 //get all spots owned by the current
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
+ 
+
     const spots = await Spot.findAll({
         where: {
             ownerId: id
         },
+        attributes: {
+            include: [
+                [
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
+                ],
+            ]
+        },
+        include: [
+            {
+                model: Review,
+                attributes: []
+            },
+        ],
+        group: ['Spot.id'],
         raw: true
     });
+
     for (let spot of spots) {
-        const review = await Review.findAll({
-            where: {
-                spotId: spot.id
-            },
-            attributes: {
-                include: [
-                    [
-                        sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
-                    ],
-                ],
-            },
-            raw: true
-        })
-        spot.avgRating = review[0]['avgRating'];
         const image = await SpotImage.findAll({
             where: {
                 [Op.and]: [
@@ -150,8 +131,10 @@ router.get('/:spotId', async (req, res, next) => {
                 ],
             ]
         },
+        group: ['Spot.id', 'SpotImages.id', 'Reviews.id', 'Owner.id'],
     });
-    if (spot.id) {
+  
+    if (spot) {
         res.json(spot);
     } else {
         res.status(404).json({
@@ -192,24 +175,22 @@ const validateCreateSpot = [
 
 
 router.post('/', requireAuth, validateCreateSpot, async (req, res, next) => {
-    try {
-        const { ownerId, address, city, state, country, lat, lng, name, description, price } = req.body;
-        const spot = await Spot.create({
-            ownerId,
-            address,
-            city,
-            state,
-            country,
-            lat,
-            lng,
-            name,
-            description,
-            price
-        });
-        res.json(spot);
-    } catch (e) {
-        console.log(e.message)
-    }
+    const ownerId = req.user.id;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const spot = await Spot.create({
+        ownerId,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    });
+    res.json(spot);
+    
 });
 
 //Add an image to a spot 
@@ -218,25 +199,7 @@ router.post('/:spotId/images', requireAuth, requireAuthor, async (req, res, next
     const spotId = req.params.spotId;
     const { url, preview } = req.body;
     const spot = await Spot.findByPk(spotId);
-    // if (spot) {
-    //     const spotImage = await spot.createSpotImage({
-    //         url,
-    //         preview
-    //     }, {
-    //         fields: [
-    //             []
-    //         ]
-    //     });
-    //     // const imageData = spotImage.toJSON();
-    //     // delete imageData.createdAt;
-    //     // delete imageData.updatedAt;
-    //     res.json({
-    //         ...imageData
-    //     }
-    //     )
-    // } else {
-    //     res.status
-    // }
+
     if (spot) {
         const image = await SpotImage.create({
             url,
@@ -310,12 +273,20 @@ router.get('/:spotId/reviews', async (req, res, next) => {
                 where: {
                     spotId
                 },
-                include: {
+                include: [
+                    {
+                        model: User, 
+                        attributes: {
+                            exclude: ['username', 'hashedPassword', 'email', 'createdAt', 'updatedAt']
+                        }
+                    },
+                    {
                     model: ReviewImage,
                     attributes: {
                         exclude: ['reviewId', 'createdAt', 'updatedAt']
                     }
-                }
+                },
+                ]
             });
             res.json({ "Reviews": reviews });
         } else {
@@ -339,7 +310,7 @@ const validateReview = [
 ];
 //create a review for a spot based on 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
-    const userId = req.user.id; 
+    const userId = req.user.id;
     const spotId = req.params.spotId;
     const spot = await Spot.findByPk(spotId);
     if (!spot) {
@@ -364,9 +335,9 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         res.status(403).json({
             "message": "User already has a review for this spot",
             "statusCode": 403
-          })
-    } else { 
-        const { review, stars } = req.body; 
+        })
+    } else {
+        const { review, stars } = req.body;
         const newReview = await Review.create({
             userId,
             spotId,
@@ -375,6 +346,81 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         });
         res.json(newReview);
     }
+});
+
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const spotId = req.params.spotId; 
+    const userId = req.user.id;
+    const spot = await Spot.findByPk(spotId);
+    const ownerId = spot.ownerId;
+
+    //if you are not owner 
+    if (userId !== ownerId) {
+        const userBookings = await Booking.findAll({
+            where: {
+                [Op.and]: [
+                    { userId },
+                    { spotId }
+                ]
+            },
+            attributes: {
+                exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+            }
+        });
+        res.json({
+            'Bookings': userBookings
+        })
+    }
+    // if you are owner 
+    if (userId === ownerId) {
+        const ownerBookings = await Booking.findAll({
+            where: {
+                spotId
+            }
+        });
+    }
+    
+});
+
+router.post('/:spotId/bookings', requireAuth, requireAuthorCreateBooking, async (req, res, next) => {
+    const spotId = req.params.spotId; 
+    const userId = req.user.id;
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId
+        },
+        raw: true
+    })
+    const { startDate, endDate } = req.body;
+    for (let booking of bookings) {
+        if (new Date(booking.startDate).toDateString() === new Date(startDate).toDateString() || new Date(booking.startDate).toDateString() === new Date(endDate).toDateString()) {
+            res.status(403).json({
+                "message": "Sorry, this spot is already booked for the specified dates",
+                "statusCode": 403,
+                "errors": {
+                    "startDate": "Start date conflicts with an existing booking",
+                    "endDate": "End date conflicts with an existing booking"
+                }
+            });
+        }
+    }
+    if (new Date(endDate).toDateString() <= new Date(startDate).toDateString()) {
+        res.status(400).json({
+            "message": "Validation error",
+            "statusCode": 400,
+            "errors": {
+            "endDate": "endDate cannot be on or before startDate"
+            }
+          })
+    }
+    const newBooking = await Booking.create({
+        userId,
+        spotId,
+        startDate,
+        endDate
+    });
+    res.json(newBooking)
 })
 
 module.exports = router;

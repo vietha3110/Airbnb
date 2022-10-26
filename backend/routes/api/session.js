@@ -34,10 +34,9 @@ router.post(
         return next(err);
       }
   
-      await setTokenCookie(res, user);
+      const token = await setTokenCookie(res, user);
       const userData = user.toJSON();
-      userData.token = "";
-      console.log('why it not return???')
+      userData.token = token;
       return res.json({
         ...userData
       });
