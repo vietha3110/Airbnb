@@ -56,7 +56,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 //edit booking 
 
 // router.put('/:bookingId', requireAuth, requireAuthorBooking, async (req, res, next) => {
-
+    
 // });
 
 // router.delete('/:bookingId', requireAuth, requireAuthorDeleteBooking, async (req, res, next) => {

@@ -352,32 +352,51 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const spotId = req.params.spotId; 
     const userId = req.user.id;
     const spot = await Spot.findByPk(spotId);
-    const ownerId = spot.ownerId;
-
-    //if you are not owner 
-    if (userId !== ownerId) {
-        const userBookings = await Booking.findAll({
-            where: {
-                [Op.and]: [
-                    { userId },
-                    { spotId }
-                ]
-            },
-            attributes: {
-                exclude: ['id', 'userId', 'createdAt', 'updatedAt']
-            }
-        });
-        res.json({
-            'Bookings': userBookings
+   
+    if (!spot) {
+        res.status(404).json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
         })
-    }
-    // if you are owner 
-    if (userId === ownerId) {
-        const ownerBookings = await Booking.findAll({
-            where: {
-                spotId
+    } else {
+        const ownerId = spot.ownerId;
+        //if you are not owner 
+        if (userId !== ownerId) {
+            const userBookings = await Booking.findAll({
+                where: {
+                    [Op.and]: [
+                        { userId },
+                        { spotId }
+                    ]
+                },
+                attributes: {
+                    exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+                }
+            });
+            res.json({
+                'Bookings': userBookings
+            })
+        }
+        // if you are owner 
+        if (userId === ownerId) {
+            const ownerBookings = await Booking.findAll({
+                where: {
+                    spotId
+                }, 
+                raw: true
+            });
+            for (let booking of ownerBookings) {
+                const user = await User.findByPk(booking.userId, {
+                    attributes: {
+                        exclude: ['username', 'createdAt', 'updatedAt']
+                    }
+                });
+                booking.User = user;
             }
-        });
+            res.json({
+                'Bookings': ownerBookings
+            })
+        }
     }
     
 });
