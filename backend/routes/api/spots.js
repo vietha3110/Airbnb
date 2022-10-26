@@ -12,8 +12,68 @@ const spot = require('../../db/models/spot.js');
 
 const router = express.Router();
 
+//validate query
+const validateQuery = [
+    check('page')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1 })
+        .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1 })
+        .withMessage('Size must be greater than or equal to 1'),
+    check('minLat')
+        .optional()
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage('Minimum latitude is invalid'),
+    check('maxLat')
+        .optional()
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage('Maximum latitude is invalid"'),
+    check('minLng')
+        .optional()
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage('Minimum longitude is invalid'),
+    check('maxLng')
+        .optional()
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage('Max longitude is invalid'),
+    check('minPrice')
+        .optional()
+        .exists({ checkFalsy: true })
+        .isFloat({min:0})
+        .withMessage('Minimum price must be greater than or equal to 0'),
+    check('maxPrice')
+        .optional()
+        .exists({ checkFalsy: true })
+        .isFloat({min:0})
+        .withMessage('Maximum price must be greater than or equal to 0'),
+  
+    handleValidationErrors
+];
+
+
+
+
 //get all spot
-router.get('/', async (req, res, next) => {
+router.get('/', validateQuery, async (req, res, next) => {
+    let { page, size, maxLat, minLat, maxLng, minLng, minPrice, maxPrice } = req.query;
+    page = parseInt(page); 
+    size = parseInt(size); 
+    if (page > 10) {
+        page = 10
+    }
+    if (size > 20) {
+        size = 20
+    }
+    let pagination = {}; 
+    pagination.limit = size; 
+    pagination.offset = size * (page - 1);
+
     const spots = await Spot.findAll({
         attributes: {
             include: [
@@ -29,7 +89,9 @@ router.get('/', async (req, res, next) => {
             },
         ],
         group: ['Spot.id'],
-        raw: true
+        raw: true,
+        ...pagination,
+        subQuery: false
     });
 
     for (let spot of spots) {
@@ -52,7 +114,7 @@ router.get('/', async (req, res, next) => {
             spot.previewImage = image[0]['url'];
         } 
     }
-    res.json({ "Spots": spots })
+    res.json({ "Spots": spots, page, size })
 })
 
 
