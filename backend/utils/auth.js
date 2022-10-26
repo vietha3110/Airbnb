@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User, Spot, Review, Booking } = require('../db/models');
+const { User, Spot, Review, Booking, SpotImage, ReviewImage } = require('../db/models');
 const review = require('../db/models/review');
 
 const { secret, expiresIn } = jwtConfig;
@@ -187,6 +187,61 @@ const requireAuthorDeleteBooking = async function (req, res, next) {
     }
 }
 
+//proper require to delete spot images 
+
+const requireSpotImage = async function (req, res, next) {
+    const userId = req.user.id;
+    const spotImageId = req.params.imageId; 
+    const spotImage = await SpotImage.findByPk(spotImageId, {
+        attributes: ['spotId']
+    }); 
+
+    if (!spotImage) {
+        res.status(404).json({
+            "message": "Spot Image couldn't be found",
+            "statusCode": 404
+        })
+    } else {
+        const spotId = spotImage.spotId; 
+        
+        const spot = await Spot.findByPk(spotId);
+        const ownerId = spot.ownerId; 
+        if (userId === ownerId) {
+            next()
+        } else {
+            const err = new Error('Unauthorized');
+            err.message = 'You are not the owner of this spot';
+            err.status = 403;
+            next(err);
+        }
+    }
+}
+
+//proper require delete review images 
+
+const requireReviewImage = async function (req, res, next) {
+    const userId = req.user.id;
+    const reviewImageId = req.params.imageId;
+    const reviewImage = await ReviewImage.findByPk(reviewImageId);
+    if (!reviewImage) {
+        res.status(404).json({
+            "message": "Spot Image couldn't be found",
+            "statusCode": 404
+        })
+    } else {
+        const reviewId = reviewImage.reviewId;
+        const review = await Review.findByPk(reviewId);
+        const userReviewId = review.userId;
+        if (userId === userReviewId) {
+            next();
+        } else {
+            const err = new Error('Unauthorized');
+            err.message = 'You did not write this review';
+            err.status = 403;
+            next(err);
+        }
+    }
+}
 
 
-module.exports = { setTokenCookie, restoreUser, requireAuth, requireAuthor , requireAuthorReview, requireAuthorCreateBooking,requireAuthorUpdateBooking, requireAuthorDeleteBooking};
+module.exports = { setTokenCookie, restoreUser, requireAuth, requireAuthor , requireAuthorReview, requireAuthorCreateBooking,requireAuthorUpdateBooking, requireAuthorDeleteBooking, requireSpotImage,requireReviewImage };
