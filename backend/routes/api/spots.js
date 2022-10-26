@@ -352,32 +352,51 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const spotId = req.params.spotId; 
     const userId = req.user.id;
     const spot = await Spot.findByPk(spotId);
-    const ownerId = spot.ownerId;
-
-    //if you are not owner 
-    if (userId !== ownerId) {
-        const userBookings = await Booking.findAll({
-            where: {
-                [Op.and]: [
-                    { userId },
-                    { spotId }
-                ]
-            },
-            attributes: {
-                exclude: ['id', 'userId', 'createdAt', 'updatedAt']
-            }
-        });
-        res.json({
-            'Bookings': userBookings
+   
+    if (!spot) {
+        res.status(404).json({
+            "message": "Spot couldn't be found",
+            "statusCode": 404
         })
-    }
-    // if you are owner 
-    if (userId === ownerId) {
-        const ownerBookings = await Booking.findAll({
-            where: {
-                spotId
+    } else {
+        const ownerId = spot.ownerId;
+        //if you are not owner 
+        if (userId !== ownerId) {
+            const userBookings = await Booking.findAll({
+                where: {
+                    [Op.and]: [
+                        { userId },
+                        { spotId }
+                    ]
+                },
+                attributes: {
+                    exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+                }
+            });
+            res.json({
+                'Bookings': userBookings
+            })
+        }
+        // if you are owner 
+        if (userId === ownerId) {
+            const ownerBookings = await Booking.findAll({
+                where: {
+                    spotId
+                }, 
+                raw: true
+            });
+            for (let booking of ownerBookings) {
+                const user = await User.findByPk(booking.userId, {
+                    attributes: {
+                        exclude: ['username', 'createdAt', 'updatedAt']
+                    }
+                });
+                booking.User = user;
             }
-        });
+            res.json({
+                'Bookings': ownerBookings
+            })
+        }
     }
     
 });
@@ -394,8 +413,8 @@ router.post('/:spotId/bookings', requireAuth, requireAuthorCreateBooking, async 
     })
     const { startDate, endDate } = req.body;
     for (let booking of bookings) {
-        if (new Date(booking.startDate).toDateString() === new Date(startDate).toDateString() || new Date(booking.startDate).toDateString() === new Date(endDate).toDateString()) {
-            res.status(403).json({
+        if (new Date(booking.startDate).getTime() === new Date(startDate).getTime()) {
+            return res.status(403).json({
                 "message": "Sorry, this spot is already booked for the specified dates",
                 "statusCode": 403,
                 "errors": {
@@ -405,8 +424,8 @@ router.post('/:spotId/bookings', requireAuth, requireAuthorCreateBooking, async 
             });
         }
     }
-    if (new Date(endDate).toDateString() <= new Date(startDate).toDateString()) {
-        res.status(400).json({
+    if (new Date(endDate) <= new Date(startDate)) {
+        return res.status(400).json({
             "message": "Validation error",
             "statusCode": 400,
             "errors": {
