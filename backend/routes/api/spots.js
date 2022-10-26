@@ -8,6 +8,7 @@ const { Sequelize } = require('sequelize');
 const { route } = require('./session.js');
 const spotimage = require('../../db/models/spotimage.js');
 const { Op } = require('sequelize');
+const spot = require('../../db/models/spot.js');
 
 const router = express.Router();
 
@@ -19,9 +20,6 @@ router.get('/', async (req, res, next) => {
                 [
                     sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
                 ],
-                [
-                    sequelize.col('SpotImages.url'), 'previewImage'
-                ]
             ]
         },
         include: [
@@ -29,86 +27,62 @@ router.get('/', async (req, res, next) => {
                 model: Review,
                 attributes: []
             },
-            {
-                model: SpotImage,
-                attributes: []
-            }
         ],
-        group: ['Spot.id', 'SpotImages.url']
+        group: ['Spot.id'],
+        raw: true
     });
+
+    for (let spot of spots) {
+        const image = await SpotImage.findAll({
+            where: {
+                [Op.and]: [
+                    {
+                        spotId: spot.id,
+                    },
+                    {
+                        preview: true
+                    }
+                ] 
+            },
+            raw: true
+        });
+        if (!image.length) {
+            spot.previewImage = null;
+        } else {
+            spot.previewImage = image[0]['url'];
+        } 
+    }
     res.json({ "Spots": spots })
-    // return;
-    // const spots = await Spot.findAll({
-    //     raw: true
-    // }
-    // ); 
-    // for (let spot of spots) {
-    //     const review = await Review.findAll({
-    //         where: {
-    //             spotId: spot.id
-    //         },
-    //         attributes: {
-    //             exclude: [
-    //                 `id`, `spotId`, `userId`, `review`, `stars`, `createdAt`, `updatedAt`,
-    //             ],
-    //             include: [
-    //                 [
-    //                     sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
-    //                 ],
-    //             ],
-    //         },
-    //         group: ['spotId'],
-    //         raw: true
-    //     });
-    //     spot.avgRating = review[0] ? review[0]['avgRating'] : null;
-    //     const image = await SpotImage.findAll({
-    //         where: {
-    //             [Op.and]: [
-    //                 {
-    //                     spotId: spot.id,
-    //                 },
-    //                 {
-    //                     preview: true
-    //                 }
-    //             ] 
-    //         },
-    //         raw: true
-    //     });
-    //     if (!image.length) {
-    //         spot.previewImage = null;
-    //     } else {
-    //         spot.previewImage = image[0]['url'];
-    //     } 
-    // }
-    // res.json({"Spots" : spots})
 })
 
 
 //get all spots owned by the current
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
+ 
+
     const spots = await Spot.findAll({
         where: {
             ownerId: id
         },
+        attributes: {
+            include: [
+                [
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
+                ],
+            ]
+        },
+        include: [
+            {
+                model: Review,
+                attributes: []
+            },
+        ],
+        group: ['Spot.id'],
         raw: true
     });
+
     for (let spot of spots) {
-        const review = await Review.findAll({
-            where: {
-                spotId: spot.id
-            },
-            attributes: {
-                include: [
-                    [
-                        sequelize.fn('AVG', sequelize.col('stars')), 'avgRating'
-                    ],
-                ],
-            },
-            group: ['spotId'],
-            raw: true
-        })
-        spot.avgRating = review[0]['avgRating'];
         const image = await SpotImage.findAll({
             where: {
                 [Op.and]: [
@@ -157,8 +131,9 @@ router.get('/:spotId', async (req, res, next) => {
                 ],
             ]
         },
-        group: ['Review.id'],
+        group: ['Spot.id', 'SpotImages.id', 'Reviews.id', 'Owner.id']
     });
+  
     if (spot.id) {
         res.json(spot);
     } else {
