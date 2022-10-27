@@ -83,7 +83,7 @@ router.get('/',validateQuery, async (req, res, next) => {
         attributes: {
             include: [
                 [
-                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
+                    sequelize.fn('ROUND',sequelize.fn('AVG', sequelize.col('Reviews.stars')),2), 'avgRating'
                 ],
             ]
         },
@@ -140,7 +140,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         attributes: {
             include: [
                 [
-                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
+                    sequelize.fn('ROUND',sequelize.fn('AVG', sequelize.col('Reviews.stars')),2), 'avgRating'
                 ],
             ]
         },
