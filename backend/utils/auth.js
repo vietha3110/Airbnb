@@ -221,17 +221,21 @@ const requireSpotImage = async function (req, res, next) {
 
 const requireReviewImage = async function (req, res, next) {
     const userId = req.user.id;
+    console.log(userId)
     const reviewImageId = req.params.imageId;
-    const reviewImage = await ReviewImage.findByPk(reviewImageId);
+    const reviewImage = await ReviewImage.findByPk(reviewImageId, {
+        attributes: ['reviewId']
+    });
     if (!reviewImage) {
         res.status(404).json({
-            "message": "Spot Image couldn't be found",
+            "message": "Review Image couldn't be found",
             "statusCode": 404
         })
     } else {
         const reviewId = reviewImage.reviewId;
         const review = await Review.findByPk(reviewId);
         const userReviewId = review.userId;
+        console.log(userReviewId)
         if (userId === userReviewId) {
             next();
         } else {
