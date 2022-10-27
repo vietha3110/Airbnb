@@ -81,9 +81,11 @@ router.get('/', validateQuery, async (req, res, next) => {
 
     const spots = await Spot.findAll({
         attributes: {
+            //        attributes: [[sequelize.cast(sequelize.fn('SUM', sequelize.col('moneycol')), 'int'), 'moneylabel']],
+
             include: [
                 [
-                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
+                    sequelize.cast(sequelize.fn('AVG', sequelize.col('Reviews.stars')),'decimal'), 'avgRating'
                 ],
             ]
         },
@@ -142,7 +144,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         attributes: {
             include: [
                 [
-                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
+                    sequelize.cast(sequelize.fn('AVG', sequelize.col('Reviews.stars')),'decimal'), 'avgRating'
                 ],
             ]
         },
