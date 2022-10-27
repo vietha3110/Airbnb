@@ -34,10 +34,10 @@ module.exports = {
         allowNull: false
       },
       lat: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.NUMERIC
       },
       lng: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.NUMERIC
       },
       name: {
         type: Sequelize.STRING,
@@ -48,18 +48,18 @@ module.exports = {
         allowNull: false
       },
       price: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.NUMERIC,
         allowNull: false
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('current_timestamp')
+        defaultValue: new Date()
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('current_timestamp')
+        defaultValue: new Date()
       }
     });
   },

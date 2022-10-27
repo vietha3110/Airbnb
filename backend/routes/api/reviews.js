@@ -73,7 +73,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         });
         review.ReviewImages = images
     }
-    res.json(reviews);
+    res.json({"Reviews": reviews });
 });
 
 //add an image to a review based on review id
