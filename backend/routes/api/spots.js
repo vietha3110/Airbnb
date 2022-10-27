@@ -62,30 +62,12 @@ const validateQuery = [
 
 
 //get all spot
-router.get('/', validateQuery, async (req, res, next) => {
-    let { page, size, maxLat, minLat, maxLng, minLng, minPrice, maxPrice } = req.query;
-    page = parseInt(page); 
-    size = parseInt(size); 
-    if (page > 10) {
-        page = 10
-    }
-    if (size > 20) {
-        size = 20
-    }
-    let pagination = {}; 
-    if (page, size) {
-        pagination.limit = size; 
-        pagination.offset = size * (page - 1);
-    }
-   
-
+router.get('/',validateQuery, async (req, res, next) => {
     const spots = await Spot.findAll({
         attributes: {
-            //        attributes: [[sequelize.cast(sequelize.fn('SUM', sequelize.col('moneycol')), 'int'), 'moneylabel']],
-
             include: [
                 [
-                    sequelize.cast(sequelize.fn('AVG', sequelize.col('Reviews.stars')),'decimal'), 'avgRating'
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
                 ],
             ]
         },
@@ -96,9 +78,7 @@ router.get('/', validateQuery, async (req, res, next) => {
             },
         ],
         group: ['Spot.id'],
-        raw: true,
-        ...pagination,
-        subQuery: false
+        raw: true
     });
 
     for (let spot of spots) {
@@ -121,21 +101,13 @@ router.get('/', validateQuery, async (req, res, next) => {
             spot.previewImage = image[0]['url'];
         } 
     }
-    if (page && size) {
-        res.json({ "Spots": spots, page, size })
-    } else {
-        res.json({
-            "Spots": spots
-        })
-    }
-   
+    res.json({ "Spots": spots })
 })
 
-
+//cant fix datatype
 //get all spots owned by the current
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
- 
 
     const spots = await Spot.findAll({
         where: {
@@ -144,7 +116,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         attributes: {
             include: [
                 [
-                    sequelize.cast(sequelize.fn('AVG', sequelize.col('Reviews.stars')),'decimal'), 'avgRating'
+                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'
                 ],
             ]
         },
