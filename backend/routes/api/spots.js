@@ -63,6 +63,22 @@ const validateQuery = [
 
 //get all spot
 router.get('/',validateQuery, async (req, res, next) => {
+    let { page, size, maxLat, minLat, maxLng, minLng, minPrice, maxPrice } = req.query;
+    page = parseInt(page); 
+    size = parseInt(size); 
+    if (page > 10) {
+        page = 10
+    }
+    if (size > 20) {
+        size = 20
+    }
+    let pagination = {}; 
+    if (page, size) {
+        pagination.limit = size; 
+        pagination.offset = size * (page - 1);
+    }
+   
+
     const spots = await Spot.findAll({
         attributes: {
             include: [
@@ -78,7 +94,9 @@ router.get('/',validateQuery, async (req, res, next) => {
             },
         ],
         group: ['Spot.id'],
-        raw: true
+        raw: true,
+        ...pagination,
+        subQuery: false
     });
 
     for (let spot of spots) {
@@ -101,7 +119,13 @@ router.get('/',validateQuery, async (req, res, next) => {
             spot.previewImage = image[0]['url'];
         } 
     }
-    res.json({ "Spots": spots })
+    if (page && size) {
+        res.json({ "Spots": spots, page, size })
+    } else {
+        res.json({
+            "Spots": spots
+        })
+    }
 })
 
 //cant fix datatype
