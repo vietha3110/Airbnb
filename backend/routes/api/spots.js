@@ -15,10 +15,12 @@ const router = express.Router();
 //validate query
 const validateQuery = [
     check('page')
+        .optional()
         .exists({ checkFalsy: true })
         .isInt({ min: 1 })
         .withMessage('Page must be greater than or equal to 1'),
     check('size')
+        .optional()
         .exists({ checkFalsy: true })
         .isInt({ min: 1 })
         .withMessage('Size must be greater than or equal to 1'),
@@ -71,8 +73,11 @@ router.get('/', validateQuery, async (req, res, next) => {
         size = 20
     }
     let pagination = {}; 
-    pagination.limit = size; 
-    pagination.offset = size * (page - 1);
+    if (page, size) {
+        pagination.limit = size; 
+        pagination.offset = size * (page - 1);
+    }
+   
 
     const spots = await Spot.findAll({
         attributes: {
@@ -114,7 +119,14 @@ router.get('/', validateQuery, async (req, res, next) => {
             spot.previewImage = image[0]['url'];
         } 
     }
-    res.json({ "Spots": spots, page, size })
+    if (page && size) {
+        res.json({ "Spots": spots, page, size })
+    } else {
+        res.json({
+            "Spots": spots
+        })
+    }
+   
 })
 
 
