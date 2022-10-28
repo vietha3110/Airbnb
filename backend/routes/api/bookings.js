@@ -102,8 +102,7 @@ router.put('/:bookingId', requireAuth, requireAuthorUpdateBooking, async (req, r
         if (booking.id !== +bookingId) {
             let startValue = new Date(booking.startDate);
             let endValue = new Date(booking.endDate);
-            if ((startDateValue.getTime() >= startValue.getTime() && startDateValue.getTime() <= endValue.getTime()) ||
-                (endDateValue.getTime() >= startValue.getTime() && endDateValue.getTime() <= endValue.getTime())) {
+            if (!(endDateValue.getTime() < startValue.getTime() || startDateValue.getTime() > endValue.getTime())) {
                 return res.status(403).json({
                     "message": "Sorry, this spot is already booked for the specified dates",
                     "statusCode": 403,
