@@ -96,13 +96,15 @@ router.put('/:bookingId', requireAuth, requireAuthorUpdateBooking, async (req, r
     const bookings = await Booking.findAll({
         where: {
             spotId
-        }
+        },
+        raw: true
     });
+    
     for (let booking of bookings) {
-        if (booking.id !== +bookingId) {
-            let startValue = new Date(booking.startDate);
-            let endValue = new Date(booking.endDate);
-            if (!(endDateValue.getTime() < startValue.getTime() || startDateValue.getTime() > endValue.getTime())) {
+        let startValue = new Date(booking.startDate);
+        let endValue = new Date(booking.endDate);
+        if (booking.id !== bookingId) {
+            if (!(endDateValue.getTime() <= startValue.getTime() || startDateValue.getTime() >= endValue.getTime())) {
                 return res.status(403).json({
                     "message": "Sorry, this spot is already booked for the specified dates",
                     "statusCode": 403,
