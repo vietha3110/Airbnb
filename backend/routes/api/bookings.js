@@ -71,10 +71,12 @@ router.put('/:bookingId', requireAuth, requireAuthorUpdateBooking, async (req, r
     const bookingId = req.params.bookingId; 
     const updateBooking = await Booking.findByPk(bookingId);
     const spotId = updateBooking.spotId;
-    const { startDate, endDate } = req.body;
+    let { startDate, endDate } = req.body;
     let today = new Date();
+    let startDateValue = new Date(startDate);
+    let endDateValue = new Date(endDate)
     
-    if (new Date(endDate).getTime() <= new Date(startDate).getTime()) {
+    if (endDateValue.getTime() <= startDateValue.getTime()) {
         return res.status(400).json({
             "message": "Validation error",
             "statusCode": 400,
@@ -84,7 +86,7 @@ router.put('/:bookingId', requireAuth, requireAuthorUpdateBooking, async (req, r
         });
     }
 
-    if (new Date(endDate).getTime() <= today.getTime()) {
+    if ( endDateValue.getTime() <= today.getTime()) {
         return res.status(403).json({
             "message": "Past bookings can't be modified",
             "statusCode": 403
@@ -97,15 +99,20 @@ router.put('/:bookingId', requireAuth, requireAuthorUpdateBooking, async (req, r
         }
     });
     for (let booking of bookings) {
-        if (new Date(booking.startDate).getTime() === new Date(startDate).getTime()) {
-            return res.status(403).json({
-                "message": "Sorry, this spot is already booked for the specified dates",
-                "statusCode": 403,
-                "errors": {
-                    "startDate": "Start date conflicts with an existing booking",
-                    "endDate": "End date conflicts with an existing booking"
-                }
-            });
+        if (booking.id !== +bookingId) {
+            let startValue = new Date(booking.startDate);
+            let endValue = new Date(booking.endDate);
+            if ((startDateValue.getTime() >= startValue.getTime() && startDateValue.getTime() <= endValue.getTime()) ||
+                (endDateValue.getTime() >= startValue.getTime() && endDateValue.getTime() <= endValue.getTime())) {
+                return res.status(403).json({
+                    "message": "Sorry, this spot is already booked for the specified dates",
+                    "statusCode": 403,
+                    "errors": {
+                        "startDate": "Start date conflicts with an existing booking",
+                        "endDate": "End date conflicts with an existing booking"
+                    }
+                });
+            }
         }
     }
 
