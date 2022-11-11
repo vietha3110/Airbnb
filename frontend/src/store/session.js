@@ -19,7 +19,7 @@ export const userLogin = (user) => async (dispatch) => {
     });
     const data = await response.json();
     dispatch(login(data));
-    return response
+    return response;
 }
 
 const initialState = {user: null}
