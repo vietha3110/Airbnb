@@ -18,14 +18,14 @@ export const userLogin = (user) => async (dispatch) => {
         body: JSON.stringify(user)
     });
     const data = await response.json();
-    dispatch(login(data));
+    dispatch(login(data.user));
     return response;
 }
 
 export const restoreUser = () => async dispatch => {
     const response = await csrfFetch('/api/session');
     const data = await response.json();
-    dispatch(login(data));
+    dispatch(login(data.user));
     return response;
 };
 

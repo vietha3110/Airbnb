@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
-
+  
   return isLoaded && (
     <Switch>
       <Route path="/login">
