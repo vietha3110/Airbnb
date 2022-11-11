@@ -4,8 +4,8 @@ import LoginFormPage from './components/LoginFormPage';
 import { useDispatch } from "react-redux";
 import * as sessionActions from "./store/session";
 
-
 function App() {
+
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
