@@ -38,7 +38,7 @@ router.post(
       const userData = user.toJSON();
       userData.token = token;
       return res.json({
-        ...userData
+        user: userData
       });
     }
 );
@@ -62,10 +62,11 @@ router.get(
       const { user } = req;
       if (user) {
         user.toSafeObject();
-        return res.json(
-          user
+        return res.json({
+          user: user
+        }
         );
-      } else return res.json({});
+      } else return res.json({user: null});
     }
   );
 
