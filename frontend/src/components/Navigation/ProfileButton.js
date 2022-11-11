@@ -12,14 +12,10 @@ export default function ProfileButton({ user }) {
         if (showMenu) return;
     
         setShowMenu(true);
-        // console.log(`here`, showMenu)
     }
 
     useEffect(() => {
-        console.log('showMenu', showMenu)
-
         if (!showMenu) {
-            console.log('made it here')
             return;
         }
            
@@ -27,7 +23,6 @@ export default function ProfileButton({ user }) {
         const closeMenu = (e) => {
             e.stopPropagation();
             setShowMenu(false);
-            console.log('im being clicked')
         }
         
     
