@@ -15,6 +15,7 @@ export default function LoginFormPage() {
     if (sessionUser) return (
         <Redirect to="/" />
     );
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setValidationErrors([]);
@@ -26,6 +27,7 @@ export default function LoginFormPage() {
                 }
             })
     }
+    
     return (
         <form onSubmit={handleSubmit}>
             <h2>LOGIN</h2>
@@ -45,7 +47,7 @@ export default function LoginFormPage() {
             <label>
                 Password: 
                 <input
-                    type='text'
+                    type='password'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
