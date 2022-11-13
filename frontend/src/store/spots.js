@@ -36,7 +36,7 @@ export function deleteSpot(spot) {
 export const fetchSpots = () => async (dispatch) => {
     const response = await fetch(`api/spots`);
     const spotsData = await response.json();
-    dispatch(displaySpots(spotsData));
+    dispatch(displaySpots(spotsData.Spots));
     return response;
 } 
 
@@ -67,12 +67,12 @@ export const createSpot = (spot) => async (dispatch) => {
 //     return response;
 // }
 
-
 export default function spotsReducer(state = {}, action) {
     let newState; 
     switch (action.type) {
         case LOAD_SPOTS:
             newState = { ...state };
+            newState.Spots = action.spots
             return newState;
         default: 
             return state

@@ -1,12 +1,36 @@
-import React from react; 
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchSpots } from '../../store/spots';
+import './listingSpots.css';
 
 export function ListingSpots() {
-    //<div>
-    //div 1: image
-    //div 2: Name & rating
-    //div 3: description
-    //div 4: address
-    //div 5: price
+    const dispatch = useDispatch();
+    
+    const spotsObj= useSelector(state => state.spots);
+    const spots = spotsObj.Spots;
+    useEffect(() => {
+        dispatch(fetchSpots());
+    }, [dispatch]);
+    
+    return (
+        <div className='spots-container'>
+            {spots?.length > 0 && spots.map(spot => (
+                <div key={spot.id} className='spot-card'>
+                    <div>
+                        <img src={spot.previewImage} alt='spot' style={{width:300, height:200}} />
+                    </div>
+                    <div className='spot-name'>
+                        <div><h2>{spot.name}</h2></div>
+                        <div>{spot.avgRating}</div>
+                    </div>
+                    <div>
+                        <div>{spot.city}, {spot.state}</div>
+                    </div>
+                    <div>
+                        ${spot.price}
+                    </div>
+                </div>
+            ) )}
+        </div>
+    )
 }

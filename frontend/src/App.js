@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 // import SignUpFormPage from './components/SignupFormModal';
 import { useDispatch } from "react-redux";
 import * as sessionActions from "./store/session";
 import Navigation from './components/Navigation';
-
+import { ListingSpots } from './components/Listing-Spots';
 function App() {
 
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-         
+         <ListingSpots/>
         </Switch>
       )}
     </>
