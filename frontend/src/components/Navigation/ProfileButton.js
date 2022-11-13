@@ -6,11 +6,10 @@ import * as sessionActions from '../../store/session';
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
-
+    console.log(`showMenu1`, showMenu);
     const openMenu = (e) => {
         e.stopPropagation();
         if (showMenu) return;
-    
         setShowMenu(true);
     }
 
@@ -25,7 +24,6 @@ export default function ProfileButton({ user }) {
             setShowMenu(false);
         }
         
-    
         document.addEventListener('click', closeMenu);
       
         return () => document.removeEventListener("click", closeMenu);
@@ -35,7 +33,7 @@ export default function ProfileButton({ user }) {
         e.preventDefault();
         dispatch(sessionActions.userLogout());
     }; 
-
+    console.log(`showMenu2`, showMenu)
     return (
         <>
             <button onClick={openMenu}>
