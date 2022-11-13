@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
 
-export default function SignUpFormPage() {
+export default function SignUpForm() {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const [email, setEmail] = useState(''); 
