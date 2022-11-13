@@ -46,7 +46,7 @@ export default function ProfileButton({ user }) {
                     <li>{user.username}</li>
                     <li>{user.email}</li>
                     <li>
-                        <button onClick={logout}></button>
+                        <button onClick={logout}>Sign out</button>
                     </li>
                 </ul>
             )}
