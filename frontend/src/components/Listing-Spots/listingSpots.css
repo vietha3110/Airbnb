@@ -1,0 +1,12 @@
+
+
+.spots-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px
+}
+
+.spot-name {
+    display: flex;
+    flex-direction: row;
+}
