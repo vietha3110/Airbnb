@@ -231,11 +231,11 @@ const validateCreateSpot = [
         .exists({ checkFalsy: true })
         .withMessage('Country is required'),
     check('lat')
-        .exists({ checkFalsy: true })
+        // .exists({ checkFalsy: true })
         .isNumeric()
         .withMessage('Latitude is not valid'),
     check('lng')
-        .exists({ checkFalsy: true })
+        // .exists({ checkFalsy: true })
         .isNumeric()
         .withMessage('Longitude is not valid'),
     check('description')
