@@ -41,69 +41,93 @@ export default function SignUpForm() {
 
 
     return (
-        <div>
-            <h2>Sign Up</h2>
-            <p>It's quick and easy</p>
-            <form onSubmit={handleSubmit}>
-                <ul>
-                    {validationErrors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
-                <label>
-                    First Name:
-                    <input
-                        type='text'
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Last Name:
-                    <input
-                        type='text'
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Username: 
-                    <input
-                        type='text'
-                        value={username}
-                        onChange={(e) => setUserName(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Email:
-                    <input
-                        type='email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Password:
-                    <input
-                        type='password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Confirm Password: 
-                    <input
-                        type='password'
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                </label>
-                <p> By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy. You may receive Email Notification/marketing from us and can opt out any time.</p>
-                <button type='submit'>Sign Up</button>
+        <div className='signup-container'>
+            <div className='signup-header'>
+                <h2>Create An Account</h2>
+                <p>It's quick and easy!</p>
+            </div>
+            <form onSubmit={handleSubmit} className='signup-form'>
+                {
+                    validationErrors.length > 0 &&
+                    <ul>
+                        {validationErrors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    </ul>
+                } 
+                <div className='signup-field signup-info'>
+                    <div className='signup-field signup-firstname'>
+                        <label>
+                            <input
+                                type='text'
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                required
+                                placeholder='First Name'
+                                className='input-field'
+                            />
+                        </label>
+                    </div>
+                    <div className='signup-field signup-lastname'>
+                        <label>
+                            <input
+                                type='text'
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                required
+                                placeholder='Last Name'
+                                className='input-field'
+                            />
+                        </label>
+                    </div>
+                    <div className='signup-field signup-username'>
+                        <label>
+                            <input
+                                type='text'
+                                value={username}
+                                onChange={(e) => setUserName(e.target.value)}
+                                required
+                                placeholder='Username'
+                                className='input-field'
+                            />
+                        </label>
+                    </div>
+                    <div className='signup-field signup-email'>
+                        <label>
+                            <input
+                                type='email'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                placeholder='Email'
+                                className='input-field'
+                            />
+                        </label>
+                    </div>
+                    <div className='signup-field signup-password'>
+                        <label>
+                            <input
+                                type='password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                placeholder='Password'
+                                className='input-field'
+                            />
+                        </label>
+                    </div>
+                    <div className='signup-field signup-confirmedPassword'>
+                        <label>
+                            <input
+                                type='password'
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                                placeholder='Confirmed Password'
+                                className='input-field'
+                            />
+                        </label>
+                    </div>
+                    <div className='signup-btn'><button type='submit'>Sign Up</button></div>
+                </div>        
             </form>
         </div>
     )
