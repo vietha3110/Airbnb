@@ -1,12 +1,30 @@
-
-
 .spots-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    flex-direction: row;
+    place-items: center;
+    gap: 20px;
+}
+
+.spot-card {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 300px;
+}
+
+.spot-image {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.spot-name-row {
     display: flex;
     flex-direction: row;
-    gap: 10px
 }
 
 .spot-name {
-    display: flex;
-    flex-direction: row;
+    flex-grow: 1;
+    max-width: 250px;
 }

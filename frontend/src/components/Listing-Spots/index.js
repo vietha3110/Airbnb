@@ -17,10 +17,10 @@ export function ListingSpots() {
             {spots?.length > 0 && spots.map(spot => (
                 <div key={spot.id} className='spot-card'>
                     <div>
-                        <img src={spot.previewImage} alt='spot' style={{width:300, height:200}} />
+                        <img src={spot.previewImage} alt='spot' className='spot-image' />
                     </div>
-                    <div className='spot-name'>
-                        <div><h2>{spot.name}</h2></div>
+                    <div className='spot-name-row'>
+                        <div className='spot-name'>{spot.name}</div>
                         <div>{spot.avgRating}</div>
                     </div>
                     <div>
