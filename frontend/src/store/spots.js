@@ -52,15 +52,16 @@ export const createSpot = (spot) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         //spotId = data.id
-        const imgResponse = await csrfFetch(`api/spots/${data.id}/images`, {
+        const imgResponse = await csrfFetch(`/api/spots/${data.id}/images`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({url, preview})
-        })
+            body: JSON.stringify({ url, preview })
+        }); 
         if (imgResponse.ok) {
-            const imgUrl = imgResponse.url;
+            const imgData = await imgResponse.json();
+            const imgUrl = imgData.url;
             data.previewImage = imgUrl
             //imageData {id, url, preview}
             dispatch(addSpot(data));

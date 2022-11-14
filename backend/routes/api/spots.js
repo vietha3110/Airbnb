@@ -274,7 +274,7 @@ router.post('/:spotId/images', requireAuth, requireAuthor, async (req, res, next
     const spotId = req.params.spotId;
     const { url, preview } = req.body;
     const spot = await Spot.findByPk(spotId);
-
+    // console.log(`Backend: here`, spot)
     if (spot) {
         const image = await SpotImage.create({
             url,

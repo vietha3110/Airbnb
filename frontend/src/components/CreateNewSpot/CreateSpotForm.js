@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import * as spotsActions from '../../store/spots';
+import './CreateSpotForm.css';
 
 
 export function CreateSpotForm() {
@@ -17,13 +19,14 @@ export function CreateSpotForm() {
     const [url, setUrl] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const preview = true;
+    const history = useHistory();
 
     
 
     const handleSubmit = (e) => {
         e.preventDefault(); 
         setValidationErrors([]);
-        return dispatch(spotsActions.createSpot({name, description, price, address, city, state, lat, lng, url, preview}))
+        return dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.error) {
@@ -113,6 +116,15 @@ export function CreateSpotForm() {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
+                    />
+                </label>
+                <label>
+                    <input
+                        type='number'
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        required
+                        placeholder='$Price'
                     />
                 </label>
                 <label>
