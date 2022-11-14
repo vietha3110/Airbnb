@@ -231,11 +231,11 @@ const validateCreateSpot = [
         .exists({ checkFalsy: true })
         .withMessage('Country is required'),
     check('lat')
-        .exists({ checkFalsy: true })
+        // .exists({ checkFalsy: true })
         .isNumeric()
         .withMessage('Latitude is not valid'),
     check('lng')
-        .exists({ checkFalsy: true })
+        // .exists({ checkFalsy: true })
         .isNumeric()
         .withMessage('Longitude is not valid'),
     check('description')
@@ -274,7 +274,7 @@ router.post('/:spotId/images', requireAuth, requireAuthor, async (req, res, next
     const spotId = req.params.spotId;
     const { url, preview } = req.body;
     const spot = await Spot.findByPk(spotId);
-
+    // console.log(`Backend: here`, spot)
     if (spot) {
         const image = await SpotImage.create({
             url,

@@ -24,22 +24,19 @@ export default function SignUpForm() {
     const handleSubmit = (e) => {
         e.preventDefault()
         //check error here
-
+        if (password.length < 6) return setValidationErrors(['Password must be 6 characters or more.'])
         if (password === confirmPassword) {
             setValidationErrors([]);
-            return dispatch(sessionActions.signup({ email, username, password }))
+            return dispatch(sessionActions.signup({ email, username, password, firstName, lastName }))
                     .catch(async (res) => {
-                            const data = await res.json();
-                            if (data && data.errors) setValidationErrors(data.errors);
+                        const data = await res.json();
+                        if (data && data.errors) setValidationErrors(data.errors);
                     });
         }
         
         return setValidationErrors(['Confirm Password field must be the same as the Password field']);
     }
     
-
-
-
     return (
         <div className='signup-container'>
             <div className='signup-header'>

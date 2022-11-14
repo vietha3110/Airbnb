@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 // import SignUpFormPage from './components/SignupFormModal';
 import { useDispatch } from "react-redux";
 import * as sessionActions from "./store/session";
 import Navigation from './components/Navigation';
 import { ListingSpots } from './components/Listing-Spots';
+import { CreateSpotForm } from './components/CreateNewSpot/CreateSpotForm';
 function App() {
 
   const dispatch = useDispatch();
@@ -18,7 +19,12 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-         <ListingSpots/>
+          <Route exact path='/'>
+            <ListingSpots />
+          </Route>
+          <Route path='/spots/new'>
+              <CreateSpotForm/>
+          </Route>
         </Switch>
       )}
     </>

@@ -6,14 +6,18 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import './Navigation.css';
 import logo from './logo-hairbnb.png';
-
+import NewSpot
+    from "../CreateNewSpot";
 export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user); 
 
     let sessionLinks; 
     if (sessionUser) {
         sessionLinks = (
-            <ProfileButton user={sessionUser} />
+            <>
+                <ProfileButton user={sessionUser} />
+                <NewSpot/>
+            </>
         );
     } else {
         sessionLinks = (

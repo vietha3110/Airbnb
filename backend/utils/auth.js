@@ -89,6 +89,7 @@ const requireAuthor = async function (req, res, next) {
         const err = new Error('Unauthorized');
         err.message = 'Forbidden';
         err.status = 403;
+        // console.log(`Error in requireAuthor`)
         return next(err);
     }
 };
