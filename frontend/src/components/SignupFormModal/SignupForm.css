@@ -36,6 +36,13 @@
     border-radius: 10px;
     border: 1px solid #cccccc;
     color: black;
+    padding: 10px;
+}
+
+.input-field:focus {
+    outline: none;
+    border: 1px solid #6e6e6e;
+
 }
 
 .signup-btn {
@@ -44,7 +51,7 @@
 
 .signup-btn > button {
     width: 100px;
-    height: 30px;
+    height: 40px;
     border-radius: 5px;
     color: #ffffff;
     background: #cccccc;

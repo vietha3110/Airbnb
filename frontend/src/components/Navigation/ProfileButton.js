@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from '../../store/session';
-
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 export default function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
-    console.log(`showMenu1`, showMenu);
-    const openMenu = (e) => {
+
+    const onClickMenuButton = (e) => {
         e.stopPropagation();
-        if (showMenu) return;
+        if (showMenu) {
+            setShowMenu(false);
+            return;
+        }
         setShowMenu(true);
     }
 
     useEffect(() => {
         if (!showMenu) {
             return;
-        }
-           
+        }          
         
         const closeMenu = (e) => {
             e.stopPropagation();
@@ -32,11 +35,11 @@ export default function ProfileButton({ user }) {
     const logout = (e) => {
         e.preventDefault();
         dispatch(sessionActions.userLogout());
-    }; 
-    console.log(`showMenu2`, showMenu)
+    };
+
     return (
         <>
-            <button onClick={openMenu}>
+            <button onClick={onClickMenuButton}>
                 <i className="fas fa-user-circle" />
             </button>
             {showMenu && (
