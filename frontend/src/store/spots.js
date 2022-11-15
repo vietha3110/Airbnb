@@ -4,6 +4,7 @@ const LOAD_SPOTS = 'spots/loadSpots';
 const ADD_SPOT = 'spots/addSpot';
 const REMOVE_SPOT = 'spots/removeSpot';
 const LOAD_DETAIL_SPOT = 'spots/loadDetailSpot';
+const LOAD_USER_SPOTS = 'spots/loadUserSpots';
 
 export function displaySpots(spots) {
     return {
@@ -30,6 +31,13 @@ export function displayDetailedSpot(spot) {
     return {
         type: LOAD_DETAIL_SPOT,
         spot
+    }
+}
+
+export function displayUserSpots(spots) {
+    return {
+        type: LOAD_USER_SPOTS,
+        spots
     }
 }
 
@@ -82,6 +90,12 @@ export const fetchOneSpot = (spotId) => async (dispatch) => {
     // return response;
 }
 
+export const getUserSpots = () => async (dispatch) => {
+    const response = await fetch(`/api/spots/current`);
+    const data = await response.json();
+    dispatch(displayUserSpots(data));
+}
+
 // export const deleteSpot = (spotId) => async (dispatch) => {
 //     const response = await csrfFetch((`api/spots`), {
 //         method: 'delete',
@@ -115,6 +129,12 @@ export default function spotsReducer(state = {}, action) {
             // newState = action.spot
             const spotData = action.spot
             return spotData;
+        }
+            
+        case LOAD_USER_SPOTS: {
+            newState = { ...state }
+            newState.Spots = action.spots
+            return newState;
         }
             
         default: 
