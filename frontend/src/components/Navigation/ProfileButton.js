@@ -59,7 +59,7 @@ export default function ProfileButton({ user, setLogin, setShowModal }) {
                         </li>
                         <li>
                             <button onClick={() => {
-                                setLogin(true)
+                                setLogin(false)
                                 setShowModal(true)
                             }}>SignUp</button>
                         </li>
