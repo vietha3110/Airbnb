@@ -5,6 +5,7 @@ const ADD_SPOT = 'spots/addSpot';
 const REMOVE_SPOT = 'spots/removeSpot';
 const LOAD_DETAIL_SPOT = 'spots/loadDetailSpot';
 const LOAD_USER_SPOTS = 'spots/loadUserSpots';
+const EDIT_SPOT = 'spots/editSpot';
 
 export function displaySpots(spots) {
     return {
@@ -23,6 +24,13 @@ export function addSpot(spot) {
 export function deleteSpot(spot) {
     return {
         type: REMOVE_SPOT,
+        spot
+    }
+}
+
+export function editSpot(spot) {
+    return {
+        type: EDIT_SPOT,
         spot
     }
 }
@@ -79,10 +87,6 @@ export const createSpot = (spot) => async (dispatch) => {
         //else (return imgResponse)
         
     }
-    //handleErrors fetch1 , 
-    //handleErrors fetch2,
-    
-    
 }
 
 export const fetchOneSpot = (spotId) => async (dispatch) => {
@@ -96,6 +100,21 @@ export const getUserSpots = () => async (dispatch) => {
     const response = await fetch(`/api/spots/current`);
     const data = await response.json();
     dispatch(displayUserSpots(data.Spots));
+}
+
+export const updateSpots = (spot) => async (dispatch) => {
+    const { name, description, address, city, country, state, lat, lng, price } = spot;
+    const response = await fetch(`/api/spots/${spot.id}`, {
+        method: 'put',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, description, address, city, country, state, lat, lng, price })
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editSpot(data))
+    }
 }
 
 // export const deleteSpot = (spotId) => async (dispatch) => {
@@ -151,6 +170,13 @@ export default function spotsReducer(state = initializedState, action) {
             for (let spot of action.spots) {
                 newState.allSpots[spot.id] = spot
             }
+            return newState;
+        }
+            
+        case EDIT_SPOT: {
+            newState = { ...state };
+            const spot = action.spot;
+            newState.allSpots[spot.id] = spot;
             return newState;
         }
             
