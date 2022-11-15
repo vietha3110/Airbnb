@@ -32,8 +32,7 @@ export function CreateSpotForm() {
             (e = async (res) => {
                 const data = await res.json();
                 if (data && data.error) {
-                    console.log(`something's wrong here please check your backend`, data)
-                    setValidationErrors([`error`]);
+                    setValidationErrors([data.error]);
                 }
             })
         }

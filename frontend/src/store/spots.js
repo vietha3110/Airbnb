@@ -95,7 +95,7 @@ export const fetchOneSpot = (spotId) => async (dispatch) => {
 export const getUserSpots = () => async (dispatch) => {
     const response = await fetch(`/api/spots/current`);
     const data = await response.json();
-    dispatch(displayUserSpots(data));
+    dispatch(displayUserSpots(data.Spots));
 }
 
 // export const deleteSpot = (spotId) => async (dispatch) => {
@@ -110,36 +110,47 @@ export const getUserSpots = () => async (dispatch) => {
 //     dispatch(addSpot(data));
 //     return response;
 // }
+let initializedState = {
+    allSpots: {},
+    singleSpot: {}
+}
+//fail => start with {}
 
-export default function spotsReducer(state = {}, action) {
+export default function spotsReducer(state = initializedState, action) {
     let newState; 
     switch (action.type) {
         case LOAD_SPOTS: {
             newState = { ...state };
             //newState.allSpot = action.spots
             //normalize state
-            newState.Spots = action.spots
+            for (let spot of action.spots) {
+                newState.allSpots[spot.id] = spot
+            }
             return newState;
         }
             
         case ADD_SPOT: {
-            newState = { ...state, ...action.spot };
-            return newState
-            //falls through
+            newState = { ...state };
+            const spot = action.spot;
+            newState.allSpots[spot.id] = spot;
+            return newState;
         }
            
         case LOAD_DETAIL_SPOT: {
-            newState = { ...state };
+            newState = { ...state};
             //newState.singleSpot = action.spot 
             //normalize state
             // newState = action.spot
-            const spotData = action.spot
-            return spotData;
+            const spot = action.spot
+            newState.singleSpot = spot
+            return newState;
         }
             
         case LOAD_USER_SPOTS: {
-            newState = { ...state }
-            newState = action.spots
+            newState = { ...state };
+            for (let spot of action.spots) {
+                newState.allSpots[spot.id] = spot
+            }
             return newState;
         }
             

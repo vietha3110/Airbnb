@@ -5,8 +5,7 @@ export function UserSpots() {
     const sessionUser = useSelector((state) => state.session.user); 
     const dispatch = useDispatch();
     const spotsObj= useSelector(state => state.spots);
-    // const spots = Object.values(spotsObj);
-    console.log(`what is it`, Object.values(spotsObj))
+    const spots = Object.values(spotsObj.allSpots);
 
     useEffect(() => {
         dispatch(getUserSpots())
@@ -16,7 +15,16 @@ export function UserSpots() {
         <div>
             {sessionUser && 
                 <div>
-                    All Spots here
+                    {spots.length > 0 && spots.map(spot => 
+                        <div key={spot.id}>
+                            <div>
+                                {spot.name}
+                            </div>
+                            <div>
+                                <button>Update</button>
+                                <button>Delete</button>
+                            </div>
+                        </div>)}
                 </div>
             }
         </div>
