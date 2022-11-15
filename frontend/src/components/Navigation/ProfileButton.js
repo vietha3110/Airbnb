@@ -4,7 +4,7 @@ import * as sessionActions from '../../store/session';
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
-export default function ProfileButton({ user }) {
+export default function ProfileButton({ user, setLogin, setShowModal }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
 
@@ -42,14 +42,29 @@ export default function ProfileButton({ user }) {
             <button onClick={onClickMenuButton}>
                 <i className="fas fa-user-circle" />
             </button>
-            {showMenu && (
-                <ul className="profile-dropdown">
+            {showMenu && (user ?
+                (<ul className="profile-dropdown">
                     <li>{user.username}</li>
                     <li>{user.email}</li>
                     <li>
                         <button onClick={logout}>Sign out</button>
                     </li>
-                </ul>
+                </ul>) : (
+                    <ul className="profile-dropdown">
+                        <li>
+                            <button onClick={() => {
+                                setLogin(true)
+                                setShowModal(true)
+                            }}>Login</button>
+                        </li>
+                        <li>
+                            <button onClick={() => {
+                                setLogin(true)
+                                setShowModal(true)
+                            }}>SignUp</button>
+                        </li>
+                    </ul>
+                )
             )}
         </>
     )

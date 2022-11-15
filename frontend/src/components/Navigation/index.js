@@ -1,36 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+// import LoginFormModal from "../LoginFormModal";
+// import SignupFormModal from "../SignupFormModal";
+import { Modal } from "../../context/Modal";
+import SignUpForm from "../SignupFormModal/SignupForm";
+import LoginForm from "../LoginFormModal/LoginForm";
 import './Navigation.css';
 import logo from './logo-hairbnb.png';
 import NewSpot
     from "../CreateNewSpot";
 export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user); 
+    const [showModal, setShowModal] = useState(false);
+    const [login, setLogin] = useState(true);
 
-    let sessionLinks; 
-    if (sessionUser) {
-        sessionLinks = (
-            <>
-                <ProfileButton user={sessionUser} />
-                <NewSpot/>
-            </>
-        );
-    } else {
-        sessionLinks = (
-            <>
-                <div className="navigation-login">
-                    <LoginFormModal />
-                </div>
-                <div className="navigation-signup">
-                    <SignupFormModal />
-                </div>
-            </>
-        );
-    }
+    // let sessionLinks; 
+    // if (sessionUser) {
+    //     sessionLinks = (
+    //         <>
+    //             <ProfileButton user={sessionUser} />
+    //             <NewSpot/>
+    //         </>
+    //     );
+    // } else {
+    //     sessionLinks = (
+    //         <>
+    //             <div className="navigation-login">
+    //                 <LoginFormModal />
+    //             </div>
+    //             <div className="navigation-signup">
+    //                 <SignupFormModal />
+    //             </div>
+    //         </>
+    //     );
+    // }
 
     return (
         <div className="navigation">
@@ -41,8 +46,22 @@ export default function Navigation({ isLoaded }) {
 
             </div>
             <div className="navigation-bar">
-                    {isLoaded && sessionLinks}
+                {isLoaded && (
+                    <>
+                    <ProfileButton
+                        user={sessionUser}
+                        setLogin={setLogin}
+                        setShowModal={setShowModal}
+                    />
+                        <NewSpot />
+                    </>
+                    )}
             </div>
+            {showModal && (
+                <Modal onClose={() => setShowModal(false)}>
+                    {login ? <LoginForm setShowModal={setShowModal}/> : <SignUpForm setShowModal={setShowModal}/>}
+                </Modal>
+            )}
         </div>
     )
 }
