@@ -17,7 +17,7 @@ export function ListingSpots() {
         <div className='spots-container'>
             {spots?.length > 0 && spots.map(spot => (
                 <Link to={`/spots/${spot.id}`}>
-                    <div key={spot.id} className='spot-card'>
+                    <div key={`hic${spot.id}`} className='spot-card'>
                         <div>
                             <img src={spot.previewImage} alt='spot' className='spot-image' />
                         </div>

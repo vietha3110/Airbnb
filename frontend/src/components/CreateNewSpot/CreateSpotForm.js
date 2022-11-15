@@ -21,32 +21,24 @@ export function CreateSpotForm() {
     const preview = true;
     const history = useHistory();
 
-    // if (spot) {
-    //     console.log(spot)
-    //     return (
-    //         <Redirect to='/' />
-    //     )
-    // }
-
     const handleSubmit = async (e) => {
         e.preventDefault(); 
         setValidationErrors([]);
-        // dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
-        //     .catch(async (res) => {
-        //         const data = await res.json();
-        //         if (data && data.error) {
-        //             console.log(`something's wrong here please check your backend`, data)
-        //             setValidationErrors([`error`]);
-        //         }
-        //     });  
+         
         let createdSpot;
         try {
             createdSpot = await dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
-        } catch (e) {
-            console.log(`error`, e)
+        } catch {
+            (e = async (res) => {
+                const data = await res.json();
+                if (data && data.error) {
+                    console.log(`something's wrong here please check your backend`, data)
+                    setValidationErrors([`error`]);
+                }
+            })
         }
+           
         if (createdSpot) {
-            console.log(`what is this?`, createdSpot)
             const id = createdSpot.id
             history.push(`/spots/${id}`)
         }

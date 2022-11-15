@@ -67,6 +67,7 @@ export const createSpot = (spot) => async (dispatch) => {
             },
             body: JSON.stringify({ url, preview })
         }); 
+        //else (return response)
         if (imgResponse.ok) {
             const imgData = await imgResponse.json();
             const imgUrl = imgData.url;
@@ -75,6 +76,7 @@ export const createSpot = (spot) => async (dispatch) => {
             dispatch(addSpot(data));
             return data;
         }
+        //else (return imgResponse)
         
     }
     //handleErrors fetch1 , 
@@ -114,6 +116,8 @@ export default function spotsReducer(state = {}, action) {
     switch (action.type) {
         case LOAD_SPOTS: {
             newState = { ...state };
+            //newState.allSpot = action.spots
+            //normalize state
             newState.Spots = action.spots
             return newState;
         }
@@ -126,6 +130,8 @@ export default function spotsReducer(state = {}, action) {
            
         case LOAD_DETAIL_SPOT: {
             newState = { ...state };
+            //newState.singleSpot = action.spot 
+            //normalize state
             // newState = action.spot
             const spotData = action.spot
             return spotData;
@@ -133,7 +139,7 @@ export default function spotsReducer(state = {}, action) {
             
         case LOAD_USER_SPOTS: {
             newState = { ...state }
-            newState.Spots = action.spots
+            newState = action.spots
             return newState;
         }
             
