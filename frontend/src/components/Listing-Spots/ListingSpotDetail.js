@@ -7,14 +7,14 @@ export function SpotDetail() {
     const { spotId } = useParams(); 
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots);
-    const image = spot.SpotImages[0].url;
-    const ownerName = spot.Owner.firstName;
-    
-    useEffect(() => {
-            dispatch(fetchOneSpot(spotId));
-    },[dispatch]);
 
-    if (!spot) return null;
+    useEffect(() => {
+        dispatch(fetchOneSpot(spotId));
+    },[dispatch, spotId]);
+
+    if (!spot) return (
+        <div>hello from detail</div>
+    );
     return (
         <div className="spot-container">
             <div className="spot-info">
@@ -22,17 +22,19 @@ export function SpotDetail() {
                 <div>{spot.avgStarRating}, {spot.city}, {spot.state}, {spot.country}</div>
             </div>       
             <div className="spot-photo">
-                {image &&
+                 {spot.SpotImages?.length > 0 &&
                     <div>
-                        <img src={image} alt='spot'style={{width: 600, height: 500}}/>
+                        <img src={spot.SpotImages[0].url} alt='spot'style={{width: 600, height: 500}}/>
                     </div>
                 } 
             </div>
             <div className="spot-detail-container">
                 <div className="spot-host">
-                    <div>
-                        Hosted by {spot.Owner.firstName}
-                    </div>
+                    {spot.Owner && 
+                        <div>
+                            Hosted by {spot.Owner.firstName}
+                        </div>
+                    }
                     <div>
                         Profile photo
                     </div>

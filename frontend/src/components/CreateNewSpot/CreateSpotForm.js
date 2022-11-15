@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import * as spotsActions from '../../store/spots';
 import './CreateSpotForm.css';
 
 
 export function CreateSpotForm() {
     const dispatch = useDispatch();
-    const spot = useSelector((state) => state.spots);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -20,38 +19,38 @@ export function CreateSpotForm() {
     const [url, setUrl] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const preview = true;
+    const history = useHistory();
 
     // if (spot) {
-    //     // const id = spot.id?
+    //     console.log(spot)
     //     return (
     //         <Redirect to='/' />
     //     )
     // }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); 
         setValidationErrors([]);
-        return dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
-            .then(async (res) => {
-                const data = res.json();
-                console.log(data);
-            })
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.error) {
-                    console.log(`something's wrong here please check your backend`, data)
-                    setValidationErrors([`error`]);
-                }
-            })
-        // const data = await response.json();
-        // if (data && data.id) {
-        //     return (
-        //         <Redirect to={`/spots/${data.id}`}/>
-        //     )
-        // } else {
-        //     const error = data.error;
-        //     setValidationErrors([error]);
-        // }
+        // dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
+        //     .catch(async (res) => {
+        //         const data = await res.json();
+        //         if (data && data.error) {
+        //             console.log(`something's wrong here please check your backend`, data)
+        //             setValidationErrors([`error`]);
+        //         }
+        //     });  
+        let createdSpot;
+        try {
+            createdSpot = await dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
+        } catch (e) {
+            console.log(`error`, e)
+        }
+        if (createdSpot) {
+            console.log(`what is this?`, createdSpot)
+            const id = createdSpot.id
+            history.push(`/spots/${id}`)
+        }
+
     }
 
     return (

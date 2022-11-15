@@ -4,6 +4,7 @@ const LOAD_SPOTS = 'spots/loadSpots';
 const ADD_SPOT = 'spots/addSpot';
 const REMOVE_SPOT = 'spots/removeSpot';
 const LOAD_DETAIL_SPOT = 'spots/loadDetailSpot';
+const LOAD_USER_SPOTS = 'spots/loadUserSpots';
 
 export function displaySpots(spots) {
     return {
@@ -30,6 +31,13 @@ export function displayDetailedSpot(spot) {
     return {
         type: LOAD_DETAIL_SPOT,
         spot
+    }
+}
+
+export function displayUserSpots(spots) {
+    return {
+        type: LOAD_USER_SPOTS,
+        spots
     }
 }
 
@@ -65,20 +73,27 @@ export const createSpot = (spot) => async (dispatch) => {
             data.previewImage = imgUrl
             //imageData {id, url, preview}
             dispatch(addSpot(data));
+            return data;
         }
         
     }
     //handleErrors fetch1 , 
     //handleErrors fetch2,
     
-    return response;
+    
 }
 
-export const fetchOneSpot = (spotId) => async(dispatch) => {
+export const fetchOneSpot = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}`);
     const data = await response.json();
     dispatch(displayDetailedSpot(data));
-    return response;
+    // return response;
+}
+
+export const getUserSpots = () => async (dispatch) => {
+    const response = await fetch(`/api/spots/current`);
+    const data = await response.json();
+    dispatch(displayUserSpots(data));
 }
 
 // export const deleteSpot = (spotId) => async (dispatch) => {
@@ -97,18 +112,31 @@ export const fetchOneSpot = (spotId) => async(dispatch) => {
 export default function spotsReducer(state = {}, action) {
     let newState; 
     switch (action.type) {
-        case LOAD_SPOTS:
+        case LOAD_SPOTS: {
             newState = { ...state };
             newState.Spots = action.spots
             return newState;
-        case ADD_SPOT:
-            newState = { ...state };
-            newState.Spots.push(action.spot);
-        case LOAD_DETAIL_SPOT:
+        }
+            
+        case ADD_SPOT: {
+            newState = { ...state, ...action.spot };
+            return newState
+            //falls through
+        }
+           
+        case LOAD_DETAIL_SPOT: {
             newState = { ...state };
             // newState = action.spot
             const spotData = action.spot
             return spotData;
+        }
+            
+        case LOAD_USER_SPOTS: {
+            newState = { ...state }
+            newState.Spots = action.spots
+            return newState;
+        }
+            
         default: 
             return state
     }

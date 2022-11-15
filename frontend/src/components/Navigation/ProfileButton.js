@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from '../../store/session';
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+// import LoginFormModal from "../LoginFormModal";
+// import SignupFormModal from "../SignupFormModal";
+import { Link } from "react-router-dom";
 
 export default function ProfileButton({ user, setLogin, setShowModal }) {
     const dispatch = useDispatch();
@@ -46,6 +47,7 @@ export default function ProfileButton({ user, setLogin, setShowModal }) {
                 (<ul className="profile-dropdown">
                     <li>{user.username}</li>
                     <li>{user.email}</li>
+                    <Link to='/hosting'>Manage Listing</Link>
                     <li>
                         <button onClick={logout}>Sign out</button>
                     </li>
