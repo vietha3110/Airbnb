@@ -31,7 +31,11 @@ export function CreateSpotForm() {
     const handleSubmit = (e) => {
         e.preventDefault(); 
         setValidationErrors([]);
-        dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
+        return dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
+            .then(async (res) => {
+                const data = res.json();
+                console.log(data);
+            })
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.error) {
