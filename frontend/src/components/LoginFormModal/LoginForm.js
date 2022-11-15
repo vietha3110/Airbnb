@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
 
 
-export default function LoginForm() {
+export default function LoginForm({setShowModal}) {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const [credential, setCredential] = useState('');
@@ -21,6 +21,7 @@ export default function LoginForm() {
         e.preventDefault();
         setValidationErrors([]);
         return dispatch(sessionActions.userLogin({ credential, password }))
+            .then(setShowModal(false))
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.message) {
