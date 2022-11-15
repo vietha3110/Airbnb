@@ -26,12 +26,12 @@ export function deleteSpot(spot) {
     }
 }
 
-// export function displayDetailedSpot(spot) {
-//     return {
-//         type: LOAD_DETAIL_SPOT,
-//         spot
-//     }
-// }
+export function displayDetailedSpot(spot) {
+    return {
+        type: LOAD_DETAIL_SPOT,
+        spot
+    }
+}
 
 export const fetchSpots = () => async (dispatch) => {
     const response = await fetch(`api/spots`);
@@ -74,6 +74,13 @@ export const createSpot = (spot) => async (dispatch) => {
     return response;
 }
 
+export const fetchOneSpot = (spotId) => async(dispatch) => {
+    const response = await fetch(`/api/spots/${spotId}`);
+    const data = await response.json();
+    dispatch(displayDetailedSpot(data));
+    return response;
+}
+
 // export const deleteSpot = (spotId) => async (dispatch) => {
 //     const response = await csrfFetch((`api/spots`), {
 //         method: 'delete',
@@ -97,6 +104,11 @@ export default function spotsReducer(state = {}, action) {
         case ADD_SPOT:
             newState = { ...state };
             newState.Spots.push(action.spot);
+        case LOAD_DETAIL_SPOT:
+            newState = { ...state };
+            // newState = action.spot
+            const spotData = action.spot
+            return spotData;
         default: 
             return state
     }
