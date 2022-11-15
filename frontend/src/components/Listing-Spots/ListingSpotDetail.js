@@ -7,37 +7,69 @@ export function SpotDetail() {
     const { spotId } = useParams(); 
     const dispatch = useDispatch();
     const spot = useSelector(state => state.spots);
+    const image = spot.SpotImages[0].url;
+    const ownerName = spot.Owner.firstName;
     
     useEffect(() => {
             dispatch(fetchOneSpot(spotId));
     },[dispatch]);
 
+    if (!spot) return null;
     return (
-        <div>
-            <div>Spot Name: {spot.name}</div>
-            <div>Spot rating, Spot review, Spot City, Spot State, Spot Country</div>
-            <div>Photos here</div>
-            <div>Mockup name, guest, room... Profile User photo</div>
-            <div>Self checkin, location...</div>
-            <div>Mock up booking card</div>
-            <div>Spot description</div>
-            <div>Mock up what this place offer</div>
-            <div>calendar mockup</div>
-            <div>review here
-                <div>total reviews</div>
-                <div>
-                    <div>review???</div>
+        <div className="spot-container">
+            <div className="spot-info">
+                <h2>{spot.name}</h2>
+                <div>{spot.avgStarRating}, {spot.city}, {spot.state}, {spot.country}</div>
+            </div>       
+            <div className="spot-photo">
+                {image &&
+                    <div>
+                        <img src={image} alt='spot'style={{width: 600, height: 500}}/>
+                    </div>
+                } 
+            </div>
+            <div className="spot-detail-container">
+                <div className="spot-host">
+                    <div>
+                        Hosted by {spot.Owner.firstName}
+                    </div>
+                    <div>
+                        Profile photo
+                    </div>
+                </div>
+                <div className="spot-mockup">
+                    <div>
+                        Self check-in
+                    </div>
+                    <div>
+                        Great Location
+                    </div>
+                    <div>
+                        Free cancellation for 48hours.
+                    </div>
+                </div>
+                <div className="spot-mockup">
+                    <div>
+                        HaAibnb Cover
+                    </div>
+                    <div>
+                        <p>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
+                        </p>
+                    </div>
+                </div>
+                <div className="spot-desc">
+                    <p>
+                        {spot.description}
+                    </p>
+                </div>
+                
+                <div className="spot-review">
+                    <div>total reviews</div>
+                    <div>
+                        <div>review???</div>
+                    </div>
                 </div>
             </div>
-            <div>User info
-                <div>
-                    <div>total review</div>
-                    <div>Identify verified- mockup</div>
-                </div>
-                <div>some info mockup here</div>
-                <div> button contact host</div>
-            </div>
-            <div>Thing to know</div>
         </div>
     )
 }
