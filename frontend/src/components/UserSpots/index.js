@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSpots } from '../../store/spots';
 import UpdateSpotModal from './UpdateSpotModal';
@@ -10,7 +10,6 @@ export function UserSpots() {
     const dispatch = useDispatch();
     const spotsObj= useSelector(state => state.spots);
     const spots = Object.values(spotsObj.allSpots);
-    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         dispatch(getUserSpots())

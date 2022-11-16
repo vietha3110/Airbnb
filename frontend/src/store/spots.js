@@ -21,10 +21,10 @@ export function addSpot(spot) {
     }
 }
 
-export function deleteSpot(spot) {
+export function removeSpot(spotId) {
     return {
         type: REMOVE_SPOT,
-        spot
+        spotId
     }
 }
 
@@ -119,18 +119,22 @@ export const updateSpots = (spot) => async (dispatch) => {
 
 }
 
-// export const deleteSpot = (spotId) => async (dispatch) => {
-//     const response = await csrfFetch((`api/spots`), {
-//         method: 'delete',
-//         headers: {
-//             'Content-type': 'application/json'
-//         },
-//         body: JSON.stringify(spotId)
-//     });
-//     const data = await response.json();
-//     dispatch(addSpot(data));
-//     return response;
-// }
+export const deleteSpot = (spot) => async (dispatch) => {
+    const spotId = spot.id;
+    
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'delete',
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(removeSpot(spotId))
+        return data
+    } else {
+        return response
+    }
+
+    
+}
 let initializedState = {
     allSpots: {},
     singleSpot: {}
@@ -179,10 +183,15 @@ export default function spotsReducer(state = initializedState, action) {
             newState = { ...state };
             const spot = action.spot;
             newState.allSpots[spot.id] = spot;
-            newState.singleSpot = spot;
             return newState;
         }
             
+        case REMOVE_SPOT: {
+            newState = { ...state };
+            // const spotId = action.spotId;
+            delete newState.allSpots[action.spotId];
+            return newState;
+        }    
         default: 
             return state
     }

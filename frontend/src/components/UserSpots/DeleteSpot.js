@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import * as spotsActions from '../../store/spots';
 
 export function DeleteSpot(props) {
     const spot = props.spot;
@@ -7,11 +8,11 @@ export function DeleteSpot(props) {
     const [validationErrors, setValidationErrors] = useState([]);
     const dispatch = useDispatch();
     const handleYesButton = (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         setValidationErrors([]);
-        
-        dispatch(spotsActions.deleteSpots(spot.id))
-            .then(() => modal())
+        console.log(spot)
+        dispatch(spotsActions.deleteSpot(spot))
+        .then(() => modal())
         .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) {
