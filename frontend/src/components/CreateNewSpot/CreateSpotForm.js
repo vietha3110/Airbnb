@@ -133,6 +133,7 @@ export function CreateSpotForm() {
                         onChange={(e) => setDescription(e.target.value)}
                         required
                         className='input-field'
+                        placeholder='Description: Describe the decor, light, location, etc...'
                     />
                 </label>
                 <label>
