@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSpots } from '../../store/spots';
-import { UpdateSpotForm } from './UpdateSpot';
 import UpdateSpotModal from './UpdateSpotModal';
-import { Modal } from '../../context/Modal';
+import DeleteSpotModal from './DeleteSpotModal';
+
 
 export function UserSpots() {
     const sessionUser = useSelector((state) => state.session.user); 
@@ -36,7 +36,9 @@ export function UserSpots() {
                                 <div>
                                     <UpdateSpotModal spot={spot} />
                                 </div>
-                                <button>Delete</button>
+                                <div>
+                                    <DeleteSpotModal spot={spot}/>
+                                </div>
                             </div>
                         </div>)}
                 </div>
