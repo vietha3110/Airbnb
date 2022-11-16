@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneSpot } from "../../store/spots";
 import { useEffect } from "react";
-
+import './ListingSpotDetail.css';
 export function SpotDetail() {
     const { spotId } = useParams(); 
     const dispatch = useDispatch();
@@ -20,35 +20,52 @@ export function SpotDetail() {
         <div className="spot-container">
             <div className="spot-info">
                 <h2>{spot.name}</h2>
-                <div>{spot.avgStarRating}, {spot.city}, {spot.state}, {spot.country}</div>
+                <div>
+                <i className="fa-solid fa-star"></i>
+                    {spot.avgStarRating}, {spot.city}, {spot.state}, {spot.country}</div>
             </div>       
             <div className="spot-photo">
                  {spot.SpotImages?.length > 0 &&
-                    <div>
-                        <img src={spot.SpotImages[0].url} alt='spot'style={{width: 600, height: 500}}/>
+                    <div className="spot-photo-container photo-one">
+                        <img src={spot.SpotImages[0].url} alt='spot'className="spot-imagee"/>
                     </div>
+                    
                 } 
+                <div className="spot-photo-container photo-four">
+                    <div>
+                        <img src='https://images.pexels.com/photos/7512041/pexels-photo-7512041.jpeg' alt='spot'className="spot-photos"/>
+                    </div>
+                    <div>
+                        <img src='https://images.pexels.com/photos/1879061/pexels-photo-1879061.jpeg' alt='spot'className="spot-photos"/>
+                    </div>
+                    <div>
+                        <img src='https://images.pexels.com/photos/1034584/pexels-photo-1034584.jpeg' alt='spot'className="spot-photos"/>
+                    </div>
+                    <div>
+                        <img src='https://images.pexels.com/photos/7598127/pexels-photo-7598127.jpeg' alt='spot'className="spot-photos"/>
+                    </div>
+                </div>
             </div>
             <div className="spot-detail-container">
                 <div className="spot-host">
                     {spot.Owner && 
-                        <div>
-                            Hosted by {spot.Owner.firstName}
+                        <div className="host-name">
+                            <h2>This place hosted by {spot.Owner.firstName}</h2>
                         </div>
                     }
                     <div>
-                        Profile photo
+                        <img src="https://i.pinimg.com/originals/f9/57/2b/f9572b297b1b28af9b901ca157dcbec2.jpg" alt='brown' className="profile-photo"/>
                     </div>
                 </div>
                 <div className="spot-mockup">
-                    <div>
-                        Self check-in
+                    <div className="mockup-item">
+                        <i class="fa-solid fa-check"></i> Self Checkin
                     </div>
-                    <div>
-                        Great Location
+                    <div className="mockup-item">
+                        <i class="fa-solid fa-location-pin"></i> Great Location
                     </div>
-                    <div>
-                        Free cancellation for 48hours.
+                    <div className="mockup-item">
+                    <i class="fa-solid fa-calendar"></i> Free cancellation for 48hours.
                     </div>
                 </div>
                 <div className="spot-mockup">

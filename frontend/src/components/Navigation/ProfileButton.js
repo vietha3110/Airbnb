@@ -37,6 +37,14 @@ export default function ProfileButton({ user, setLogin, setShowModal }) {
         e.preventDefault();
         dispatch(sessionActions.userLogout());
     };
+    const handleDemoButton = (e) => {
+        e.preventDefault();
+        return dispatch(sessionActions.userLogin({
+            credential: 'Demo-lition',
+            password: 'password'
+        }))
+            .then(() => setShowModal(false));
+    }
 
     return (
         <>
@@ -64,6 +72,9 @@ export default function ProfileButton({ user, setLogin, setShowModal }) {
                                 setLogin(false)
                                 setShowModal(true)
                             }}>SignUp</button>
+                        </li>
+                        <li>
+                            <button onClick={handleDemoButton}>Demo User</button>
                         </li>
                     </ul>
                 )

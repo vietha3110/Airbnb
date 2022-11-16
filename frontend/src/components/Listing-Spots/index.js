@@ -23,7 +23,9 @@ export function ListingSpots() {
                         </div>
                         <div className='spot-name-row'>
                             <div className='spot-name'>{spot.name}</div>
-                            <div>{spot.avgRating}</div>
+                            <div>
+                            <i className="fa-solid fa-star"></i>{spot.avgRating}
+                            </div>
                         </div>
                         <div>
                             <div>{spot.city}, {spot.state}</div>

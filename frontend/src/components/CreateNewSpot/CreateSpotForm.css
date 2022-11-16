@@ -1,0 +1,26 @@
+.createspot-container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    align-items: center;
+}
+
+.createspot-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.createspot-form > button {
+    width: 320px;
+    height: 40px;
+    border-radius: 5px;
+    color: #ffffff;
+    background: #cccccc;
+    margin : 30px;
+}
+
+.createspot-form > button:hover {
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+
+}

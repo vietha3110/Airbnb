@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import * as spotsActions from "../../store/spots";
 export function UpdateSpotForm(props) {
     const spot = props.spot;
@@ -16,7 +15,6 @@ export function UpdateSpotForm(props) {
     const [price, setPrice] = useState(spot.price);
     const [validationErrors, setValidationErrors] = useState([]);
     const dispatch = useDispatch();
-    const history = useHistory();
     const id = spot.id
     //handle submit here
     const handleSubmit = async (e) => {
