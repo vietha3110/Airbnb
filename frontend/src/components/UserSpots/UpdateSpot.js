@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react";
-
-export function UpdateSpotForm({spot}) {
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import * as spotsActions from "../../store/spots";
+export function UpdateSpotForm(props) {
+    const spot = props.spot;
+    const modal = props.onClose;
     const [address, setAddress] = useState(spot.address);
     const [city, setCity] = useState(spot.city);
     const [state, setState] = useState(spot.state);
@@ -11,27 +15,26 @@ export function UpdateSpotForm({spot}) {
     const [description, setDescription] = useState(spot.description);
     const [price, setPrice] = useState(spot.price);
     const [validationErrors, setValidationErrors] = useState([]);
-
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const id = spot.id
     //handle submit here
     const handleSubmit = async (e) => {
         e.preventDefault(); 
         setValidationErrors([]);
-        let createdSpot;
-        try {
-            createdSpot = await dispatch(spotsActions.updateSpot({ name, description, price, address, country, city, state, lat, lng}))
-        } catch {
-            (e = async (res) => {
-                const data = await res.json();
-                if (data && data.error) {
-                    setValidationErrors([data.error]);
-                }
-            })
-        }
-           
-        if (createdSpot) {
-            const id = createdSpot.id
-            history.push(`/spots/${id}`)
-        }
+        
+        dispatch(spotsActions.updateSpots({ id, name, description, price, address, country, city, state, lat, lng }))
+            .then(() => modal())
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) {
+                setValidationErrors(data.errors);
+            }
+        })
+    }
+    const handleCancelButton = (e) => {
+        e.preventDefault();
+        modal();
     }
 
 
@@ -126,16 +129,8 @@ export function UpdateSpotForm({spot}) {
                         placeholder='$Price'
                     />
                 </label>
-                <label>
-                    <input
-                        type='text'
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                        required
-                        placeholder='Image Link'
-                />
-                </label>
                 <button type='submit'>Agree & Submit</button>
+                <button onClick={handleCancelButton}>Cancel</button>
             </form>
         </div>
     )

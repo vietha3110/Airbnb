@@ -104,7 +104,7 @@ export const getUserSpots = () => async (dispatch) => {
 
 export const updateSpots = (spot) => async (dispatch) => {
     const { name, description, address, city, country, state, lat, lng, price } = spot;
-    const response = await fetch(`/api/spots/${spot.id}`, {
+    const response = await csrfFetch(`/api/spots/${spot.id}`, {
         method: 'put',
         headers: {
             'Content-Type': 'application/json'
@@ -114,7 +114,9 @@ export const updateSpots = (spot) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(editSpot(data))
+        return data;
     }
+
 }
 
 // export const deleteSpot = (spotId) => async (dispatch) => {
@@ -177,6 +179,7 @@ export default function spotsReducer(state = initializedState, action) {
             newState = { ...state };
             const spot = action.spot;
             newState.allSpots[spot.id] = spot;
+            newState.singleSpot = spot;
             return newState;
         }
             

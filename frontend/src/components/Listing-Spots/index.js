@@ -8,18 +8,16 @@ export function ListingSpots() {
     const dispatch = useDispatch();
     
     const spotsObj = useSelector(state => state.spots);
-    console.log(spotsObj)
     const spots = Object.values(spotsObj.allSpots);
     useEffect(() => {
         dispatch(fetchSpots());
     }, [dispatch]);
     
-    // if (spots.length === 0) return null;
     return (
         <div className='spots-container'>
             {spots?.length > 0 && spots.map(spot => (
                 <Link to={`/spots/${spot.id}`}>
-                    <div key={`hic${spot.id}`} className='spot-card'>
+                    <div key={spot.id} className='spot-card'>
                         <div>
                             <img src={spot.previewImage} alt='spot' className='spot-image' />
                         </div>
