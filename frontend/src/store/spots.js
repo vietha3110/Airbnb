@@ -5,6 +5,7 @@ const ADD_SPOT = 'spots/addSpot';
 const REMOVE_SPOT = 'spots/removeSpot';
 const LOAD_DETAIL_SPOT = 'spots/loadDetailSpot';
 const LOAD_USER_SPOTS = 'spots/loadUserSpots';
+const EDIT_SPOT = 'spots/editSpot';
 
 export function displaySpots(spots) {
     return {
@@ -23,6 +24,13 @@ export function addSpot(spot) {
 export function deleteSpot(spot) {
     return {
         type: REMOVE_SPOT,
+        spot
+    }
+}
+
+export function editSpot(spot) {
+    return {
+        type: EDIT_SPOT,
         spot
     }
 }
@@ -67,6 +75,7 @@ export const createSpot = (spot) => async (dispatch) => {
             },
             body: JSON.stringify({ url, preview })
         }); 
+        //else (return response)
         if (imgResponse.ok) {
             const imgData = await imgResponse.json();
             const imgUrl = imgData.url;
@@ -75,12 +84,9 @@ export const createSpot = (spot) => async (dispatch) => {
             dispatch(addSpot(data));
             return data;
         }
+        //else (return imgResponse)
         
     }
-    //handleErrors fetch1 , 
-    //handleErrors fetch2,
-    
-    
 }
 
 export const fetchOneSpot = (spotId) => async (dispatch) => {
@@ -93,7 +99,24 @@ export const fetchOneSpot = (spotId) => async (dispatch) => {
 export const getUserSpots = () => async (dispatch) => {
     const response = await fetch(`/api/spots/current`);
     const data = await response.json();
-    dispatch(displayUserSpots(data));
+    dispatch(displayUserSpots(data.Spots));
+}
+
+export const updateSpots = (spot) => async (dispatch) => {
+    const { name, description, address, city, country, state, lat, lng, price } = spot;
+    const response = await csrfFetch(`/api/spots/${spot.id}`, {
+        method: 'put',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, description, address, city, country, state, lat, lng, price })
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editSpot(data))
+        return data;
+    }
+
 }
 
 // export const deleteSpot = (spotId) => async (dispatch) => {
@@ -108,32 +131,55 @@ export const getUserSpots = () => async (dispatch) => {
 //     dispatch(addSpot(data));
 //     return response;
 // }
+let initializedState = {
+    allSpots: {},
+    singleSpot: {}
+}
+//fail => start with {}
 
-export default function spotsReducer(state = {}, action) {
+export default function spotsReducer(state = initializedState, action) {
     let newState; 
     switch (action.type) {
         case LOAD_SPOTS: {
             newState = { ...state };
-            newState.Spots = action.spots
+            //newState.allSpot = action.spots
+            //normalize state
+            for (let spot of action.spots) {
+                newState.allSpots[spot.id] = spot
+            }
             return newState;
         }
             
         case ADD_SPOT: {
-            newState = { ...state, ...action.spot };
-            return newState
-            //falls through
+            newState = { ...state };
+            const spot = action.spot;
+            newState.allSpots[spot.id] = spot;
+            return newState;
         }
            
         case LOAD_DETAIL_SPOT: {
-            newState = { ...state };
+            newState = { ...state};
+            //newState.singleSpot = action.spot 
+            //normalize state
             // newState = action.spot
-            const spotData = action.spot
-            return spotData;
+            const spot = action.spot
+            newState.singleSpot = spot
+            return newState;
         }
             
         case LOAD_USER_SPOTS: {
-            newState = { ...state }
-            newState.Spots = action.spots
+            newState = { ...state };
+            for (let spot of action.spots) {
+                newState.allSpots[spot.id] = spot
+            }
+            return newState;
+        }
+            
+        case EDIT_SPOT: {
+            newState = { ...state };
+            const spot = action.spot;
+            newState.allSpots[spot.id] = spot;
+            newState.singleSpot = spot;
             return newState;
         }
             

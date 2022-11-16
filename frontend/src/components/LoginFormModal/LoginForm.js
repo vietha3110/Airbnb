@@ -21,11 +21,11 @@ export default function LoginForm({setShowModal}) {
         e.preventDefault();
         setValidationErrors([]);
         return dispatch(sessionActions.userLogin({ credential, password }))
-            .then(setShowModal(false))
+            .then(() => setShowModal(false))
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.message) {
-                    setValidationErrors(['Email/ Password is incorrect']);
+                if (data && data.errors) {
+                    setValidationErrors(data.errors);
                 }
             })
     }

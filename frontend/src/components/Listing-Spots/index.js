@@ -7,8 +7,8 @@ import './listingSpots.css';
 export function ListingSpots() {
     const dispatch = useDispatch();
     
-    const spotsObj= useSelector(state => state.spots);
-    const spots = spotsObj.Spots;
+    const spotsObj = useSelector(state => state.spots);
+    const spots = Object.values(spotsObj.allSpots);
     useEffect(() => {
         dispatch(fetchSpots());
     }, [dispatch]);

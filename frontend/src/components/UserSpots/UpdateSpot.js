@@ -1,53 +1,47 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import * as spotsActions from '../../store/spots';
-import './CreateSpotForm.css';
-
-
-export function CreateSpotForm() {
-    const dispatch = useDispatch();
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [country, setCountry] = useState('');
-    const [lat, setLat] = useState('');
-    const [lng, setLng] = useState('');
-    const [url, setUrl] = useState('');
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import * as spotsActions from "../../store/spots";
+export function UpdateSpotForm(props) {
+    const spot = props.spot;
+    const modal = props.onClose;
+    const [address, setAddress] = useState(spot.address);
+    const [city, setCity] = useState(spot.city);
+    const [state, setState] = useState(spot.state);
+    const [country, setCountry] = useState(spot.country);
+    const [lat, setLat] = useState(spot.lat);
+    const [lng, setLng] = useState(spot.lng);
+    const [name, setName] = useState(spot.name);
+    const [description, setDescription] = useState(spot.description);
+    const [price, setPrice] = useState(spot.price);
     const [validationErrors, setValidationErrors] = useState([]);
-    const preview = true;
+    const dispatch = useDispatch();
     const history = useHistory();
-
+    const id = spot.id
+    //handle submit here
     const handleSubmit = async (e) => {
         e.preventDefault(); 
         setValidationErrors([]);
-         
-        let createdSpot;
-        try {
-            createdSpot = await dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
-        } catch {
-            (e = async (res) => {
-                const data = await res.json();
-                if (data && data.error) {
-                    setValidationErrors([data.error]);
-                }
-            })
-        }
-           
-        if (createdSpot) {
-            const id = createdSpot.id
-            history.push(`/spots/${id}`)
-        }
-
+        
+        dispatch(spotsActions.updateSpots({ id, name, description, price, address, country, city, state, lat, lng }))
+            .then(() => modal())
+        .catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) {
+                setValidationErrors(data.errors);
+            }
+        })
     }
+    const handleCancelButton = (e) => {
+        e.preventDefault();
+        modal();
+    }
+
 
     return (
         <div>
             <div>
-                <h3>Host your place</h3>
+                <h3>Update your place</h3>
             </div>
             <form onSubmit={handleSubmit}>
                 {validationErrors.length > 0 && 
@@ -135,17 +129,10 @@ export function CreateSpotForm() {
                         placeholder='$Price'
                     />
                 </label>
-                <label>
-                    <input
-                        type='text'
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                        required
-                        placeholder='Image Link'
-                />
-                </label>
                 <button type='submit'>Agree & Submit</button>
+                <button onClick={handleCancelButton}>Cancel</button>
             </form>
         </div>
     )
+
 }

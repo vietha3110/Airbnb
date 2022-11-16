@@ -6,14 +6,15 @@ import { useEffect } from "react";
 export function SpotDetail() {
     const { spotId } = useParams(); 
     const dispatch = useDispatch();
-    const spot = useSelector(state => state.spots);
+    const spotObj = useSelector(state => state.spots);
+    const spot = spotObj.singleSpot;
 
     useEffect(() => {
         dispatch(fetchOneSpot(spotId));
     },[dispatch, spotId]);
 
-    if (!spot) return (
-        <div>hello from detail</div>
+    if (spot && spot.statusCode) return (
+        <div>Sorry, spot couldnt be found</div>
     );
     return (
         <div className="spot-container">
