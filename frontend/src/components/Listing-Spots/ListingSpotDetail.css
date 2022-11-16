@@ -11,13 +11,16 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     /* gap: 10px; */
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
 .spot-imagee {
     width: 560px;
     height: 495px;
     object-fit: cover;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 
 }
 
@@ -29,8 +32,8 @@
 
 .spot-photos {
     width: 272px;
-    height: 240.5px;
-    border-radius: 5px;
+    height: 244.5px;
+    /* border-radius: 5px; */
 }
 
 .spot-detail-container {
@@ -39,15 +42,19 @@
 
 .spot-host {
     display: grid;
-   grid-template-columns: 3fr 1fr;
+   grid-template-columns: 1.5fr 1fr;
     
 }
 .host-name {
-   
+   padding-left: 30px;
 }
 .profile-photo {
     border-radius: 80%;
     width: 55px;
     height: 55px;
     object-fit: cover;
+}
+
+.mockup-item {
+    margin: 30px;
 }

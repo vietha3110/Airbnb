@@ -20,7 +20,9 @@ export function SpotDetail() {
         <div className="spot-container">
             <div className="spot-info">
                 <h2>{spot.name}</h2>
-                <div>{spot.avgStarRating}, {spot.city}, {spot.state}, {spot.country}</div>
+                <div>
+                <i className="fa-solid fa-star"></i>
+                    {spot.avgStarRating}, {spot.city}, {spot.state}, {spot.country}</div>
             </div>       
             <div className="spot-photo">
                  {spot.SpotImages?.length > 0 &&
@@ -48,7 +50,7 @@ export function SpotDetail() {
                 <div className="spot-host">
                     {spot.Owner && 
                         <div className="host-name">
-                            <h2>Hosted by {spot.Owner.firstName}</h2>
+                            <h2>This place hosted by {spot.Owner.firstName}</h2>
                         </div>
                     }
                     <div>
@@ -56,14 +58,14 @@ export function SpotDetail() {
                     </div>
                 </div>
                 <div className="spot-mockup">
-                    <div>
-                        Self check-in
+                    <div className="mockup-item">
+                        <i class="fa-solid fa-check"></i> Self Checkin
                     </div>
-                    <div>
-                        Great Location
+                    <div className="mockup-item">
+                        <i class="fa-solid fa-location-pin"></i> Great Location
                     </div>
-                    <div>
-                        Free cancellation for 48hours.
+                    <div className="mockup-item">
+                    <i class="fa-solid fa-calendar"></i> Free cancellation for 48hours.
                     </div>
                 </div>
                 <div className="spot-mockup">

@@ -5,6 +5,15 @@
     place-items: center;
     gap: 20px;
 }
+.spots-container > a, .spots-container > a:link,.spots-container > a:visited   {
+    text-decoration: none;
+    background-color: transparent;
+    color: black;
+}
+
+
+
+
 
 .spot-card {
     display: flex;
@@ -17,6 +26,7 @@
     width: 300px;
     height: 200px;
     object-fit: cover;
+    border-radius: 5px;
 }
 
 .spot-name-row {
@@ -27,4 +37,11 @@
 .spot-name {
     flex-grow: 1;
     max-width: 250px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.fa-solid {
+    font-weight: 700;
+    font-size: 15px;
 }
