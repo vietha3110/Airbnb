@@ -10,7 +10,7 @@ export function DeleteSpot(props) {
     const handleYesButton = (e) => {
         e.preventDefault();
         setValidationErrors([]);
-        console.log(spot)
+        // console.log(spot)
         dispatch(spotsActions.deleteSpot(spot))
         .then(() => modal())
         .catch(async (res) => {
