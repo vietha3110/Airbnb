@@ -1,0 +1,53 @@
+
+.spot-container {
+    
+}
+
+
+
+
+
+.spot-photo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* gap: 10px; */
+}
+
+.spot-imagee {
+    width: 560px;
+    height: 495px;
+    object-fit: cover;
+    border-radius: 5px;
+
+}
+
+.photo-four {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* gap: 10px; */
+}
+
+.spot-photos {
+    width: 272px;
+    height: 240.5px;
+    border-radius: 5px;
+}
+
+.spot-detail-container {
+    margin-top: 20px;
+}
+
+.spot-host {
+    display: grid;
+   grid-template-columns: 3fr 1fr;
+    
+}
+.host-name {
+   
+}
+.profile-photo {
+    border-radius: 80%;
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+}
