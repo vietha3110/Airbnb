@@ -2,12 +2,14 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneSpot } from "../../store/spots";
 import { useEffect } from "react";
+import { ListingSpotReviews } from "../Reviews/ListingSpotReviews";
 import './ListingSpotDetail.css';
 export function SpotDetail() {
     const { spotId } = useParams(); 
     const dispatch = useDispatch();
     const spotObj = useSelector(state => state.spots);
     const spot = spotObj.singleSpot;
+    console.log(`***********`,spot.avgStarRating);
 
     useEffect(() => {
         dispatch(fetchOneSpot(spotId));
@@ -86,7 +88,7 @@ export function SpotDetail() {
                 <div className="spot-review">
                     <div>total reviews</div>
                     <div>
-                        <div>review???</div>
+                        <ListingSpotReviews spotId={spotId} />
                     </div>
                 </div>
             </div>

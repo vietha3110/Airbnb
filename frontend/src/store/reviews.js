@@ -32,7 +32,7 @@ export const fetchSpotReviews = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
     if (response.ok) {
         const data = await response.json();
-        dispatch(displaySpotReviews(data));
+        dispatch(displaySpotReviews(data.Reviews));
         return data;
     } else {
         return response;
@@ -68,12 +68,19 @@ export const deleteReview = (reviewId) => async (dispatch) => {
     }
 }
 
-let initializedState
+let initializedState = {
+    spot: {}
+}
 
-export default function reviewsReducer(state, action) {
+export default function reviewsReducer(state = initializedState, action) {
+    let newState;
     switch (action.type) {
         case LOAD_SPOT_REVIEWS: {
-
+            newState = { ...state };
+            for (let review of action.reviews) {
+                newState.spot[review.id] = review
+            }
+            return newState
         }
             
         case ADD_REVIEW: {
