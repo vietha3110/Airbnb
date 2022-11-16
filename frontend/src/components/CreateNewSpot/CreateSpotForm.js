@@ -45,11 +45,12 @@ export function CreateSpotForm() {
     }
 
     return (
-        <div>
-            <div>
-                <h3>Host your place</h3>
+        <div className='createspot-container'>
+            <div className='createspot-welcome'>
+                <h2>Host your place</h2>
+                <p>Don't have account? Register Now!</p>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='createspot-form'>
                 {validationErrors.length > 0 && 
                     <ul>
                         {validationErrors.map(error => 
@@ -63,6 +64,7 @@ export function CreateSpotForm() {
                         onChange={(e) => setAddress(e.target.value)}
                         required
                         placeholder='Address'
+                        className='input-field'
                     />
                 </label>
                 <label>
@@ -72,6 +74,7 @@ export function CreateSpotForm() {
                         onChange={(e) => setCity(e.target.value)}
                         required
                         placeholder='City'
+                        className='input-field'
                     />
                 </label>
                 <label>
@@ -81,6 +84,7 @@ export function CreateSpotForm() {
                         onChange={(e) => setState(e.target.value)}
                         required
                         placeholder='State'
+                        className='input-field'
                     />
                 </label>
                 <label>
@@ -90,6 +94,7 @@ export function CreateSpotForm() {
                         onChange={(e) => setCountry(e.target.value)}
                         required
                         placeholder='Country'
+                        className='input-field'
                     />
                 </label>
                 <label>
@@ -99,6 +104,7 @@ export function CreateSpotForm() {
                         value={lat}
                         onChange={(e) => setLat(e.target.value)}
                         placeholder='Latitude'
+                        className='input-field'
                     />
                 </label>
                 <label>
@@ -108,6 +114,7 @@ export function CreateSpotForm() {
                         value={lng}
                         onChange={(e) => setLng(e.target.value)}
                         placeholder='Longitude'
+                        className='input-field'
                     />
                 </label>
                 <label>
@@ -117,6 +124,7 @@ export function CreateSpotForm() {
                         onChange={(e) => setName(e.target.value)}
                         required
                         placeholder='Name your place'
+                        className='input-field'
                     />
                 </label>
                 <label>
@@ -124,6 +132,7 @@ export function CreateSpotForm() {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
+                        className='input-field'
                     />
                 </label>
                 <label>
@@ -133,6 +142,7 @@ export function CreateSpotForm() {
                         onChange={(e) => setPrice(e.target.value)}
                         required
                         placeholder='$Price'
+                        className='input-field'
                     />
                 </label>
                 <label>
@@ -142,6 +152,7 @@ export function CreateSpotForm() {
                         onChange={(e) => setUrl(e.target.value)}
                         required
                         placeholder='Image Link'
+                        className='input-field'
                 />
                 </label>
                 <button type='submit'>Agree & Submit</button>
