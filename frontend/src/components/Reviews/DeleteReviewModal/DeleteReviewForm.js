@@ -25,7 +25,7 @@ export function DeleteReviewForm(props) {
                 setValidationErrors(error);
             }
         })
-        return history.push(`/spots/${spotId}`)
+        // returnhistory.push(`/spots/${spotId}`)
     }
     if (validationErrors.length > 0) {
         alert("There is an error! Please try again!")

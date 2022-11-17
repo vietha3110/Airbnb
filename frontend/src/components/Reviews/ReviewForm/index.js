@@ -21,12 +21,17 @@ export function ReviewForm(props) {
         const info = {
             stars: rating, review
         }
+        if (!review) return setValidationErrors([`Please input your review!`])
         dispatch(reviewsAction.createReview(spotId, info))
             .then(() => modal())
             .catch(async (res) => {
                         const data = await res.json();
-                        if (data && data.message) {
-                            setValidationErrors(['You already rated this spot!']);
+                if (data && data.message) {
+                    if (data.errors) {
+                        const error = Object.values(data.errors)
+                        return setValidationErrors([error])
+                    }
+                        setValidationErrors(['You already rated this spot!']);
                         }
             });
         history.push(`/spots/${spotId}`);
@@ -40,7 +45,7 @@ export function ReviewForm(props) {
     return (
         <div className="reviewform-container">
             <div className="reviewform-welcome">
-                <h2>Please leave a review for this place</h2>
+                <h2>Rate this spot!</h2>
             </div>
             <form onSubmit={handleSubmit} className='reviewform-info'>
                 <div>
@@ -53,7 +58,7 @@ export function ReviewForm(props) {
                 </div>
                 <div className="review-content">
                     <div className="reviewform-rating">
-                        <label> Rating point
+                        <label> Rating point: 
                             <input
                                 type='number'
                                 value={rating}
@@ -63,21 +68,25 @@ export function ReviewForm(props) {
                     
                             />
                         </label>
+                        </div>
                         <div className="reviewform-description">
                             <label>
                                 <textarea
                                     placeholder='Share details of your own experience at this spot'
                                     value={review}
                                     onChange={(e) => setReview(e.target.value)}
-                    
+                                    className='input-field'
                                 >
                                 </textarea>
                             </label>
                         </div>
-                </div>
+                    <div className="review-button">
+                        <button type="submit">Submit</button>
+                        <button onClick={handleCancelButton}>Cancel</button>
+                    </div>
                 </div> 
-                <button type="submit">Submit</button>
-                <button onClick={handleCancelButton}>Cancel</button>
+                
+               
             </form>
         </div>
     )

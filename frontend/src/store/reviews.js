@@ -72,27 +72,6 @@ let initializedState = {
     spot: {},
 }
 
-// user: {
-//     [reviewId]: {
-//       reviewData,
-//       User: {
-//         userData,
-//       },
-//       Spot: {
-//         spotData,
-//       },
-//       ReviewImages: [imagesData],
-//     }
-
-// //{
-//     "id": 1,
-//     "userId": 1,
-//     "spotId": 1,
-//     "review": "This was an awesome spot!",
-//     "stars": 5,
-//     "createdAt": "2021-11-19 20:39:36",
-//     "updatedAt": "2021-11-19 20:39:36"
-//   }
 
 export default function reviewsReducer(state = initializedState, action) {
     let newState;
@@ -105,9 +84,9 @@ export default function reviewsReducer(state = initializedState, action) {
         }
             
         case REMOVE_REVIEW: {
-            newState = { ...state };
-            delete newState.spot[action.reviewId];
-            return state
+            newState = { ...state, spot: { ...state.spot } }
+            delete newState.spot[action.reviewId]
+            return newState
         }
             
         default: 
