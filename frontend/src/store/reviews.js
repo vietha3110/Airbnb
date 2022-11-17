@@ -70,7 +70,6 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 
 let initializedState = {
     spot: {},
-    user: {}
 }
 
 // user: {
@@ -99,10 +98,16 @@ export default function reviewsReducer(state = initializedState, action) {
     let newState;
     switch (action.type) {
         case LOAD_SPOT_REVIEWS: {
-            newState = {spot:{}, user:{}};
+            newState = {spot:{}};
             const reviews = action.reviews;
             reviews.map(review => newState.spot[review.id] = review)
             return newState
+        }
+            
+        case REMOVE_REVIEW: {
+            newState = { ...state };
+            delete newState.spot[action.reviewId];
+            return state
         }
             
         default: 

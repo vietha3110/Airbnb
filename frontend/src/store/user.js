@@ -36,7 +36,7 @@ export const deleteUserReview = (reviewId) => async (dispatch) => {
 
 let initializedState = {userReviews:{}}
 
-export default function userReviewReducer(state = initializedState, action) {
+export default function userReviewsReducer(state = initializedState, action) {
     let newState;
     switch (action.type) {
         case LOAD_USER_REVIEWS: {

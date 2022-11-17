@@ -2,9 +2,10 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneSpot } from "../../store/spots";
 import { useEffect } from "react";
-import { ListingSpotReviews } from "../Reviews/ListingSpotReviews";
+// import { ListingSpotReviews } from "../Reviews/ListingSpotReviews";
 import * as reviewsAction from '../../store/reviews';
 import ReviewSpotModal from "../Reviews/ReviewForm/ReviewFormModal";
+import DeleteReviewModal from "../Reviews/DeleteReviewModal";
 
 import './ListingSpotDetail.css';
 export function SpotDetail() {
@@ -14,10 +15,13 @@ export function SpotDetail() {
     const spot = spotObj.singleSpot;
     const reviewObj = useSelector(state => state.reviews);
     const spotReviews = Object.values(reviewObj.spot);
+    const sessionUser = useSelector(state => state.session.user);
     useEffect(() => {
         dispatch(fetchOneSpot(spotId));
         dispatch(reviewsAction.fetchSpotReviews(spotId))
-    },[dispatch, spotId]);
+    }, [dispatch, spotId]);
+    
+  
 
     if (spot && spot.statusCode) return (
         <div>Sorry, spot couldnt be found</div>
@@ -36,7 +40,7 @@ export function SpotDetail() {
                     <div className="spot-photo-container photo-one">
                         <img src={spot.SpotImages[0].url} alt='spot'className="spot-imagee"/>
                     </div>
-                    
+ 
                 } 
                 <div className="spot-photo-container photo-four">
                     <div>
@@ -105,6 +109,12 @@ export function SpotDetail() {
                                         </div>
                                     </div>
                                     <div className="review-content">{review.review}</div>
+                                    <div className="review-delete">
+                                        {+review.userId === sessionUser.id && 
+                                            <DeleteReviewModal reviewId={review.id} spotId={spot.id} />
+                                        }
+                                        
+                                    </div>
                                 </div>
                             ))}
                         </div>
