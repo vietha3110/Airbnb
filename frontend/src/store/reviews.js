@@ -1,7 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const ADD_REVIEW = 'reviews/addReview';
-const LOAD_REVIEWS = 'reviews/loadReviews';
+// const LOAD_REVIEWS = 'reviews/loadReviews';
 const REMOVE_REVIEW = 'reviews/removeReview';
 const LOAD_SPOT_REVIEWS = 'reviews/loadSpotReviews'
 

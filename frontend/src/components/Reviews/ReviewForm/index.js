@@ -26,8 +26,7 @@ export function ReviewForm(props) {
             .catch(async (res) => {
                         const data = await res.json();
                         if (data && data.message) {
-                            let error = data.message;
-                            setValidationErrors([error]);
+                            setValidationErrors(['You already rated this spot!']);
                         }
             });
         history.push(`/spots/${spotId}`);
