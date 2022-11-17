@@ -14,6 +14,12 @@ export function SpotDetail() {
     const spot = spotObj.singleSpot;
     const reviewObj = useSelector(state => state.reviews);
     const spotReviews = Object.values(reviewObj.spot);
+    // console.log(spotReviews);
+    let sum = 0;
+    for (let review of spotReviews) {
+        sum += review.stars;
+    }
+    const avgRating = sum / spotReviews.length;
     const sessionUser = useSelector(state => state.session.user);
     useEffect(() => {
         dispatch(fetchOneSpot(spotId));
@@ -31,7 +37,7 @@ export function SpotDetail() {
                 <h2>{spot.name}</h2>
                 <div>
                     <i className="fa-solid fa-star"></i>
-                    {spot.avgStarRating}, {spotReviews.length} reviews, {spot.city}, {spot.state}, {spot.country}
+                    {avgRating}, {spotReviews.length} reviews, {spot.city}, {spot.state}, {spot.country}
                 </div>
             </div>       
             <div className="spot-photo">
