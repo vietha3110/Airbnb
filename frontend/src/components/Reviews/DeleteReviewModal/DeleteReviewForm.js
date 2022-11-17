@@ -35,12 +35,14 @@ export function DeleteReviewForm(props) {
         modal();
     }
     return (
-        <div>
-            <div>
-                Are you sure you want to delete this review?
+        <div className="delete-component">
+            <div className="delete-question">
+                Are you sure to delete this review?
             </div>
-            <button onClick={handleYesButton}>Yes, I am.</button>
-            <button onClick={handleCancelButton}>No, I wanna cancel this action.</button>
+            <div className="delete-btn">
+                <button onClick={handleYesButton} className='btn-delete'>Delete</button>
+                <button onClick={handleCancelButton} className='btn-cancel'>Cancel</button>
+            </div>
         </div>
     )
 }

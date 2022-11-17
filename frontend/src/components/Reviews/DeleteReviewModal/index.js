@@ -6,7 +6,7 @@ export default function DeleteReviewModal({reviewId, spotId}) {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Delete</button>
+      <button onClick={() => setShowModal(true)} className='btn-delete'>Delete</button>
       {showModal && (
         <Modal>
                   <DeleteReviewForm review={reviewId} spotId={spotId} onClose={() => setShowModal(false)} />

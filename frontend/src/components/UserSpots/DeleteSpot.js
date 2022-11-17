@@ -30,11 +30,11 @@ export function DeleteSpot(props) {
         modal();
     }
     return (
-        <div className="deletespot-component">
-            <div className="deletespot-question">
+        <div className="delete-component">
+            <div className="delete-question">
                 Please confirm the deletion of this spot:
             </div>
-            <div className="deletespot-btn">
+            <div className="delete-btn">
                 <button onClick={handleYesButton} className='btn-delete'>Confirm</button>
                 <button onClick={handleCancelButton}className='btn-cancel'>Cancel</button>
             </div>

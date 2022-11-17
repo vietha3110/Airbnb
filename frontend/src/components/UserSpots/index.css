@@ -17,6 +17,10 @@
     margin: 20px;
 }
 
+.managespot-name {
+    margin-top: 10px;
+}
+
 .managespot-name > a, .managespot-name> a:link,.managespot-name > a:visited   {
     text-decoration: none;
     background-color: transparent;
@@ -32,7 +36,25 @@
 }
 
 
+.btn-update {
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding:10px;
+    font-weight: 700;
+    width: 80px;
+    height: 40px;
+    background: #5c86dc;
+}
 
-.update > button:hover, .delete > button:hover {
-    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+.btn-update:hover {
+    background:#00A699;
+}
+
+.update {
+    margin-right: 10px;
+}
+
+.btn-delete:hover {
+    background: black;
 }

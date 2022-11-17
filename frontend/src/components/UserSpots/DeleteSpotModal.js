@@ -6,7 +6,7 @@ export default function DeleteSpotModal({spot}) {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Delete</button>
+      <button onClick={() => setShowModal(true)} className='btn-delete'>Delete</button>
       {showModal && (
         <Modal>
           <DeleteSpot spot={spot} onClose={() => setShowModal(false)} />
