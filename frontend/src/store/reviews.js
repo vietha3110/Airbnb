@@ -1,7 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const ADD_REVIEW = 'reviews/addReview';
-const LOAD_REVIEWS = 'reviews/loadReviews';
+// const LOAD_REVIEWS = 'reviews/loadReviews';
 const REMOVE_REVIEW = 'reviews/removeReview';
 const LOAD_SPOT_REVIEWS = 'reviews/loadSpotReviews'
 
@@ -70,38 +70,22 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 
 let initializedState = {
     spot: {},
-    user: {}
 }
 
-// user: {
-//     [reviewId]: {
-//       reviewData,
-//       User: {
-//         userData,
-//       },
-//       Spot: {
-//         spotData,
-//       },
-//       ReviewImages: [imagesData],
-//     }
-
-// //{
-//     "id": 1,
-//     "userId": 1,
-//     "spotId": 1,
-//     "review": "This was an awesome spot!",
-//     "stars": 5,
-//     "createdAt": "2021-11-19 20:39:36",
-//     "updatedAt": "2021-11-19 20:39:36"
-//   }
 
 export default function reviewsReducer(state = initializedState, action) {
     let newState;
     switch (action.type) {
         case LOAD_SPOT_REVIEWS: {
-            newState = {spot:{}, user:{}};
+            newState = {spot:{}};
             const reviews = action.reviews;
             reviews.map(review => newState.spot[review.id] = review)
+            return newState
+        }
+            
+        case REMOVE_REVIEW: {
+            newState = { ...state, spot: { ...state.spot } }
+            delete newState.spot[action.reviewId]
             return newState
         }
             

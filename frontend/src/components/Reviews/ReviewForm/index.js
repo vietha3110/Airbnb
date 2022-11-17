@@ -2,6 +2,7 @@ import {useState } from "react";
 import * as reviewsAction from '../../../store/reviews';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import './index.css';
 
 export function ReviewForm(props) {
     const [rating, setRating] = useState();
@@ -20,13 +21,17 @@ export function ReviewForm(props) {
         const info = {
             stars: rating, review
         }
+        if (!review) return setValidationErrors([`Please input your review!`])
         dispatch(reviewsAction.createReview(spotId, info))
             .then(() => modal())
             .catch(async (res) => {
                         const data = await res.json();
-                        if (data && data.message) {
-                            let error = data.message;
-                            setValidationErrors([error]);
+                if (data && data.message) {
+                    if (data.errors) {
+                        const error = Object.values(data.errors)
+                        return setValidationErrors([error])
+                    }
+                        setValidationErrors(['You already rated this spot!']);
                         }
             });
         history.push(`/spots/${spotId}`);
@@ -38,11 +43,11 @@ export function ReviewForm(props) {
     }
 
     return (
-        <div>
-            <div>
-                <h2>Please leave a review for this place</h2>
+        <div className="reviewform-container">
+            <div className="reviewform-welcome">
+                <h2>Rate this spot!</h2>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='reviewform-info'>
                 <div>
                 {validationErrors.length > 0 && 
                     <ul>
@@ -51,27 +56,37 @@ export function ReviewForm(props) {
                     </ul>
                 }
                 </div>
-                <div>
-                    <label> Rating point
-                        <input
-                            type='number'
-                            value={rating}
-                            onChange={(e) => setRating(e.target.value)}
-                            min="1"
-                            max="5"
-                        />
-                    </label>
-                    <label>
-                        <textarea
-                            placeholder='Share details of your own experience at this spot'
-                            value={review}
-                            onChange={(e) => setReview(e.target.value)}
-                        >
-                        </textarea>
-                    </label>
+                <div className="review-content">
+                    <div className="reviewform-rating">
+                        <label> Rating point: 
+                            <input
+                                type='number'
+                                value={rating}
+                                onChange={(e) => setRating(e.target.value)}
+                                min="1"
+                                max="5"
+                    
+                            />
+                        </label>
+                        </div>
+                        <div className="reviewform-description">
+                            <label>
+                                <textarea
+                                    placeholder='Share details of your own experience at this spot'
+                                    value={review}
+                                    onChange={(e) => setReview(e.target.value)}
+                                    className='input-field'
+                                >
+                                </textarea>
+                            </label>
+                        </div>
+                    <div className="review-button">
+                        <button type="submit">Submit</button>
+                        <button onClick={handleCancelButton}>Cancel</button>
+                    </div>
                 </div> 
-                <button type="submit">Submit</button>
-                <buton onClick={handleCancelButton}>Cancel</buton>
+                
+               
             </form>
         </div>
     )

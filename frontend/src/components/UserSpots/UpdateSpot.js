@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as spotsActions from "../../store/spots";
+import './UpdateSpot.css';
 export function UpdateSpotForm(props) {
     const spot = props.spot;
     const modal = props.onClose;
@@ -38,96 +39,124 @@ export function UpdateSpotForm(props) {
 
 
     return (
-        <div>
-            <div>
-                <h3>Update your place</h3>
+        <div className='createspot-container'>
+            <div className='createspot-welcome'>
+                <h2>Update your place</h2>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='createspot-form'>
                 {validationErrors.length > 0 && 
                     <ul>
                         {validationErrors.map(error => 
                             <li key={error}>{error}</li>)}
                     </ul>
                 }
-                <label>
-                    <input
-                        type='text'
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                        placeholder='Address'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='text'
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        required
-                        placeholder='City'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='text'
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        required
-                        placeholder='State'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='text'
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
-                        required
-                        placeholder='Country'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='number'
-                        step='any'
-                        value={lat}
-                        onChange={(e) => setLat(e.target.value)}
-                        placeholder='Latitude'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='number'
-                        step='any'
-                        value={lng}
-                        onChange={(e) => setLng(e.target.value)}
-                        placeholder='Longitude'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='text'
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        placeholder='Name your place'
-                    />
-                </label>
-                <label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    <input
-                        type='number'
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        required
-                        placeholder='$Price'
-                    />
-                </label>
+                <div className="creatspot-fields">
+                    <label>
+                        <input
+                            type='text'
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            required
+                            placeholder='Address'
+                            className="field"
+                        />
+                    </label>
+                </div>
+                <div className="creatspot-fields">
+                    <label>
+                        <input
+                            type='text'
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            required
+                            placeholder='City'
+                            className="field"
+                        />
+                    </label>
+                </div>
+                <div className="creatspot-fields">
+                    <label>
+                        <input
+                            type='text'
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            required
+                            placeholder='State'
+                            className="field"
+                        />
+                    </label>
+                </div>
+                <div className="creatspot-fields">
+                    <label>
+                        <input
+                            type='text'
+                            value={country}
+                            onChange={(e) => setCountry(e.target.value)}
+                            required
+                            placeholder='Country'
+                            className="field"
+                        />
+                    </label>
+                </div>
+                <div className="creatspot-fields">
+                    <label>
+                        <input
+                            type='number'
+                            step='any'
+                            value={lat}
+                            onChange={(e) => setLat(e.target.value)}
+                            placeholder='Latitude'
+                            className="field"
+                        />
+                    </label>
+                </div>
+                <div className="creatspot-fields">
+                    <label>
+                        <input
+                            type='number'
+                            step='any'
+                            value={lng}
+                            onChange={(e) => setLng(e.target.value)}
+                            placeholder='Longitude'
+                            className="field"
+                        />
+                    </label>
+                </div>
+                <div className="creatspot-fields">
+                    <label>
+                        <input
+                            type='text'
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            placeholder='Name your place'
+                            className="field"
+                        />
+                    </label>
+                </div>
+                <div className="creatspot-fields">
+                    <label>
+                        <textarea
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                            className="field"
+                        />
+                    </label>
+                </div>
+                <div className="creatspot-fields">
+                    <label>
+                        <input
+                            type='number'
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            required
+                            placeholder='$Price'
+                            className="field"
+                            min='1'
+                        />
+                    </label>
+                </div>
                 <button type='submit'>Agree & Submit</button>
                 <button onClick={handleCancelButton}>Cancel</button>
             </form>

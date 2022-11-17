@@ -50,8 +50,15 @@ export function CreateSpotForm() {
         // }
         let createdSpot = await dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
             .catch(async res => {
-                const data = res.json();
-                if (data && data.message) setValidationErrors([data.message]);
+                const data = await res.json();
+                if (data && data.message) {
+                    if (data.errors) {
+                        const errors = Object.values(data.errors);
+                        setValidationErrors(errors);
+                    } else {
+                        setValidationErrors(data.message);
+                    }   
+                }
         })
            
         if (createdSpot) {
@@ -177,6 +184,7 @@ export function CreateSpotForm() {
                             required
                             placeholder='$Price'
                             className='input-field'
+                            min='1'
                         />
                     </label>
                 </div>

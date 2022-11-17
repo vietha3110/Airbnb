@@ -1,0 +1,24 @@
+.reviewform-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #222;
+    background: #ffffff;
+    padding: 20px;
+    width: 520px;
+}
+
+.reviewform-info {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+.review-content {
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
+    justify-items: center;
+}
+
+.review-button {
+    margin-top: 10px;
+}
