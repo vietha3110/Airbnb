@@ -1,0 +1,43 @@
+.deletespot-component {
+    width: 400px;
+    height: 100px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.deletespot-question {
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+}
+
+.deletespot-btn {
+    display: flex;
+    flex-direction: row;
+    margin-left: 90px;
+}
+
+
+
+.btn-delete {
+    background-color:#db2137;
+    color: #fff;
+    border:none; 
+    font-weight: 700;
+    border-radius:10px; 
+    padding:10px;
+    width: 80px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.btn-cancel {
+    background-color:#0a0a23;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding:10px;
+    font-weight: 700;
+    width: 80px;
+    height: 40px;
+}

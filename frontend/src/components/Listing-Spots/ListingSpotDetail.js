@@ -16,10 +16,15 @@ export function SpotDetail() {
     const spotReviews = Object.values(reviewObj.spot);
     // console.log(spotReviews);
     let sum = 0;
+    let avgRating = 0;
+    
     for (let review of spotReviews) {
         sum += review.stars;
     }
-    const avgRating = sum / spotReviews.length;
+    if (sum > 0) {
+        avgRating = sum / spotReviews.length;
+    }
+   
     const sessionUser = useSelector(state => state.session.user);
     useEffect(() => {
         dispatch(fetchOneSpot(spotId));

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as spotsActions from '../../store/spots';
-import { Redirect } from 'react-router-dom';
 import './CreateSpotForm.css';
 
 
@@ -137,6 +136,7 @@ export function CreateSpotForm() {
                             onChange={(e) => setLat(e.target.value)}
                             placeholder='Latitude'
                             className='input-field'
+                            required
                         />
                     </label>
                 </div>
@@ -149,6 +149,7 @@ export function CreateSpotForm() {
                             onChange={(e) => setLng(e.target.value)}
                             placeholder='Longitude'
                             className='input-field'
+                            required
                         />
                     </label>
                 </div>
