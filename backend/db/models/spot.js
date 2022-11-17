@@ -50,15 +50,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     city: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     state: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     country: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     lat: {
@@ -68,14 +68,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.NUMERIC
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         len: [1, 50]
       }
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     },
     price: {

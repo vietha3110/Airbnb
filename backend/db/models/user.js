@@ -99,11 +99,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     firstName: {
-      type: DataTypes.STRING, 
+      type: DataTypes.TEXT, 
       allowNull: false
     },
     lastName: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false
     }
   }, {
