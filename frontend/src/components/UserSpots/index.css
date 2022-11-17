@@ -1,0 +1,38 @@
+.managespot-main {
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.managespot-page {
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.managespot-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px;
+}
+
+.managespot-name > a, .managespot-name> a:link,.managespot-name > a:visited   {
+    text-decoration: none;
+    background-color: transparent;
+    color: black;
+}
+.managespot-name:hover {
+    font-weight: 700;
+}
+.managespot-change {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px
+}
+
+
+
+.update > button:hover, .delete > button:hover {
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+}
