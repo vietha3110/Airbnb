@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneSpot } from "../../store/spots";
 import { useEffect } from "react";
-// import { ListingSpotReviews } from "../Reviews/ListingSpotReviews";
 import * as reviewsAction from '../../store/reviews';
 import ReviewSpotModal from "../Reviews/ReviewForm/ReviewFormModal";
 import DeleteReviewModal from "../Reviews/DeleteReviewModal";
@@ -98,7 +97,6 @@ export function SpotDetail() {
                         </p>
                     </div>
                 </div>
-                
                 <div className="spot-review">
                     <div className="reviews-container">
                         <h2>Total Reviews: {spotReviews.length}</h2>
@@ -114,7 +112,7 @@ export function SpotDetail() {
                                     </div>
                                     <div className="review-description">{review.review}</div>
                                     <div className="review-delete">
-                                        {+review.userId === sessionUser.id && 
+                                        {sessionUser && +review.userId === sessionUser.id && 
                                             <DeleteReviewModal reviewId={review.id} spotId={spot.id} />
                                         }
                                         
