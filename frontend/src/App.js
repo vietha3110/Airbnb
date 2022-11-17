@@ -13,13 +13,8 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    console.log(`im running`);
     dispatch(sessionActions.restoreUser()).then(() => {
-      console.log(`*************************`);
       setIsLoaded(true)
-    });
-    return (() => {
-      console.log(`Use Effect return running`)
     });
   }, [dispatch]);
   

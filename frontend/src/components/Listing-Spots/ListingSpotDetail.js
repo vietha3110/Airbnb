@@ -2,8 +2,10 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneSpot } from "../../store/spots";
 import { useEffect } from "react";
-// import { ListingSpotReviews } from "../Reviews/ListingSpotReviews";
+import { ListingSpotReviews } from "../Reviews/ListingSpotReviews";
 import * as reviewsAction from '../../store/reviews';
+import ReviewSpotModal from "../Reviews/ReviewForm/ReviewFormModal";
+
 import './ListingSpotDetail.css';
 export function SpotDetail() {
     const { spotId } = useParams(); 
@@ -14,7 +16,7 @@ export function SpotDetail() {
     const spotReviews = Object.values(reviewObj.spot);
     useEffect(() => {
         dispatch(fetchOneSpot(spotId));
-        dispatch(reviewsAction.fetchSpotReviews(spotId))
+        // dispatch(reviewsAction.fetchSpotReviews(spotId))
     },[dispatch, spotId]);
 
     if (spot && spot.statusCode) return (
@@ -92,21 +94,22 @@ export function SpotDetail() {
                     <div>total reviews</div>
                 
                     <div className="reviews-container">
-            <h2>Total Reviews: {spotReviews.length}</h2>
-            <div className="reviews-card">
-                {spotReviews?.length > 0 && spotReviews.map(review => (
-                    <div key={review.id} className='review-user-container'>
-                        <div className="reviewer-info">
-                            <div className="review-name">{review.User.firstName}</div>
-                            <div>
-                                <img src='https://static.wikia.nocookie.net/line/images/1/10/2015-cony.png' alt='cony' className="user-profile"/>
-                            </div>
+                        <h2>Total Reviews: {spotReviews.length}</h2>
+                        <div className="reviews-card">
+                            {spotReviews?.length > 0 && spotReviews.map(review => (
+                                <div key={review.id} className='review-user-container'>
+                                    <div className="reviewer-info">
+                                        <div className="review-name">{review.User.firstName}</div>
+                                        <div>
+                                            <img src='https://static.wikia.nocookie.net/line/images/1/10/2015-cony.png' alt='cony' className="user-profile"/>
+                                        </div>
+                                    </div>
+                                    <div className="review-content">{review.review}</div>
+                                </div>
+                            ))}
                         </div>
-                        <div className="review-content">{review.review}</div>
+                        <ReviewSpotModal spotId={spot.id} />
                     </div>
-                ))}
-            </div>
-        </div>
                 </div>
             </div>
         </div>

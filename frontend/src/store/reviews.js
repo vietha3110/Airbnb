@@ -47,13 +47,12 @@ export const createReview = (spotId, review) => async (dispatch) => {
         },
         body: JSON.stringify(review)
     });
+    // const data = await response.json();
     if (response.ok) {
-        const data = await response.json();
-        dispatch(addReview(data));
-        return data;
-    } else {
-        return response;
+        dispatch(fetchSpotReviews(spotId));
     }
+   
+    return response;    
 }
 
 export const deleteReview = (reviewId) => async (dispatch) => {
@@ -73,6 +72,28 @@ let initializedState = {
     user: {}
 }
 
+// user: {
+//     [reviewId]: {
+//       reviewData,
+//       User: {
+//         userData,
+//       },
+//       Spot: {
+//         spotData,
+//       },
+//       ReviewImages: [imagesData],
+//     }
+
+// //{
+//     "id": 1,
+//     "userId": 1,
+//     "spotId": 1,
+//     "review": "This was an awesome spot!",
+//     "stars": 5,
+//     "createdAt": "2021-11-19 20:39:36",
+//     "updatedAt": "2021-11-19 20:39:36"
+//   }
+
 export default function reviewsReducer(state = initializedState, action) {
     let newState;
     switch (action.type) {
@@ -81,14 +102,6 @@ export default function reviewsReducer(state = initializedState, action) {
             const reviews = action.reviews;
             reviews.map(review => newState.spot[review.id] = review)
             return newState
-        }
-            
-        case ADD_REVIEW: {
-
-        }
-            
-        case REMOVE_REVIEW: {
-
         }
             
         default: 
