@@ -24,7 +24,7 @@ export function ListingSpots() {
                         <div className='spot-name-row'>
                             <div className='spot-name'>{spot.name}</div>
                             <div>
-                            <i className="fa-solid fa-star"></i>{spot.avgRating}
+                            <i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating : 0}
                             </div>
                         </div>
                         <div>

@@ -58,6 +58,7 @@ export const fetchSpots = () => async (dispatch) => {
 
 export const createSpot = (spot) => async (dispatch) => {
     const { name, description, address, city, country, state, lat, lng, price, url, preview } = spot;
+    console.log(`line 61`)
     const response = await csrfFetch(`/api/spots`, {
         method: 'post',
         headers: {
@@ -83,7 +84,7 @@ export const createSpot = (spot) => async (dispatch) => {
             //imageData {id, url, preview}
             dispatch(addSpot(data));
             return data;
-        }
+        } 
         //else (return imgResponse)
         
     }

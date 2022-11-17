@@ -2,17 +2,19 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneSpot } from "../../store/spots";
 import { useEffect } from "react";
-import { ListingSpotReviews } from "../Reviews/ListingSpotReviews";
+// import { ListingSpotReviews } from "../Reviews/ListingSpotReviews";
+import * as reviewsAction from '../../store/reviews';
 import './ListingSpotDetail.css';
 export function SpotDetail() {
     const { spotId } = useParams(); 
     const dispatch = useDispatch();
     const spotObj = useSelector(state => state.spots);
     const spot = spotObj.singleSpot;
-    console.log(`***********`,spot.avgStarRating);
-
+    const reviewObj = useSelector(state => state.reviews);
+    const spotReviews = Object.values(reviewObj.spot);
     useEffect(() => {
         dispatch(fetchOneSpot(spotId));
+        dispatch(reviewsAction.fetchSpotReviews(spotId))
     },[dispatch, spotId]);
 
     if (spot && spot.statusCode) return (
@@ -23,8 +25,9 @@ export function SpotDetail() {
             <div className="spot-info">
                 <h2>{spot.name}</h2>
                 <div>
-                <i className="fa-solid fa-star"></i>
-                    {spot.avgStarRating}, {spot.city}, {spot.state}, {spot.country}</div>
+                    <i className="fa-solid fa-star"></i>
+                    {spot.avgStarRating}, {spot.city}, {spot.state}, {spot.country}
+                </div>
             </div>       
             <div className="spot-photo">
                  {spot.SpotImages?.length > 0 &&
@@ -61,13 +64,13 @@ export function SpotDetail() {
                 </div>
                 <div className="spot-mockup">
                     <div className="mockup-item">
-                        <i class="fa-solid fa-check"></i> Self Checkin
+                        <i className="fa-solid fa-check"></i> Self Checkin
                     </div>
                     <div className="mockup-item">
-                        <i class="fa-solid fa-location-pin"></i> Great Location
+                        <i className="fa-solid fa-location-pin"></i> Great Location
                     </div>
                     <div className="mockup-item">
-                    <i class="fa-solid fa-calendar"></i> Free cancellation for 48hours.
+                    <i className="fa-solid fa-calendar"></i> Free cancellation for 48hours.
                     </div>
                 </div>
                 <div className="spot-mockup">
@@ -87,9 +90,23 @@ export function SpotDetail() {
                 
                 <div className="spot-review">
                     <div>total reviews</div>
-                    <div>
-                        <ListingSpotReviews spotId={spotId} />
+                
+                    <div className="reviews-container">
+            <h2>Total Reviews: {spotReviews.length}</h2>
+            <div className="reviews-card">
+                {spotReviews?.length > 0 && spotReviews.map(review => (
+                    <div key={review.id} className='review-user-container'>
+                        <div className="reviewer-info">
+                            <div className="review-name">{review.User.firstName}</div>
+                            <div>
+                                <img src='https://static.wikia.nocookie.net/line/images/1/10/2015-cony.png' alt='cony' className="user-profile"/>
+                            </div>
+                        </div>
+                        <div className="review-content">{review.review}</div>
                     </div>
+                ))}
+            </div>
+        </div>
                 </div>
             </div>
         </div>

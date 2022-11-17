@@ -55,16 +55,17 @@ const restoreUser = (req, res, next) => {
 };
 
 //if there is no current user, return error 
-const requireAuth = function (req, _res, next) {
+const requireAuth = function (req, res, next) {
     if (req.user) {
         return next();
     }
     const err = new Error('Unauthorized'); 
-    // err.title = 'Unauthorized';
-    // err.errors = ['Unauthorized'];
+    err.title = 'Unauthorized';
+    err.errors = ['Unauthorized'];
     err.message = 'Authentication required'
     err.status = 401;
     return next(err);
+    
 }
 
 //proper required for spot

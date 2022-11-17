@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as spotsActions from '../../store/spots';
+import { Redirect } from 'react-router-dom';
 import './CreateSpotForm.css';
 
 
@@ -20,7 +21,13 @@ export function CreateSpotForm() {
     const [validationErrors, setValidationErrors] = useState([]);
     const preview = true;
     const history = useHistory();
+    const sessionUser = useSelector((state) => state.session.user);
 
+    if (!sessionUser) return (
+        <div> 
+            Please login to see this page!
+        </div> 
+    )
     const handleSubmit = async (e) => {
         e.preventDefault(); 
         setValidationErrors([]);
@@ -31,7 +38,9 @@ export function CreateSpotForm() {
         } catch {
             (e = async (res) => {
                 const data = await res.json();
+                console.log(`*************`, data)
                 if (data && data.error) {
+                    console.log(`here`)
                     let error = Object.values(data.errors)
                     setValidationErrors(error);
                 }
