@@ -38,11 +38,14 @@
 
 .spot-host {
     display: grid;
-   grid-template-columns: 1.5fr 1fr;
-    
+    grid-template-columns: 600px 50px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
+    width: 653px;
+    height: 100px;
 }
 .host-name {
-   padding-left: 30px;
+   /* padding-left: 30px; */
 }
 .profile-photo {
     border-radius: 80%;
@@ -50,15 +53,24 @@
     height: 55px;
     object-fit: cover;
 }
-
+.spot-mockup {
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
+    width: 653px;
+}
 .mockup-item {
     margin: 30px;
 }
-
+.spot-desc {
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 
 .reviews-cards {
     display: grid;
-    grid-template-columns: 400px 400px;  
+    grid-template-columns: 1fr 1fr;  
 }
 .review-user-container {
     max-width: 400px;

@@ -32,7 +32,7 @@ export function SpotDetail() {
                 <h2>{spot.name}</h2>
                 <div>
                     <i className="fa-solid fa-star"></i>
-                    {spot.avgStarRating}, {spot.city}, {spot.state}, {spot.country}
+                    {spot.avgStarRating}, {spotReviews.length} reviews, {spot.city}, {spot.state}, {spot.country}
                 </div>
             </div>       
             <div className="spot-photo">
@@ -81,7 +81,7 @@ export function SpotDetail() {
                 </div>
                 <div className="spot-mockup">
                     <div>
-                        HaAibnb Cover
+                        <h2>WHAT WE COVER</h2>
                     </div>
                     <div>
                         <p>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
@@ -89,14 +89,17 @@ export function SpotDetail() {
                     </div>
                 </div>
                 <div className="spot-desc">
-                    <p>
-                        {spot.description}
-                    </p>
+                    <div className="spot-h2">
+                        <h2>About this spot</h2>
+                    </div>
+                    <div className="spot-desc-detail">
+                        <p>
+                            {spot.description}
+                        </p>
+                    </div>
                 </div>
                 
                 <div className="spot-review">
-                    <div>total reviews</div>
-                
                     <div className="reviews-container">
                         <h2>Total Reviews: {spotReviews.length}</h2>
                         <div className="reviews-cards">
