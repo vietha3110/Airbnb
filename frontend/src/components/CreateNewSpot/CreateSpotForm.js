@@ -26,26 +26,32 @@ export function CreateSpotForm() {
     if (!sessionUser) return (
         <div> 
             Please login to see this page!
-        </div> 
+        </div>
+ 
     )
     const handleSubmit = async (e) => {
         e.preventDefault(); 
         setValidationErrors([]);
          
-        let createdSpot;
-        try {
-            createdSpot = await dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
-        } catch {
-            (e = async (res) => {
-                const data = await res.json();
-                console.log(`*************`, data)
-                if (data && data.error) {
-                    console.log(`here`)
-                    let error = Object.values(data.errors)
-                    setValidationErrors(error);
-                }
-            })
-        }
+        // let createdSpot;
+        // try {
+        //     createdSpot = await dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
+        // } catch {
+        //     (e = async (res) => {
+        //         const data = await res.json();
+        //         console.log(`*************`, data)
+        //         if (data && data.error) {
+        //             console.log(`here`)
+        //             let error = Object.values(data.errors)
+        //             setValidationErrors(error);
+        //         }
+        //     })
+        // }
+        let createdSpot = await dispatch(spotsActions.createSpot({ name, description, price, address, country, city, state, lat, lng, url, preview }))
+            .catch(async res => {
+                const data = res.json();
+                if (data && data.message) setValidationErrors([data.message]);
+        })
            
         if (createdSpot) {
             const id = createdSpot.id

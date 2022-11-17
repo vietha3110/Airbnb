@@ -20,13 +20,13 @@ export function ReviewForm(props) {
         const info = {
             stars: rating, review
         }
-        await dispatch(reviewsAction.createReview(spotId, info))
+        dispatch(reviewsAction.createReview(spotId, info))
             .then(() => modal())
             .catch(async (res) => {
                         const data = await res.json();
-                        if (data && data.errors) {
-                            let error = Object.values(data.errors)
-                            setValidationErrors(error);
+                        if (data && data.message) {
+                            let error = data.message;
+                            setValidationErrors([error]);
                         }
             });
         history.push(`/spots/${spotId}`);

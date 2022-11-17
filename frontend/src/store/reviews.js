@@ -48,6 +48,7 @@ export const createReview = (spotId, review) => async (dispatch) => {
         body: JSON.stringify(review)
     });
     // const data = await response.json();
+    console.log(response)
     if (response.ok) {
         dispatch(fetchSpotReviews(spotId));
     }

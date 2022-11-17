@@ -146,7 +146,7 @@ export default function spotsReducer(state = initializedState, action) {
     let newState; 
     switch (action.type) {
         case LOAD_SPOTS: {
-            newState = { ...state };
+            newState = {allSpots: {}, singleSpot: {}};
             //newState.allSpot = action.spots
             //normalize state
             for (let spot of action.spots) {
@@ -173,7 +173,7 @@ export default function spotsReducer(state = initializedState, action) {
         }
             
         case LOAD_USER_SPOTS: {
-            newState = { ...state };
+            newState = {allSpots: {}, singleSpot: {} };
             for (let spot of action.spots) {
                 newState.allSpots[spot.id] = spot
             }

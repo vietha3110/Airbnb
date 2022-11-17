@@ -16,7 +16,7 @@ export function SpotDetail() {
     const spotReviews = Object.values(reviewObj.spot);
     useEffect(() => {
         dispatch(fetchOneSpot(spotId));
-        // dispatch(reviewsAction.fetchSpotReviews(spotId))
+        dispatch(reviewsAction.fetchSpotReviews(spotId))
     },[dispatch, spotId]);
 
     if (spot && spot.statusCode) return (
