@@ -32,6 +32,7 @@ export function CreateSpotForm() {
     const handleSubmit = async (e) => {
         e.preventDefault(); 
         setValidationErrors([]);
+        if (url.length > 256) setValidationErrors(['The length of URL must less than 256 characters'])
          
         // let createdSpot;
         // try {
@@ -63,8 +64,7 @@ export function CreateSpotForm() {
     return (
         <div className='createspot-container'>
             <div className='createspot-welcome'>
-                <h2>Host your place</h2>
-                <p>Don't have account? Register Now!</p>
+                    <h2>Host your place</h2>
             </div>
             <form onSubmit={handleSubmit} className='createspot-form'>
                 {validationErrors.length > 0 && 
@@ -73,105 +73,125 @@ export function CreateSpotForm() {
                             <li key={error}>{error}</li>)}
                     </ul>
                 }
-                <label>
-                    <input
-                        type='text'
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                        placeholder='Address'
-                        className='input-field'
+                <div className='creatspot-field'>
+                    <label>
+                        <input
+                            type='text'
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            required
+                            placeholder='Address'
+                            className='input-field'
+                        />
+                    </label>
+                </div>
+                <div className='creatspot-field'>
+                    <label>
+                        <input
+                            type='text'
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            required
+                            placeholder='City'
+                            className='input-field'
+                        />
+                    </label>
+                </div>
+                <div className='creatspot-field'>
+                    <label>
+                        <input
+                            type='text'
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            required
+                            placeholder='State'
+                            className='input-field'
+                        />
+                    </label>
+                </div>
+                <div className='creatspot-field'>
+                    <label>
+                        <input
+                            type='text'
+                            value={country}
+                            onChange={(e) => setCountry(e.target.value)}
+                            required
+                            placeholder='Country'
+                            className='input-field'
+                        />
+                    </label>
+                </div>
+                <div className='creatspot-field'>
+                    <label>
+                        <input
+                            type='number'
+                            step='any'
+                            value={lat}
+                            onChange={(e) => setLat(e.target.value)}
+                            placeholder='Latitude'
+                            className='input-field'
+                        />
+                    </label>
+                </div>
+                <div className='creatspot-field'>
+                    <label>
+                        <input
+                            type='number'
+                            step='any'
+                            value={lng}
+                            onChange={(e) => setLng(e.target.value)}
+                            placeholder='Longitude'
+                            className='input-field'
+                        />
+                    </label>
+                </div>
+                <div className='creatspot-field'>
+                    <label>
+                        <input
+                            type='text'
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            placeholder='Name your place'
+                            className='input-field'
+                        />
+                    </label>
+                </div>
+                <div className='creatspot-field'>
+                    <label>
+                        <textarea
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            required
+                            className='input-field'
+                            placeholder='Description: Describe the decor, light, location, etc...'
+                        />
+                    </label>
+                </div>
+                <div className='creatspot-field'>
+                    <label>
+                        <input
+                            type='number'
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            required
+                            placeholder='$Price'
+                            className='input-field'
+                        />
+                    </label>
+                </div>
+                <div className='creatspot-field'>
+                    <label>
+                        <input
+                            type='text'
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                            required
+                            placeholder='Image Link'
+                            className='input-field'
                     />
-                </label>
-                <label>
-                    <input
-                        type='text'
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        required
-                        placeholder='City'
-                        className='input-field'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='text'
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}
-                        required
-                        placeholder='State'
-                        className='input-field'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='text'
-                        value={country}
-                        onChange={(e) => setCountry(e.target.value)}
-                        required
-                        placeholder='Country'
-                        className='input-field'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='number'
-                        step='any'
-                        value={lat}
-                        onChange={(e) => setLat(e.target.value)}
-                        placeholder='Latitude'
-                        className='input-field'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='number'
-                        step='any'
-                        value={lng}
-                        onChange={(e) => setLng(e.target.value)}
-                        placeholder='Longitude'
-                        className='input-field'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='text'
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        placeholder='Name your place'
-                        className='input-field'
-                    />
-                </label>
-                <label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                        className='input-field'
-                        placeholder='Description: Describe the decor, light, location, etc...'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='number'
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        required
-                        placeholder='$Price'
-                        className='input-field'
-                    />
-                </label>
-                <label>
-                    <input
-                        type='text'
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                        required
-                        placeholder='Image Link'
-                        className='input-field'
-                />
-                </label>
+                    </label>
+                </div>
                 <button type='submit'>Agree & Submit</button>
             </form>
         </div>
