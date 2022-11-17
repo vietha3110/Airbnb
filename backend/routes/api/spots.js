@@ -199,8 +199,10 @@ router.get('/:spotId', async (req, res, next) => {
         attributes: {
             include: [
                 [
-                    sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'
+                    sequelize.fn('ROUND',sequelize.fn('AVG', sequelize.col('Reviews.stars')),2), 'avgStarRating'
                 ],
+                //sequelize.fn('ROUND',sequelize.fn('AVG', sequelize.col('Reviews.stars')),2), 'avgStarRating'
+                //sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating'
             ]
         },
         group: ['Spot.id', 'SpotImages.id', 'Reviews.id', 'Owner.id'],
@@ -385,6 +387,7 @@ const validateReview = [
 ];
 //create a review for a spot based on 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
+    console.log(`line390`)
     const userId = req.user.id;
     const spotId = req.params.spotId;
     const spot = await Spot.findByPk(spotId);
@@ -394,6 +397,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
             "statusCode": 404
         })
     }
+    console.log(`line399`)
     const review = await Review.findOne({
         where: {
             [Op.and]: [
@@ -407,7 +411,8 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         }
     });
     if (review) {
-        res.status(403).json({
+        console.log(`here`)
+        return res.status(403).json({
             "message": "User already has a review for this spot",
             "statusCode": 403
         })

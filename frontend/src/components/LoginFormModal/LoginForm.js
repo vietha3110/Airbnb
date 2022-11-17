@@ -25,7 +25,8 @@ export default function LoginForm({setShowModal}) {
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) {
-                    setValidationErrors(data.errors);
+                    let error = Object.values(data.errors)
+                    setValidationErrors(error);
                 }
             })
     }
@@ -56,7 +57,7 @@ export default function LoginForm({setShowModal}) {
                                 onChange={(e) => setCredential(e.target.value)}
                                 required
                                 placeholder='username/email'
-                                class='login-input login-input-email'
+                                className='login-input login-input-email'
                             />
                         </label>
                     </div>
@@ -68,7 +69,7 @@ export default function LoginForm({setShowModal}) {
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                                 placeholder='password '
-                                class='login-input'
+                                className='login-input'
                             />
                         </label>
                     </div>

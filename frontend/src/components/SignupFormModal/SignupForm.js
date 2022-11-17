@@ -24,6 +24,7 @@ export default function SignUpForm({setShowModal}) {
     const handleSubmit = (e) => {
         e.preventDefault()
         //check error here
+        if (username.length < 4) return setValidationErrors(['Username must be 4 characters or more'])
         if (password.length < 6) return setValidationErrors(['Password must be 6 characters or more.'])
         if (password === confirmPassword) {
             setValidationErrors([]);
@@ -31,7 +32,10 @@ export default function SignUpForm({setShowModal}) {
                 .then(()=> setShowModal(false))
                     .catch(async (res) => {
                         const data = await res.json();
-                        if (data && data.errors) setValidationErrors(data.errors);
+                        if (data && data.errors) {
+                            let error = Object.values(data.errors)
+                            setValidationErrors(error);
+                        }
                     });
         }
         

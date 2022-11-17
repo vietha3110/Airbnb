@@ -3,6 +3,16 @@
     flex-direction: column;
     width: 800px;
     align-items: center;
+    margin-top: 40px;
+}
+
+.createspot-welcome {
+    display: flex;
+    flex-direction: column;
+}
+
+.createspot-welcome > h2 {
+    margin: 20px;
 }
 
 .createspot-form {
@@ -11,6 +21,9 @@
     align-items: center;
 }
 
+.creatspot-field {
+    margin: 10px;
+}
 .createspot-form > button {
     width: 320px;
     height: 40px;
@@ -23,4 +36,8 @@
 .createspot-form > button:hover {
     background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
 
+}
+
+textarea {
+    resize: none;
 }

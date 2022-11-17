@@ -16,27 +16,6 @@ export default function Navigation({ isLoaded }) {
     const [showModal, setShowModal] = useState(false);
     const [login, setLogin] = useState(true);
 
-    // let sessionLinks; 
-    // if (sessionUser) {
-    //     sessionLinks = (
-    //         <>
-    //             <ProfileButton user={sessionUser} />
-    //             <NewSpot/>
-    //         </>
-    //     );
-    // } else {
-    //     sessionLinks = (
-    //         <>
-    //             <div className="navigation-login">
-    //                 <LoginFormModal />
-    //             </div>
-    //             <div className="navigation-signup">
-    //                 <SignupFormModal />
-    //             </div>
-    //         </>
-    //     );
-    // }
-
     return (
         <div className="navigation">
             <div className="navigation-logo">

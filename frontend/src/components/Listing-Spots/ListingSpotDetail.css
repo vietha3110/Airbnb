@@ -1,8 +1,4 @@
 
-.spot-container {
-    
-}
-
 
 
 
@@ -13,7 +9,7 @@
     /* gap: 10px; */
     box-sizing: border-box;
     border-radius: 10px;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .spot-imagee {
@@ -57,4 +53,23 @@
 
 .mockup-item {
     margin: 30px;
+}
+
+
+.reviews-card {
+    display: grid;
+    grid-template-columns: 400px 400px;
+
+    
+}
+.review-user-container {
+    max-width: 400px;
+    padding: 20px;
+}
+
+.user-profile {
+    object-fit: cover;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
 }

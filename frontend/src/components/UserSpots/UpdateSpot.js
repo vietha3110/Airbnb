@@ -26,7 +26,8 @@ export function UpdateSpotForm(props) {
         .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) {
-                setValidationErrors(data.errors);
+                let error = Object.values(data.errors)
+                setValidationErrors(error);
             }
         })
     }

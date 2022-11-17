@@ -58,6 +58,7 @@ export const fetchSpots = () => async (dispatch) => {
 
 export const createSpot = (spot) => async (dispatch) => {
     const { name, description, address, city, country, state, lat, lng, price, url, preview } = spot;
+    console.log(`line 61`)
     const response = await csrfFetch(`/api/spots`, {
         method: 'post',
         headers: {
@@ -83,7 +84,7 @@ export const createSpot = (spot) => async (dispatch) => {
             //imageData {id, url, preview}
             dispatch(addSpot(data));
             return data;
-        }
+        } 
         //else (return imgResponse)
         
     }
@@ -145,7 +146,7 @@ export default function spotsReducer(state = initializedState, action) {
     let newState; 
     switch (action.type) {
         case LOAD_SPOTS: {
-            newState = { ...state };
+            newState = {allSpots: {}, singleSpot: {}};
             //newState.allSpot = action.spots
             //normalize state
             for (let spot of action.spots) {
@@ -172,7 +173,7 @@ export default function spotsReducer(state = initializedState, action) {
         }
             
         case LOAD_USER_SPOTS: {
-            newState = { ...state };
+            newState = {allSpots: {}, singleSpot: {} };
             for (let spot of action.spots) {
                 newState.allSpots[spot.id] = spot
             }
