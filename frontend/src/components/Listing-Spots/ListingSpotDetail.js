@@ -99,16 +99,17 @@ export function SpotDetail() {
                 
                     <div className="reviews-container">
                         <h2>Total Reviews: {spotReviews.length}</h2>
-                        <div className="reviews-card">
+                        <div className="reviews-cards">
                             {spotReviews?.length > 0 && spotReviews.map(review => (
                                 <div key={review.id} className='review-user-container'>
                                     <div className="reviewer-info">
-                                        <div className="review-name">{review.User.firstName}</div>
-                                        <div>
+                                        
+                                        <div className="review-user-photo">
                                             <img src='https://static.wikia.nocookie.net/line/images/1/10/2015-cony.png' alt='cony' className="user-profile"/>
                                         </div>
+                                        <div className="review-name">{review.User.firstName}</div>
                                     </div>
-                                    <div className="review-content">{review.review}</div>
+                                    <div className="review-description">{review.review}</div>
                                     <div className="review-delete">
                                         {+review.userId === sessionUser.id && 
                                             <DeleteReviewModal reviewId={review.id} spotId={spot.id} />
@@ -118,8 +119,11 @@ export function SpotDetail() {
                                 </div>
                             ))}
                         </div>
-                        <ReviewSpotModal spotId={spot.id} />
-                    </div>
+                        <div className="btn-newreview">
+                            <ReviewSpotModal spotId={spot.id} />
+                        </div>
+                           
+                        </div>
                 </div>
             </div>
         </div>
