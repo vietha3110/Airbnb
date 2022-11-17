@@ -153,6 +153,7 @@ export function UpdateSpotForm(props) {
                             required
                             placeholder='$Price'
                             className="field"
+                            min='1'
                         />
                     </label>
                 </div>

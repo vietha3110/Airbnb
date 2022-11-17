@@ -2,6 +2,7 @@ import {useState } from "react";
 import * as reviewsAction from '../../../store/reviews';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import './index.css';
 
 export function ReviewForm(props) {
     const [rating, setRating] = useState();
@@ -38,11 +39,11 @@ export function ReviewForm(props) {
     }
 
     return (
-        <div>
-            <div>
+        <div className="reviewform-container">
+            <div className="reviewform-welcome">
                 <h2>Please leave a review for this place</h2>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='reviewform-info'>
                 <div>
                 {validationErrors.length > 0 && 
                     <ul>
@@ -51,27 +52,33 @@ export function ReviewForm(props) {
                     </ul>
                 }
                 </div>
-                <div>
-                    <label> Rating point
-                        <input
-                            type='number'
-                            value={rating}
-                            onChange={(e) => setRating(e.target.value)}
-                            min="1"
-                            max="5"
-                        />
-                    </label>
-                    <label>
-                        <textarea
-                            placeholder='Share details of your own experience at this spot'
-                            value={review}
-                            onChange={(e) => setReview(e.target.value)}
-                        >
-                        </textarea>
-                    </label>
+                <div className="review-content">
+                    <div className="reviewform-rating">
+                        <label> Rating point
+                            <input
+                                type='number'
+                                value={rating}
+                                onChange={(e) => setRating(e.target.value)}
+                                min="1"
+                                max="5"
+                    
+                            />
+                        </label>
+                        <div className="reviewform-description">
+                            <label>
+                                <textarea
+                                    placeholder='Share details of your own experience at this spot'
+                                    value={review}
+                                    onChange={(e) => setReview(e.target.value)}
+                    
+                                >
+                                </textarea>
+                            </label>
+                        </div>
+                </div>
                 </div> 
                 <button type="submit">Submit</button>
-                <buton onClick={handleCancelButton}>Cancel</buton>
+                <button onClick={handleCancelButton}>Cancel</button>
             </form>
         </div>
     )
