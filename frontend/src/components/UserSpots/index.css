@@ -16,6 +16,11 @@
     grid-template-columns: 1fr 1fr;
     margin: 20px;
 }
+.managespot-welcome {
+    margin-left: 80px;
+    margin-bottom: 20px;
+    padding-left: 50px;
+}
 
 .managespot-name {
     margin-top: 10px;
@@ -24,7 +29,8 @@
 .managespot-name > a, .managespot-name> a:link,.managespot-name > a:visited   {
     text-decoration: none;
     background-color: transparent;
-    color: black;
+ color: #FF5A5F;
+    ;
 }
 .managespot-name:hover {
     font-weight: 700;
@@ -48,7 +54,10 @@
 }
 
 .btn-update:hover {
-    background:#00A699;
+    /* background:#00A699; */
+    /* color: #FF5A5F; */
+    background: #FF5A5F;
+
 }
 
 .update {

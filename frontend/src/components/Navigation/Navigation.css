@@ -9,10 +9,22 @@
 .navigation-bar {
     display: flex;
     flex-direction: row-reverse;
-    margin-right: 40px;
     align-items: center;
 }
 .link-createspot {
     margin-right: 30px;
     
+}
+
+.link-content, .link-content:visited {
+    text-decoration: none;
+}
+
+.link-content {
+    color: black;
+    font-weight: 700;
+    cursor: pointer;
+}
+.link-content:hover {
+    color: #FF5A5F;
 }

@@ -23,8 +23,8 @@ export function CreateSpotForm() {
     const sessionUser = useSelector((state) => state.session.user);
 
     if (!sessionUser) return (
-        <div> 
-            Please login to see this page!
+        <div className='managespot-welcome'> 
+            <h2>Please login to see this page!</h2>
         </div>
  
     )

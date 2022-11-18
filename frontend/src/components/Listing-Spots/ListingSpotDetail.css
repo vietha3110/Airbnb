@@ -1,4 +1,7 @@
-
+.spot-info {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
 
 
@@ -28,7 +31,7 @@
 
 .spot-photos {
     width: 272px;
-    height: 244.5px;
+    height: 245px;
     /* border-radius: 5px; */
 }
 
@@ -104,7 +107,7 @@
     margin-top: 20px;
 }
 .spot-review {
-    max-width: 1000px;
+    /* max-width: 1000px; */
     box-sizing: border-box;
     border-top: 1px solid #cccccc;
 }

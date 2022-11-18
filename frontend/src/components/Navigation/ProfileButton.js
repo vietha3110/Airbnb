@@ -58,31 +58,43 @@ export default function ProfileButton({ user, setLogin, setShowModal }) {
             {showMenu && (user ?
                 <div className="dropdown">
                     <ul className="profile-dropdown">
-                        <li>{user.username}</li>
-                        <li>{user.email}</li>
-                        <Link to='/hosting'>Manage Listing</Link>
-                        <li>
-                            <button onClick={logout}>Sign out</button>
-                        </li>
+                        <div className="dropdown-user">
+                            <div>
+                                {user.username}
+                            </div>
+                            <div>
+                                {user.email}
+                            </div>
+                        </div>
+                        <div className="dropdown-link">
+                            <Link to='/hosting' className="hosting">Manage Listing</Link>
+                        </div>
+                        <div className="dropdown-link">
+                        
+                            <button onClick={logout} className='dropdown-btn'>Sign out</button>
+        
+                        </div>
                     </ul>
                 </div>: (
-                    <ul className="profile-dropdown">
-                        <li>
-                            <button onClick={() => {
-                                setLogin(true)
-                                setShowModal(true)
-                            }}>Login</button>
-                        </li>
-                        <li>
-                            <button onClick={() => {
-                                setLogin(false)
-                                setShowModal(true)
-                            }}>SignUp</button>
-                        </li>
-                        <li>
-                            <button onClick={handleDemoButton}>Demo User</button>
-                        </li>
-                    </ul>
+                    <div className="dropdown">
+                        <ul className="profile-dropdown">
+                            <li>
+                                <button onClick={() => {
+                                    setLogin(true)
+                                    setShowModal(true)
+                                }} className='dropdown-btn'>Login</button>
+                            </li>
+                            <li>
+                                <button onClick={() => {
+                                    setLogin(false)
+                                    setShowModal(true)
+                                }} className='dropdown-btn'>SignUp</button>
+                            </li>
+                            <li>
+                                <button onClick={handleDemoButton} className='dropdown-btn'>Demo User</button>
+                            </li>
+                        </ul>
+                    </div>
                 )
             )}
         </>
