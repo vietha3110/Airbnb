@@ -22,7 +22,7 @@ export function SpotDetail() {
         sum += review.stars;
     }
     if (sum > 0) {
-        avgRating = sum / spotReviews.length;
+        avgRating = (sum / spotReviews.length).toFixed(2);
     }
    
     const sessionUser = useSelector(state => state.session.user);

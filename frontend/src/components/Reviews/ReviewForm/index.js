@@ -1,7 +1,6 @@
 import {useState } from "react";
 import * as reviewsAction from '../../../store/reviews';
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import './index.css';
 
 export function ReviewForm(props) {
@@ -12,7 +11,6 @@ export function ReviewForm(props) {
     const modal = props.onClose;
     const spotId = props.spotId;
     const sessionUser = useSelector(state => state.session.user);
-    const history = useHistory();
   
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +32,7 @@ export function ReviewForm(props) {
                         setValidationErrors(['You already rated this spot!']);
                         }
             });
-        history.push(`/spots/${spotId}`);
+        // history.push(`/spots/${spotId}`);
     }
 
     const handleCancelButton = (e) => {

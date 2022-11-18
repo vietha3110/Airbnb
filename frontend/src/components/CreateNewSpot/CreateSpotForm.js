@@ -192,7 +192,7 @@ export function CreateSpotForm() {
                 <div className='creatspot-field'>
                     <label>
                         <input
-                            type='text'
+                            type='url'
                             value={url}
                             onChange={(e) => setUrl(e.target.value)}
                             required

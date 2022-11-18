@@ -22,13 +22,13 @@ export function ListingSpots() {
                             <img src={spot.previewImage} alt='spot' className='spot-image' />
                         </div>
                         <div className='spot-name-row'>
-                            <div className='spot-name'>{spot.name}</div>
+                            <div className='spot-name'>{spot.city}, {spot.state}</div>
                             <div>
                             <i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating : 0}
                             </div>
                         </div>
                         <div>
-                            <div>{spot.city}, {spot.state}</div>
+                            <div>Recently added</div>
                         </div>
                         <div>
                             ${spot.price}
