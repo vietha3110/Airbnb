@@ -72,17 +72,19 @@ export function SpotDetail() {
                 </div>
             </div>
             <div className="spot-detail-container">
-                <div className="spot-host">
-                    {spot.Owner && 
-                        <div className="host-name">
-                            <h2>This place hosted by {spot.Owner.firstName}</h2>
+                <div className="spot-host-container">
+                    <div className="spot-host">
+                        {spot.Owner &&
+                            <div className="host-name">
+                                <h2>This place hosted by {spot.Owner.firstName}</h2>
+                            </div>
+                        }
+                        <div>
+                            <img src="https://i.pinimg.com/originals/f9/57/2b/f9572b297b1b28af9b901ca157dcbec2.jpg" alt='brown' className="profile-photo"/>
                         </div>
-                    }
-                    <div>
-                        <img src="https://i.pinimg.com/originals/f9/57/2b/f9572b297b1b28af9b901ca157dcbec2.jpg" alt='brown' className="profile-photo"/>
                     </div>
-                    <div>
-                        ${spot.price}
+                    <div className="spot-price">
+                            ${spot.price} <span style={{fontWeight:300}}>/night</span>
                     </div>
                 </div>
                 <div className="spot-mockup">
