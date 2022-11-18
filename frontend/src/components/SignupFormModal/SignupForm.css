@@ -55,6 +55,7 @@
     border-radius: 5px;
     color: #ffffff;
     background: #cccccc;
+    cursor: pointer;
 }
 
 .signup-btn > button:hover {
