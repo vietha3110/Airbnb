@@ -388,7 +388,7 @@ const validateReview = [
 ];
 //create a review for a spot based on 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
-    console.log(`line390`)
+    // console.log(`line390`)
     const userId = req.user.id;
     const spotId = req.params.spotId;
     const spot = await Spot.findByPk(spotId);
@@ -398,7 +398,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
             "statusCode": 404
         })
     }
-    console.log(`line399`)
+    // console.log(`line399`)
     const review = await Review.findOne({
         where: {
             [Op.and]: [
@@ -412,7 +412,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         }
     });
     if (review) {
-        console.log(`here`)
+        // console.log(`here`)
         return res.status(403).json({
             "message": "User already has a review for this spot",
             "statusCode": 403

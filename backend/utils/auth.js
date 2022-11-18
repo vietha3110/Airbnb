@@ -223,7 +223,7 @@ const requireSpotImage = async function (req, res, next) {
 
 const requireReviewImage = async function (req, res, next) {
     const userId = req.user.id;
-    console.log(userId)
+    // console.log(userId)
     const reviewImageId = req.params.imageId;
     const reviewImage = await ReviewImage.findByPk(reviewImageId, {
         attributes: ['reviewId']
@@ -237,7 +237,7 @@ const requireReviewImage = async function (req, res, next) {
         const reviewId = reviewImage.reviewId;
         const review = await Review.findByPk(reviewId);
         const userReviewId = review.userId;
-        console.log(userReviewId)
+        // console.log(userReviewId)
         if (userId === userReviewId) {
             next();
         } else {
