@@ -13,8 +13,6 @@
 }
 
 
-
-
 .spot-photo {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -49,7 +47,11 @@
     margin-top: 20px;
     /* width: 80vw; */
 }
-
+.spot-host-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+}
 .spot-host {
     display: grid;
     grid-template-columns: 1.5fr 0.5fr;
@@ -58,8 +60,14 @@
     width: 40vw;
     height: 100px;
 }
-.host-name {
-   /* padding-left: 30px; */
+
+.spot-price {
+    font-size: 30px;
+    font-weight: 700;
+    box-sizing: border-box;
+    align-content: center;
+    padding:1vh;
+    height: 6vh;
 }
 .profile-photo {
     border-radius: 80%;
