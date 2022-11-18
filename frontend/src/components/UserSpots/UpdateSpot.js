@@ -107,6 +107,7 @@ export function UpdateSpotForm(props) {
                             onChange={(e) => setLat(e.target.value)}
                             placeholder='Latitude'
                             className="field"
+                            required
                         />
                     </label>
                 </div>
@@ -119,6 +120,7 @@ export function UpdateSpotForm(props) {
                             onChange={(e) => setLng(e.target.value)}
                             placeholder='Longitude'
                             className="field"
+                            required
                         />
                     </label>
                 </div>

@@ -26,7 +26,7 @@ export default function LoginForm({setShowModal}) {
                 const data = await res.json();
                 if (data && data.errors) {
                     let error = Object.values(data.errors)
-                    setValidationErrors(error);
+                    setValidationErrors([`username/email or password are incorrect!`]);
                 }
             })
     }

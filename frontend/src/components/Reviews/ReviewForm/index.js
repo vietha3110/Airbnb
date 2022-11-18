@@ -65,7 +65,7 @@ export function ReviewForm(props) {
                                 onChange={(e) => setRating(e.target.value)}
                                 min="1"
                                 max="5"
-                    
+                                required
                             />
                         </label>
                         </div>
@@ -76,6 +76,7 @@ export function ReviewForm(props) {
                                     value={review}
                                     onChange={(e) => setReview(e.target.value)}
                                     className='input-field'
+                                    required
                                 >
                                 </textarea>
                             </label>
