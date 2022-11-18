@@ -34,7 +34,11 @@ export function SpotDetail() {
   
 
     if (spot && spot.statusCode) return (
-        <div>Sorry, spot couldnt be found</div>
+        <div className="not-found">
+            <h2>
+            Sorry, spot couldnt be found
+            </h2>
+        </div>
     );
     return (
         <div className="spot-container">
@@ -93,7 +97,7 @@ export function SpotDetail() {
                     <div>
                         <h2>WHAT WE COVER</h2>
                     </div>
-                    <div>
+                    <div className="mockup-para">
                         <p>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.
                         </p>
                     </div>

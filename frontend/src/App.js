@@ -35,6 +35,11 @@ function App() {
           <Route path='/hosting'>
             <UserSpots/>
           </Route>
+          <Route >
+            <div className='not-found'>
+              <h2>"Page Not Found"</h2>
+            </div>   
+        </Route>
         </Switch>
       )}
     </div>

@@ -1,6 +1,7 @@
 .spot-info {
     margin-top: 20px;
     margin-bottom: 20px;
+    font-size: 16px;
 }
 
 
@@ -63,6 +64,10 @@
 }
 .mockup-item {
     margin: 30px;
+    font-size: 16px;
+}
+.mockup-para {
+    font-size: 16px;
 }
 .spot-desc {
     box-sizing: border-box;
@@ -70,8 +75,11 @@
     margin-top: 10px;
     margin-bottom: 20px;
     max-width: 653px;;
+    
 }
-
+.spot-desc-detail > p {
+    font-size: 16px;
+}
 .reviews-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;  
@@ -96,11 +104,13 @@
     align-items: center;
     padding: 5px;
     font-weight: 600;
+    font-size: 16px;
 }
 
 .review-description {
     padding-top: 10px;
     padding-bottom: 20px;
+    font-size: 15px;
 }
 
 .btn-newreview {

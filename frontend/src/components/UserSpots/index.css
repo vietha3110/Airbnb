@@ -51,6 +51,7 @@
     width: 80px;
     height: 40px;
     background: #5c86dc;
+    cursor: pointer;
 }
 
 .btn-update:hover {
@@ -62,8 +63,4 @@
 
 .update {
     margin-right: 10px;
-}
-
-.btn-delete:hover {
-    background: black;
 }

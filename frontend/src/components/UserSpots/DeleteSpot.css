@@ -29,9 +29,10 @@
     width: 80px;
     height: 40px;
     margin-right: 10px;
+    cursor: pointer;
 }
 .btn-delete:hover {
-    background-color:#db2137 ;
+    background:#db2137 ;
 }
 
 .btn-cancel {
@@ -43,6 +44,7 @@
     font-weight: 700;
     width: 80px;
     height: 40px;
+    cursor: pointer;
 }
 
 .btn-cancel:hover {
@@ -57,5 +59,6 @@
     font-weight: 700;
     width: 120px;
     height: 40px;
-    background: #122242;
+    background: #FF5A5F;
+    cursor: pointer;
 }
