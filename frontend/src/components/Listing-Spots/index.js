@@ -18,8 +18,8 @@ export function ListingSpots() {
             {spots?.length > 0 && spots.map(spot => (
                 <Link to={`/spots/${spot.id}`}>
                     <div key={spot.id} className='spot-card'>
-                        <div>
-                            <img src={spot.previewImage} alt='spot' className='spot-image' />
+                        <div className='spot-image'>
+                            <img src={spot.previewImage} alt='spot'/>
                         </div>
                         <div className='spot-name-row'>
                             <div className='spot-name'>{spot.city}, {spot.state}</div>
@@ -30,8 +30,8 @@ export function ListingSpots() {
                         <div className='spot-name-info'>
                             <div>Recently added</div>
                         </div>
-                        <div className='spot-name-info'>
-                            ${spot.price} night
+                        <div className='spot-name-info' style={{fontWeight:700}}>
+                            ${spot.price} <span style={{fontWeight:300}}>night</span>
                         </div>
                     </div>
                 </Link>

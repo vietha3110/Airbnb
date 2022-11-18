@@ -1,9 +1,10 @@
 .createspot-container {
     display: flex;
     flex-direction: column;
-    width: 800px;
+    width: 80vw;
     align-items: center;
     margin-top: 40px;
+    margin-left: 10vw;
 }
 
 .createspot-welcome {
@@ -12,7 +13,7 @@
 }
 
 .createspot-welcome > h2 {
-    margin: 20px;
+    margin: 5vw;
 }
 
 .createspot-form {
@@ -38,6 +39,9 @@
 
 }
 
+.createspot-form > button {
+    cursor: pointer;
+}
 textarea {
     resize: none;
 }

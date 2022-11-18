@@ -17,8 +17,9 @@ body {
 }
 
 a {
-    font-size: 16px;
+    /* font-size: 16px; */
 }
-/* .page-container {
-    max-width: 1024px;
-} */
+.page-container {
+    width: 95vw;
+    height: 90vh;
+}

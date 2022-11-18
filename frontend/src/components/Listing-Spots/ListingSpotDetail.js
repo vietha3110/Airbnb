@@ -52,22 +52,22 @@ export function SpotDetail() {
             <div className="spot-photo">
                  {spot.SpotImages?.length > 0 &&
                     <div className="spot-photo-container photo-one">
-                        <img src={spot.SpotImages[0].url} alt='spot'className="spot-imagee"/>
+                        <img src={spot.SpotImages[0].url} alt='spot'/>
                     </div>
  
                 } 
                 <div className="spot-photo-container photo-four">
                     <div>
-                        <img src='https://images.pexels.com/photos/7512041/pexels-photo-7512041.jpeg' alt='spot'className="spot-photos"/>
+                        <img src='https://images.pexels.com/photos/7512041/pexels-photo-7512041.jpeg' alt='spot'/>
                     </div>
                     <div>
-                        <img src='https://images.pexels.com/photos/1879061/pexels-photo-1879061.jpeg' alt='spot'className="spot-photos"/>
+                        <img src='https://images.pexels.com/photos/1879061/pexels-photo-1879061.jpeg' alt='spot' className="photo-border1"/>
                     </div>
                     <div>
-                        <img src='https://images.pexels.com/photos/1034584/pexels-photo-1034584.jpeg' alt='spot'className="spot-photos"/>
+                        <img src='https://images.pexels.com/photos/1034584/pexels-photo-1034584.jpeg' alt='spot'/>
                     </div>
                     <div>
-                        <img src='https://images.pexels.com/photos/7598127/pexels-photo-7598127.jpeg' alt='spot'className="spot-photos"/>
+                        <img src='https://images.pexels.com/photos/7598127/pexels-photo-7598127.jpeg' alt='spot'className="photo-border2"/>
                     </div>
                 </div>
             </div>
@@ -80,6 +80,9 @@ export function SpotDetail() {
                     }
                     <div>
                         <img src="https://i.pinimg.com/originals/f9/57/2b/f9572b297b1b28af9b901ca157dcbec2.jpg" alt='brown' className="profile-photo"/>
+                    </div>
+                    <div>
+                        ${spot.price}
                     </div>
                 </div>
                 <div className="spot-mockup">
@@ -114,7 +117,7 @@ export function SpotDetail() {
                 </div>
                 <div className="spot-review">
                     <div className="reviews-container">
-                        <h2>Total Reviews: {spotReviews.length}</h2>
+                        <p style={{fontWeight:700, fontSize:20}}> <i className="fa-solid fa-star" style={{fontSize:17}}></i>{avgRating} - {spotReviews.length} reviews</p>
                         <div className="reviews-cards">
                             {spotReviews?.length > 0 && spotReviews.map(review => (
                                 <div key={review.id} className='review-user-container'>
