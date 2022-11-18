@@ -13,6 +13,7 @@ export function UserSpots() {
     const spotsObj= useSelector(state => state.spots);
     const spots = Object.values(spotsObj.allSpots);
 
+
     useEffect(() => {
         dispatch(getUserSpots())
     }, [dispatch])
@@ -26,11 +27,16 @@ export function UserSpots() {
 
     return (
         <div className='managespot-main'>
-            <div>
-                <h2>Welcome, {sessionUser.firstName}! </h2>
-            </div>
+            {!sessionUser && 
+                <div>
+                    <h2>Please login to see the content</h2>
+                </div>
+            }
             {sessionUser && 
                 <div className='managespot-page'>
+                    <div className='managespot-welcome'>
+                        <h2>Welcome, {sessionUser.firstName}! </h2>
+                    </div>
                     {spots.length > 0 && spots.map(spot => 
                         <div key={spot.id} className='managespot-container'>
                             <div className='managespot-name'>

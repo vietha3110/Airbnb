@@ -1,4 +1,5 @@
 import { csrfFetch } from './csrf';
+import { fetchOneSpot } from './spots';
 
 const ADD_REVIEW = 'reviews/addReview';
 // const LOAD_REVIEWS = 'reviews/loadReviews';
@@ -50,7 +51,11 @@ export const createReview = (spotId, review) => async (dispatch) => {
     // const data = await response.json();
     console.log(response)
     if (response.ok) {
+        const data = await response.json();
+        dispatch(fetchOneSpot(spotId));
         dispatch(fetchSpotReviews(spotId));
+        return data
+
     }
    
     return response;    
@@ -63,6 +68,7 @@ export const deleteReview = (reviewId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(removeReview(reviewId));
+        return data
     } else {
         return response;
     }
@@ -71,6 +77,7 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 let initializedState = {
     spot: {},
 }
+
 
 
 export default function reviewsReducer(state = initializedState, action) {

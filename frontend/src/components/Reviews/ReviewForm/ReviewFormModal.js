@@ -6,7 +6,7 @@ export default function ReviewSpotModal({ spotId }) {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Add a review</button>
+      <button onClick={() => setShowModal(true)} className='btn-create'>Add a review</button>
       {showModal && (
         <Modal>
           <ReviewForm spotId={spotId} onClose={() => setShowModal(false)} />

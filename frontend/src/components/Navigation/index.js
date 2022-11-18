@@ -32,7 +32,9 @@ export default function Navigation({ isLoaded }) {
                         setLogin={setLogin}
                         setShowModal={setShowModal}
                     />
-                        <NewSpot />
+                        <div className="link-createspot">
+                            <NewSpot />
+                        </div>
                     </>
                     )}
             </div>

@@ -9,33 +9,22 @@
 .navigation-bar {
     display: flex;
     flex-direction: row-reverse;
-    margin-right: 40px;
     align-items: center;
 }
-
-.navigation-login{
-    padding: 10px;
+.link-createspot {
+    margin-right: 30px;
+    
 }
 
-.navigation-login > button {
-    background: gray;
-    border-radius: 5px;
-    color: #fff;
-    height: 30px;
-    width: 80px;
-    text-align: center;
+.link-content, .link-content:visited {
+    text-decoration: none;
 }
 
-
-.navigation-signup{
-    padding: 10px;
+.link-content {
+    color: black;
+    font-weight: 700;
+    cursor: pointer;
 }
-
-.navigation-signup > button {
-    background: rgb(227, 28, 95);
-    border-radius: 5px;
-    color: #fff;
-    height: 30px;
-    width: 80px;
-    text-align: center;
+.link-content:hover {
+    color: #FF5A5F;
 }

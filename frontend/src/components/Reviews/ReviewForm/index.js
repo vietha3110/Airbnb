@@ -1,7 +1,6 @@
 import {useState } from "react";
 import * as reviewsAction from '../../../store/reviews';
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import './index.css';
 
 export function ReviewForm(props) {
@@ -12,7 +11,6 @@ export function ReviewForm(props) {
     const modal = props.onClose;
     const spotId = props.spotId;
     const sessionUser = useSelector(state => state.session.user);
-    const history = useHistory();
   
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +32,7 @@ export function ReviewForm(props) {
                         setValidationErrors(['You already rated this spot!']);
                         }
             });
-        history.push(`/spots/${spotId}`);
+        // history.push(`/spots/${spotId}`);
     }
 
     const handleCancelButton = (e) => {
@@ -65,7 +63,7 @@ export function ReviewForm(props) {
                                 onChange={(e) => setRating(e.target.value)}
                                 min="1"
                                 max="5"
-                    
+                                required
                             />
                         </label>
                         </div>
@@ -76,13 +74,14 @@ export function ReviewForm(props) {
                                     value={review}
                                     onChange={(e) => setReview(e.target.value)}
                                     className='input-field'
+                                    required
                                 >
                                 </textarea>
                             </label>
                         </div>
                     <div className="review-button">
-                        <button type="submit">Submit</button>
-                        <button onClick={handleCancelButton}>Cancel</button>
+                        <button type="submit" className="btn-post">Post</button>
+                        <button onClick={handleCancelButton} className='btn-cancel'>Cancel</button>
                     </div>
                 </div> 
                 

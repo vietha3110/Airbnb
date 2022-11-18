@@ -5,3 +5,11 @@
     align-items: center;
     width: 100%;
 }
+
+body {
+    font-family: 'Open Sans', sans-serif;   
+}
+
+/* .page-container {
+    max-width: 1024px;
+} */

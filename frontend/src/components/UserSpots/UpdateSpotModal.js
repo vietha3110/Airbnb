@@ -6,7 +6,7 @@ export default function UpdateSpotModal({spot}) {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Update</button>
+      <button onClick={() => setShowModal(true)}className='btn-update'>Update</button>
       {showModal && (
         <Modal>
           <UpdateSpotForm spot={spot} onClose={() => setShowModal(false)} />

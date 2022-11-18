@@ -1,0 +1,61 @@
+.delete-component {
+    width: 400px;
+    height: 100px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.delete-question {
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+}
+
+.delete-btn {
+    display: flex;
+    flex-direction: row;
+    margin-left: 110px;
+}
+
+
+
+.btn-delete {
+    background-color: #cccccc;
+    color: #fff;
+    border:none; 
+    font-weight: 700;
+    border-radius:10px; 
+    padding:10px;
+    width: 80px;
+    height: 40px;
+    margin-right: 10px;
+}
+.btn-delete:hover {
+    background-color:#db2137 ;
+}
+
+.btn-cancel {
+    background-color:#cccccc;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding:10px;
+    font-weight: 700;
+    width: 80px;
+    height: 40px;
+}
+
+.btn-cancel:hover {
+    background-color: #0a0a23;
+    font-weight: 200;
+}
+.btn-create {
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding:10px;
+    font-weight: 700;
+    width: 120px;
+    height: 40px;
+    background: #122242;
+}

@@ -22,3 +22,15 @@
 .review-button {
     margin-top: 10px;
 }
+
+.btn-post {
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding:10px;
+    font-weight: 700;
+    width: 80px;
+    height: 40px;
+    background: #ff0081;
+    margin-right: 10px;
+}

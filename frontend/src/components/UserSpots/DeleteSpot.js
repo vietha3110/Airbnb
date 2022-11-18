@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import * as spotsActions from '../../store/spots';
+import './DeleteSpot.css';
 
 export function DeleteSpot(props) {
     const spot = props.spot;
@@ -29,12 +30,15 @@ export function DeleteSpot(props) {
         modal();
     }
     return (
-        <div>
-            <div>
-                Are you sure you want to delete this spot?
+        <div className="delete-component">
+            <div className="delete-question">
+                Please confirm the deletion of this spot:
             </div>
-            <button onClick={handleYesButton}>Yes, I am.</button>
-            <button onClick={handleCancelButton}>No, I wanna cancel this action.</button>
+            <div className="delete-btn">
+                <button onClick={handleYesButton} className='btn-delete'>Confirm</button>
+                <button onClick={handleCancelButton}className='btn-cancel'>Cancel</button>
+            </div>
+            
         </div>
     )
 }
