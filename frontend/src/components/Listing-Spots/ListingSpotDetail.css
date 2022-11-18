@@ -63,9 +63,10 @@
 }
 .spot-desc {
     box-sizing: border-box;
-    border-bottom: 1px solid #cccccc;
+    /* border-bottom: 1px solid #cccccc; */
     margin-top: 10px;
     margin-bottom: 20px;
+    max-width: 653px;;
 }
 
 .reviews-cards {
@@ -101,4 +102,9 @@
 
 .btn-newreview {
     margin-top: 20px;
+}
+.spot-review {
+    max-width: 1000px;
+    box-sizing: border-box;
+    border-top: 1px solid #cccccc;
 }

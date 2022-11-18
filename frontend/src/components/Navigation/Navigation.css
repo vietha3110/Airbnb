@@ -12,30 +12,7 @@
     margin-right: 40px;
     align-items: center;
 }
-
-.navigation-login{
-    padding: 10px;
-}
-
-.navigation-login > button {
-    background: gray;
-    border-radius: 5px;
-    color: #fff;
-    height: 30px;
-    width: 80px;
-    text-align: center;
-}
-
-
-.navigation-signup{
-    padding: 10px;
-}
-
-.navigation-signup > button {
-    background: rgb(227, 28, 95);
-    border-radius: 5px;
-    color: #fff;
-    height: 30px;
-    width: 80px;
-    text-align: center;
+.link-createspot {
+    margin-right: 30px;
+    
 }

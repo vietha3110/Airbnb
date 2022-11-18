@@ -4,6 +4,7 @@ import * as sessionActions from '../../store/session';
 // import LoginFormModal from "../LoginFormModal";
 // import SignupFormModal from "../SignupFormModal";
 import { Link } from "react-router-dom";
+import './ProfileButton.css'
 
 export default function ProfileButton({ user, setLogin, setShowModal }) {
     const dispatch = useDispatch();
@@ -48,18 +49,23 @@ export default function ProfileButton({ user, setLogin, setShowModal }) {
 
     return (
         <>
-            <button onClick={onClickMenuButton}>
-                <i className="fas fa-user-circle" />
-            </button>
+            <div className="profile-btn">
+                <button onClick={onClickMenuButton}>
+                <i className="fa-solid fa-bars menu-btn"></i>
+                    <i className="fas fa-user-circle" />
+                </button>
+            </div>
             {showMenu && (user ?
-                (<ul className="profile-dropdown">
-                    <li>{user.username}</li>
-                    <li>{user.email}</li>
-                    <Link to='/hosting'>Manage Listing</Link>
-                    <li>
-                        <button onClick={logout}>Sign out</button>
-                    </li>
-                </ul>) : (
+                <div className="dropdown">
+                    <ul className="profile-dropdown">
+                        <li>{user.username}</li>
+                        <li>{user.email}</li>
+                        <Link to='/hosting'>Manage Listing</Link>
+                        <li>
+                            <button onClick={logout}>Sign out</button>
+                        </li>
+                    </ul>
+                </div>: (
                     <ul className="profile-dropdown">
                         <li>
                             <button onClick={() => {
