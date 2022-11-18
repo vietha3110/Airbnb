@@ -1,3 +1,11 @@
+.spot-container {
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    margin-left: 8vw;
+}
+
+
 .spot-info {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -10,42 +18,44 @@
 .spot-photo {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* gap: 10px; */
+    gap: 10px;
     box-sizing: border-box;
     border-radius: 10px;
-    /* margin-top: 20px; */
+    width: 80vw;
+    box-sizing: border-box;   
 }
 
-.spot-imagee {
-    width: 560px;
-    height: 495px;
-    object-fit: cover;
-    /* border-radius: 5px; */
-
+.photo-one > img {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
+
 
 .photo-four {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    /* gap: 10px; */
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+}
+.photo-border1 {
+    border-top-right-radius: 15px;
+}
+.photo-border2 {
+    border-bottom-right-radius: 15px;
 }
 
-.spot-photos {
-    width: 272px;
-    height: 245px;
-    /* border-radius: 5px; */
-}
 
 .spot-detail-container {
     margin-top: 20px;
+    /* width: 80vw; */
 }
 
 .spot-host {
     display: grid;
-    grid-template-columns: 600px 50px;
+    grid-template-columns: 1.5fr 0.5fr;
     box-sizing: border-box;
     border-bottom: 1px solid #cccccc;
-    width: 653px;
+    width: 40vw;
     height: 100px;
 }
 .host-name {
@@ -60,7 +70,7 @@
 .spot-mockup {
     box-sizing: border-box;
     border-bottom: 1px solid #cccccc;
-    width: 653px;
+    width: 40vw;
 }
 .mockup-item {
     margin: 30px;
@@ -74,7 +84,7 @@
     /* border-bottom: 1px solid #cccccc; */
     margin-top: 10px;
     margin-bottom: 20px;
-    max-width: 653px;;
+    max-width: 40vw;
     
 }
 .spot-desc-detail > p {
@@ -120,4 +130,5 @@
     /* max-width: 1000px; */
     box-sizing: border-box;
     border-top: 1px solid #cccccc;
+    width: 80vw;
 }

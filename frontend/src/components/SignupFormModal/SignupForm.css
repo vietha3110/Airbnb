@@ -5,7 +5,7 @@
     color: #222;
     background: #ffffff;
     padding: 20px;
-    width: 520px;
+    width: 50vw;
 }
 
 .signup-header > p {
@@ -55,6 +55,7 @@
     border-radius: 5px;
     color: #ffffff;
     background: #cccccc;
+    cursor: pointer;
 }
 
 .signup-btn > button:hover {
