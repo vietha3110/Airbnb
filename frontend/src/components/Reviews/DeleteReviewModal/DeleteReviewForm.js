@@ -1,16 +1,13 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import * as reviewsActions from '../../../store/reviews';
-import { useHistory } from "react-router-dom";
 
 export function DeleteReviewForm(props) {
     const reviewId = props.review;
     const modal = props.onClose;
     const spotId = props.spotId;
-    console.log(spotId)
     const [validationErrors, setValidationErrors] = useState([]);
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const handleYesButton = (e) => {
         e.preventDefault();
@@ -25,7 +22,6 @@ export function DeleteReviewForm(props) {
                 setValidationErrors(error);
             }
         })
-        // returnhistory.push(`/spots/${spotId}`)
     }
     if (validationErrors.length > 0) {
         alert("There is an error! Please try again!")
