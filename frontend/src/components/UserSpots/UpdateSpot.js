@@ -9,8 +9,10 @@ export function UpdateSpotForm(props) {
     const [city, setCity] = useState(spot.city);
     const [state, setState] = useState(spot.state);
     const [country, setCountry] = useState(spot.country);
-    const [lat, setLat] = useState(spot.lat);
-    const [lng, setLng] = useState(spot.lng);
+    // const [lat, setLat] = useState(spot.lat);
+    // const [lng, setLng] = useState(spot.lng);
+    const lat = 47.823;
+    const lng = 123;
     const [name, setName] = useState(spot.name);
     const [description, setDescription] = useState(spot.description);
     const [price, setPrice] = useState(spot.price);
@@ -95,32 +97,6 @@ export function UpdateSpotForm(props) {
                             required
                             placeholder='Country'
                             className="field"
-                        />
-                    </label>
-                </div>
-                <div className="creatspot-fields">
-                    <label>
-                        <input
-                            type='number'
-                            step='any'
-                            value={lat}
-                            onChange={(e) => setLat(e.target.value)}
-                            placeholder='Latitude'
-                            className="field"
-                            required
-                        />
-                    </label>
-                </div>
-                <div className="creatspot-fields">
-                    <label>
-                        <input
-                            type='number'
-                            step='any'
-                            value={lng}
-                            onChange={(e) => setLng(e.target.value)}
-                            placeholder='Longitude'
-                            className="field"
-                            required
                         />
                     </label>
                 </div>

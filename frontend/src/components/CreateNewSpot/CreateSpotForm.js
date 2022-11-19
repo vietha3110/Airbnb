@@ -14,8 +14,10 @@ export function CreateSpotForm() {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
-    const [lat, setLat] = useState('');
-    const [lng, setLng] = useState('');
+    // const [lat, setLat] = useState('');
+    // const [lng, setLng] = useState('');
+    const lat = 47.823;
+    const lng = 123;
     const [url, setUrl] = useState('');
     const [validationErrors, setValidationErrors] = useState([]);
     const preview = true;
@@ -124,32 +126,6 @@ export function CreateSpotForm() {
                             required
                             placeholder='Country'
                             className='input-field'
-                        />
-                    </label>
-                </div>
-                <div className='creatspot-field'>
-                    <label>
-                        <input
-                            type='number'
-                            step='any'
-                            value={lat}
-                            onChange={(e) => setLat(e.target.value)}
-                            placeholder='Latitude'
-                            className='input-field'
-                            required
-                        />
-                    </label>
-                </div>
-                <div className='creatspot-field'>
-                    <label>
-                        <input
-                            type='number'
-                            step='any'
-                            value={lng}
-                            onChange={(e) => setLng(e.target.value)}
-                            placeholder='Longitude'
-                            className='input-field'
-                            required
                         />
                     </label>
                 </div>
