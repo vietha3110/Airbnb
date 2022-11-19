@@ -57,16 +57,16 @@ export function SpotDetail() {
  
                 } 
                 <div className="spot-photo-container photo-four">
-                    <div>
+                    <div className="photo-four1">
                         <img src='https://images.pexels.com/photos/7512041/pexels-photo-7512041.jpeg' alt='spot'/>
                     </div>
-                    <div>
+                    <div className="photo-four1">
                         <img src='https://images.pexels.com/photos/1879061/pexels-photo-1879061.jpeg' alt='spot' className="photo-border1"/>
                     </div>
-                    <div>
+                    <div className="photo-four1">
                         <img src='https://images.pexels.com/photos/1034584/pexels-photo-1034584.jpeg' alt='spot'/>
                     </div>
-                    <div>
+                    <div className="photo-four1">
                         <img src='https://images.pexels.com/photos/7598127/pexels-photo-7598127.jpeg' alt='spot'className="photo-border2"/>
                     </div>
                 </div>
@@ -82,12 +82,13 @@ export function SpotDetail() {
                         <div>
                             <img src="https://i.pinimg.com/originals/f9/57/2b/f9572b297b1b28af9b901ca157dcbec2.jpg" alt='brown' className="profile-photo"/>
                         </div>
-                    </div>
-                    <div className="spot-price">
+                        <div className="spot-price">
                             ${spot.price} <span style={{fontWeight:300}}>/night</span>
+                        </div>
                     </div>
+                    
                 </div>
-                <div className="spot-mockup">
+                <div className="spot-mockup1">
                     <div className="mockup-item">
                         <i className="fa-solid fa-check"></i> Self Checkin
                     </div>

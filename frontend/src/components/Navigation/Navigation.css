@@ -2,6 +2,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     flex-direction: row;
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
 }
 .navigation-logo {
     padding-left: 30px;

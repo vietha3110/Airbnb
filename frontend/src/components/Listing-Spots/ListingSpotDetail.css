@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: column;
     margin-left: 8vw;
+    margin-top: 30px;
+    
 }
 
 
@@ -21,6 +23,15 @@
     border-radius: 10px;
     width: 80vw;
     box-sizing: border-box;   
+    
+}
+
+.photo-one {
+    height: 600px;
+}
+
+.photo-four1 {
+    height: 295.2px;
 }
 
 .photo-one > img {
@@ -53,12 +64,12 @@
     width: 80vw;
 }
 .spot-host {
-    display: grid;
-    grid-template-columns: 1.5fr 0.5fr;
-    box-sizing: border-box;
-    border-bottom: 1px solid #cccccc;
-    width: 40vw;
-    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    /* box-sizing: border-box;
+    border-bottom: 1px solid #cccccc; */
+     width: 80vw; 
+    /* height: 100px; */ 
 }
 
 .spot-price {
@@ -67,7 +78,7 @@
     box-sizing: border-box;
     align-content: center;
     padding:1vh;
-    height: 6vh;
+    /* border: 1px solid #cccccc; */
 }
 .profile-photo {
     border-radius: 80%;
@@ -78,8 +89,17 @@
 .spot-mockup {
     box-sizing: border-box;
     border-bottom: 1px solid #cccccc;
-    width: 40vw;
+    width: 47vw;
 }
+
+.spot-mockup1 {
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
+    width: 47vw;
+    border-top: 1px solid #cccccc;
+
+}
+
 .mockup-item {
     margin: 30px;
     font-size: 16px;
