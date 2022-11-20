@@ -7,9 +7,9 @@ It is a fullstack Postgres, Node, React, Redux, CSS application. The majority of
 The backend serves the frontend, responds to frontend requests, and fetches data from the Postgres database.
 
 ## Table of Contents
-* [MVP Feature List]
-* [Database Schema]
-* [Backend Routes]
+* [MVP Feature List](https://github.com/vietha3110/Airbnb/wiki/Feature-List)
+* [Database Schema](https://github.com/vietha3110/Airbnb/wiki/Database-Schema)
+* [Backend Routes](https://github.com/vietha3110/Airbnb/wiki/API-Endpoints)
 * [Front End Routes]
 * [User Stories]
 
@@ -22,5 +22,3 @@ The backend serves the frontend, responds to frontend requests, and fetches data
 You will be able to test the features without sign up by click on the "Demo User" button. 
 
 *[Spot Details Page]
-
-
