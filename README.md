@@ -13,7 +13,8 @@ The backend serves the frontend, responds to frontend requests, and fetches data
 * [FrontEnd Routes](https://github.com/vietha3110/Airbnb/wiki/Redux-Store-Shape)
 
 ## Tech Stack
-*Frameworks, Platforms and Libraries: 
+- Frameworks, Platforms and Libraries: 
+
 ![JavaScript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 ![Node](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
@@ -22,17 +23,17 @@ The backend serves the frontend, responds to frontend requests, and fetches data
 ![SEQUELIZE](https://img.shields.io/badge/sequelize-323330?style=for-the-badge&logo=sequelize&logoColor=blue)
 ![JSONWEBTOKEN](https://img.shields.io/badge/json%20web%20tokens-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink)
 ![REACT](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![REDUX](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)*
+![REDUX](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
 
-*Database
-![POSTGRES](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)*
+- Database:
 
-*Hosting
-![HEROKU](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)*
+![POSTGRES](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 
-## Home Page
+- Hosting:
 
-## Basic Feaures
+![HEROKU](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
+
+## Basic Features
 - Home Page 
 
 ![HomePage](./images/HomePage.png)
@@ -68,7 +69,6 @@ The backend serves the frontend, responds to frontend requests, and fetches data
 - Delete review: Only user who created the review can see the delete button to remove their review
 
 ![DeleteReviewBtn](./images/UserDeleteReviewBtn.png)
-
 
 - Create New Spot 
 
