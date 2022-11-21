@@ -23,12 +23,12 @@ export function ListingSpots() {
                         </div>
                         <div className='spot-name-row'>
                             <div className='spot-name'>{spot.city}, {spot.state}</div>
-                            <div>
+                            <div style={{fontSize:14}}>
                             <i className="fa-solid fa-star"></i>{spot.avgRating ? spot.avgRating : 0}
                             </div>
                         </div>
                         <div className='spot-name-info'>
-                            <div>Recently added</div>
+                            <div style={{fontSize:13}}>Recently added</div>
                         </div>
                         <div className='spot-name-info' style={{fontWeight:700}}>
                             ${spot.price} <span style={{fontWeight:300}}>night</span>
