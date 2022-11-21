@@ -46,7 +46,7 @@
 .spot-name {
     flex-grow: 1;
     max-width: 18vw;
-    font-size: 15.5px;
+    font-size: 14px;
     font-weight: 700;
 }
 .spot-name-info {

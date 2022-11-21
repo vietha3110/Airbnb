@@ -10,7 +10,8 @@ The backend serves the frontend, responds to frontend requests, and fetches data
 * [MVP Feature List](https://github.com/vietha3110/Airbnb/wiki/Feature-List)
 * [Database Schema](https://github.com/vietha3110/Airbnb/wiki/Database-Schema)
 * [Backend Routes](https://github.com/vietha3110/Airbnb/wiki/API-Endpoints)
-* [FrontEnd Routes](https://github.com/vietha3110/Airbnb/wiki/Redux-Store-Shape)
+* [FrontEnd Routes](https://github.com/vietha3110/Airbnb/wiki/Frontend-Routes)
+* [Redux Store Shape](https://github.com/vietha3110/Airbnb/wiki/Redux-Store-Shape)
 
 ## Tech Stack
 - Frameworks, Platforms and Libraries: 
