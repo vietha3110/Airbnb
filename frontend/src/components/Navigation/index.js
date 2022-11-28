@@ -21,8 +21,23 @@ export default function Navigation({ isLoaded }) {
             <div className="navigation-logo">
                 <NavLink exact to='/'><img src={logo} alt='logo' style={{width:120, height:80} } /></NavLink>
             </div>
-            <div>
-
+            <div className="navigation-mid">
+                <div className="search-container">
+                    <div className="search-where">
+                        <span>Anywhere</span>
+                    </div>
+                    <div className="search-time">
+                        <span>Any week</span>
+                    </div>
+                    <div className="search-guest">
+                        <div>
+                            <span>Any guests</span>
+                        </div>
+                        <div className="btn-container">
+                            <button className="btn-search"><i className="fa-solid fa-magnifying-glass" style={{fontSize:14}}></i></button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="navigation-bar">
                 {isLoaded && (
