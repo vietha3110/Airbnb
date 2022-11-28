@@ -1,10 +1,34 @@
+.createspot-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.createspot-video {
+    box-sizing: border-box;
+    /* border-right: 1px solid #cccccc; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.createspot-youtube {
+    margin: 20px;
+}
+.createspot-youtube > iframe {
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin: 10px;
+}
 .createspot-container {
     display: flex;
     flex-direction: column;
-    width: 80vw;
+    /* width: 80vw; */
+    justify-content: center;
+
     align-items: center;
-    margin-top: 40px;
-    margin-left: 10vw;
+    /* margin-top: 40px; */
+    /* margin-left: 10vw; */
 }
 
 .createspot-welcome {
@@ -25,23 +49,36 @@
 .creatspot-field {
     margin: 10px;
 }
+
+.input-fieldSpot {
+    width: 30vw;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    color: black;
+    padding: 15px;
+    font-size: 15px;
+}
+
+
 .createspot-form > button {
-    width: 320px;
-    height: 40px;
-    border-radius: 5px;
+    width: 31.5vw;
+    height: 50px;
+    border-radius: 10px;
     color: #ffffff;
     background: #cccccc;
     margin : 30px;
+    cursor: pointer;
+    outline: none;
+    border: none;
 }
 
 .createspot-form > button:hover {
-    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
+    background: #FF5A5F
 
 }
 
-.createspot-form > button {
-    cursor: pointer;
-}
+
 textarea {
     resize: none;
 }

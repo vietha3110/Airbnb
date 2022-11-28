@@ -70,115 +70,125 @@ export function CreateSpotForm() {
     }
 
     return (
-        <div className='createspot-container'>
-            <div className='createspot-welcome'>
-                    <h2>Host your place</h2>
+        <div className='createspot-main'>
+            <div className='createspot-video'>
+                <div className='createspot-welcome'>
+                    <h1>It’s easy to get started on Airbnb</h1>
+                </div>
+                <div className='createspot-youtube'>
+                    <iframe width="480" height="720" src="https://www.youtube.com/embed/KT9zihN24bE?autoplay=1&rel=0" title="Introducing Airbnb Plus | Airbnb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
             </div>
-            <form onSubmit={handleSubmit} className='createspot-form'>
-                {validationErrors.length > 0 && 
-                    <ul>
-                        {validationErrors.map(error => 
-                            <li key={error}>{error}</li>)}
-                    </ul>
-                }
-                <div className='creatspot-field'>
-                    <label>
-                        <input
-                            type='text'
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            required
-                            placeholder='Address'
-                            className='input-field'
+            <div className='createspot-container'>
+                <div className='createspot-welcome'>
+                        <h2>Host your place</h2>
+                </div>
+                <form onSubmit={handleSubmit} className='createspot-form'>
+                    {validationErrors.length > 0 &&
+                        <ul>
+                            {validationErrors.map(error =>
+                                <li key={error}>{error}</li>)}
+                        </ul>
+                    }
+                    <div className='creatspot-field'>
+                        <label>
+                            <input
+                                type='text'
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                required
+                                placeholder='Address'
+                                className='input-fieldSpot'
+                            />
+                        </label>
+                    </div>
+                    <div className='creatspot-field'>
+                        <label>
+                            <input
+                                type='text'
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                                required
+                                placeholder='City'
+                                className='input-fieldSpot'
+                            />
+                        </label>
+                    </div>
+                    <div className='creatspot-field'>
+                        <label>
+                            <input
+                                type='text'
+                                value={state}
+                                onChange={(e) => setState(e.target.value)}
+                                required
+                                placeholder='State'
+                                className='input-fieldSpot'
+                            />
+                        </label>
+                    </div>
+                    <div className='creatspot-field'>
+                        <label>
+                            <input
+                                type='text'
+                                value={country}
+                                onChange={(e) => setCountry(e.target.value)}
+                                required
+                                placeholder='Country'
+                                className='input-fieldSpot'
+                            />
+                        </label>
+                    </div>
+                    <div className='creatspot-field'>
+                        <label>
+                            <input
+                                type='text'
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                                placeholder='Name your place'
+                                className='input-fieldSpot'
+                            />
+                        </label>
+                    </div>
+                    <div className='creatspot-field'>
+                        <label>
+                            <textarea
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                required
+                                className='input-fieldSpot'
+                                placeholder='Description: Describe the decor, light, location, etc...'
+                            />
+                        </label>
+                    </div>
+                    <div className='creatspot-field'>
+                        <label>
+                            <input
+                                type='number'
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                required
+                                placeholder='$Price'
+                                className='input-fieldSpot'
+                                min='1'
+                            />
+                        </label>
+                    </div>
+                    <div className='creatspot-field'>
+                        <label>
+                            <input
+                                type='url'
+                                value={url}
+                                onChange={(e) => setUrl(e.target.value)}
+                                required
+                                placeholder='Image Link'
+                                className='input-fieldSpot'
                         />
-                    </label>
-                </div>
-                <div className='creatspot-field'>
-                    <label>
-                        <input
-                            type='text'
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                            required
-                            placeholder='City'
-                            className='input-field'
-                        />
-                    </label>
-                </div>
-                <div className='creatspot-field'>
-                    <label>
-                        <input
-                            type='text'
-                            value={state}
-                            onChange={(e) => setState(e.target.value)}
-                            required
-                            placeholder='State'
-                            className='input-field'
-                        />
-                    </label>
-                </div>
-                <div className='creatspot-field'>
-                    <label>
-                        <input
-                            type='text'
-                            value={country}
-                            onChange={(e) => setCountry(e.target.value)}
-                            required
-                            placeholder='Country'
-                            className='input-field'
-                        />
-                    </label>
-                </div>
-                <div className='creatspot-field'>
-                    <label>
-                        <input
-                            type='text'
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                            placeholder='Name your place'
-                            className='input-field'
-                        />
-                    </label>
-                </div>
-                <div className='creatspot-field'>
-                    <label>
-                        <textarea
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            required
-                            className='input-field'
-                            placeholder='Description: Describe the decor, light, location, etc...'
-                        />
-                    </label>
-                </div>
-                <div className='creatspot-field'>
-                    <label>
-                        <input
-                            type='number'
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                            required
-                            placeholder='$Price'
-                            className='input-field'
-                            min='1'
-                        />
-                    </label>
-                </div>
-                <div className='creatspot-field'>
-                    <label>
-                        <input
-                            type='url'
-                            value={url}
-                            onChange={(e) => setUrl(e.target.value)}
-                            required
-                            placeholder='Image Link'
-                            className='input-field'
-                    />
-                    </label>
-                </div>
-                <button type='submit'>Agree & Submit</button>
-            </form>
+                        </label>
+                    </div>
+                    <button type='submit'>Agree & Submit</button>
+                </form>
+            </div>
         </div>
     )
 }
