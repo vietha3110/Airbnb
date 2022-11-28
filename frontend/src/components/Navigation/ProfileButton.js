@@ -60,7 +60,7 @@ export default function ProfileButton({ user, setLogin, setShowModal }) {
                     <ul className="profile-dropdown">
                         <div className="dropdown-user">
                             <div>
-                                {user.username}
+                                Hello, {user.firstName}!
                             </div>
                             <div>
                                 {user.email}
