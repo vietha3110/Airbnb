@@ -8,6 +8,7 @@ import { ListingSpots } from './components/Listing-Spots';
 import { CreateSpotForm } from './components/CreateNewSpot/CreateSpotForm';
 import { SpotDetail } from './components/Listing-Spots/ListingSpotDetail';
 import { UserSpots } from './components/UserSpots';
+import { Footer } from './components/Footer';
 function App() {
 
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <ListingSpots />
+            <Footer/>
           </Route>
           <Route path='/spots/new'>
               <CreateSpotForm/>
