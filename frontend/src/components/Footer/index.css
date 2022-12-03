@@ -1,0 +1,30 @@
+footer {
+    box-sizing: border-box;
+    border-top: 1px solid #cccccc;
+    
+}
+
+.footer-container {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 20px
+}
+.footer-left, .footer-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.personal-link > a {
+    text-decoration: none;
+
+}
+
+.personal-link>a:hover {
+    color: #FF5A5F;
+    font-weight: 700;
+}
+a:visited {
+    text-decoration: none;
+    color: black
+}

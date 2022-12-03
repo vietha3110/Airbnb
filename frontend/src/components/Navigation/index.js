@@ -31,7 +31,7 @@ export default function Navigation({ isLoaded }) {
                     </div>
                     <div className="search-guest">
                         <div>
-                            <span>Any guests</span>
+                            <span>Add guests</span>
                         </div>
                         <div className="btn-container">
                             <button className="btn-search"><i className="fa-solid fa-magnifying-glass" style={{fontSize:14}}></i></button>
