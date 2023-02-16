@@ -1,0 +1,98 @@
+.booking-container {
+    border: 1px solid rgb(221, 221, 221);;
+    padding: 1rem;
+    width: 25vw;
+    position: absolute;
+    right: 10%;
+    border-radius: 12px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;;
+}
+
+.booking-title {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+   
+}
+.booking-title > span, .booking-title-right {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: rgba(0,0,0,.5);
+}
+
+.booking-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-info-box {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+.booking-info-time {
+    display: flex;
+    flex-direction: row;
+    font-size: 1rem;
+    /* border: 1px solid #cccccc; */
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.5px solid #cccccc;
+    height: 45px;
+    padding: 3px;
+}
+
+.booking-info-checkin, .booking-info-checkout {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.booking-info-checkin > span, .booking-info-checkout > span {
+    font-size: 0.7rem;
+}
+
+.booking-info-timeinput {
+    border: none;
+}
+
+.booking-info-timeinput:focus {
+    border: none;
+} 
+
+.booking-info-guest {
+    display: flex;
+    justify-content: center;
+    flex-direction: center;
+    height: 40px;
+    border-top: 0.5px solid #cccccc;
+}
+
+.booking-info-guest > span {
+    font-size: 0.7rem;
+    padding: 5px;
+}
+
+.booking-info-guest > input {
+    border: none;
+    width: 100%;
+    text-align: center;
+}
+
+input:focus{
+    outline: none;
+}
+
+.booking-info-cfbtn {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #FF385C;
+    color: #fff;
+    font-size: 0.8rem;
+    height: 40px;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}

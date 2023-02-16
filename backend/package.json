@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Database Schema Design",
   "main": "index.js",
   "scripts": {
     "sequelize": "sequelize",
