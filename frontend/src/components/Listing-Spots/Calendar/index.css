@@ -1,7 +1,7 @@
 .booking-container {
     border: 1px solid rgb(221, 221, 221);;
-    padding: 1rem;
-    width: 25vw;
+    padding: 10px;
+    width: 256px;
     position: absolute;
     right: 10%;
     border-radius: 12px;
@@ -10,14 +10,23 @@
 
 .booking-title {
     display: flex;
+    height: 40px;
+    flex-direction: row;
     justify-content: space-between;
-    height: 30px;
-   
 }
-.booking-title > span, .booking-title-right {
+.booking-title-right, .booking-title-left {
     font-size: 0.8rem;
     font-weight: 400;
-    color: rgba(0,0,0,.5);
+    color: black;
+    display: flex;
+    flex-grow: 1;
+    padding-left: 6px;
+    height: 30px;  
+    display: flex;
+    align-items: center;
+}
+.booking-title-left > span {
+    font-weight: 600;
 }
 
 .booking-content {
@@ -35,20 +44,21 @@
     flex-direction: row;
     font-size: 1rem;
     /* border: 1px solid #cccccc; */
-    justify-content: center;
     align-items: center;
-    border-bottom: 0.5px solid #cccccc;
-    height: 45px;
-    padding: 3px;
+    /* border-bottom: 0.5px solid #cccccc; */
 }
 
 .booking-info-checkin, .booking-info-checkout {
-    display: flex;
-    flex-direction: column;
-   
+    height: 50px
+}
+.booking-info-checkout  {
+    padding-left: 5px;
+}
+.booking-info-checkin {
+    border-right: 1px solid #cccccc;
 }
 
-.booking-info-checkin > span, .booking-info-checkout > span {
+.booking-info-checkin > label, .booking-info-checkout > label {
     font-size: 0.7rem;
 }
 
@@ -66,6 +76,7 @@
     flex-direction: center;
     height: 40px;
     border-top: 0.5px solid #cccccc;
+    width: 100%;
 }
 
 .booking-info-guest > span {
@@ -95,4 +106,45 @@ input:focus{
     justify-content: center;
     align-items: center;
     display: flex;
+}
+
+input[type="date"] {
+  appearance: none; /* hide the default arrow */
+  font-size: 12px; /* set the font size */
+}
+
+/* style the arrow icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.booking-info-guest-select {
+    display: block;
+    width: 100%;
+    text-align: center;
+    appearance: none;
+    outline-color: transparent;
+    outline-style: none;
+}
+.booking-info-guest-select:focus {
+    appearance: none;
+    outline-color: transparent;
+    outline-style: none;
+}
+
+.booking-info-time-label {
+    width: 128px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+.booking-info-time-label > label {
+    padding: 3px
 }
