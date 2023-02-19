@@ -1,0 +1,160 @@
+.booking-container {
+    border: 1px solid rgb(221, 221, 221);;
+    padding: 10px;
+    width: 256px;
+    position: absolute;
+    right: 10%;
+    border-radius: 12px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;;
+}
+
+.booking-title {
+    display: flex;
+    height: 40px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.booking-title-right, .booking-title-left {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: black;
+    display: flex;
+    flex-grow: 1;
+    padding-left: 6px;
+    height: 30px;  
+    display: flex;
+    align-items: center;
+}
+.booking-title-left > span {
+    font-weight: 600;
+}
+
+.booking-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-info-box {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+.booking-info-time {
+    display: flex;
+    flex-direction: row;
+    font-size: 1rem;
+    /* border: 1px solid #cccccc; */
+    align-items: center;
+    /* border-bottom: 0.5px solid #cccccc; */
+}
+
+.booking-info-checkin, .booking-info-checkout {
+    height: 50px
+}
+.booking-info-checkout  {
+    padding-left: 5px;
+}
+.booking-info-checkin {
+    border-right: 1px solid #cccccc;
+}
+
+.booking-info-checkin > label, .booking-info-checkout > label {
+    font-size: 0.7rem;
+}
+
+.booking-info-timeinput {
+    border: none;
+}
+
+.booking-info-timeinput:focus {
+    border: none;
+} 
+
+.booking-info-guest {
+    display: flex;
+    justify-content: center;
+    flex-direction: center;
+    height: 40px;
+    border-top: 0.5px solid #cccccc;
+    width: 100%;
+}
+
+.booking-info-guest > span {
+    font-size: 0.7rem;
+    padding: 5px;
+}
+
+.booking-info-guest > input {
+    border: none;
+    width: 100%;
+    text-align: center;
+}
+
+input:focus{
+    outline: none;
+}
+
+.booking-info-cfbtn {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #FF385C;
+    color: #fff;
+    font-size: 0.8rem;
+    height: 40px;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.booking-info-cfstm {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.5);
+    font-weight: 300;
+    margin: 5px;
+}
+
+input[type="date"] {
+  appearance: none; /* hide the default arrow */
+  font-size: 12px; /* set the font size */
+}
+
+/* style the arrow icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.booking-info-guest-select {
+    display: block;
+    width: 100%;
+    text-align: center;
+    appearance: none;
+    outline-color: transparent;
+    outline-style: none;
+}
+.booking-info-guest-select:focus {
+    appearance: none;
+    outline-color: transparent;
+    outline-style: none;
+}
+
+.booking-info-time-label {
+    width: 128px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+.booking-info-time-label > label {
+    padding: 3px
+}

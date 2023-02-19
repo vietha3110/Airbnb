@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import * as reviewsAction from '../../store/reviews';
 import ReviewSpotModal from "../Reviews/ReviewForm/ReviewFormModal";
 import DeleteReviewModal from "../Reviews/DeleteReviewModal";
+import BookingCalendar from "./Calendar";
 
 import './ListingSpotDetail.css';
 export function SpotDetail() {
@@ -82,11 +83,11 @@ export function SpotDetail() {
                         <div>
                             <img src="https://i.pinimg.com/originals/f9/57/2b/f9572b297b1b28af9b901ca157dcbec2.jpg" alt='brown' className="profile-photo"/>
                         </div>
-                        <div className="spot-price">
-                            ${spot.price} <span style={{fontWeight:300}}>/night</span>
-                        </div>
                     </div>
-                    
+                </div>
+                <div className="spot-price">
+                    {/* ${spot.price} <span style={{fontWeight:300}}>/night</span> */}
+                    <BookingCalendar avgRating={avgRating} reviews={spotReviews.length} price={spot.price} />
                 </div>
                 <div className="spot-mockup1">
                     <div className="mockup-item">

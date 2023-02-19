@@ -23,7 +23,7 @@
     border-radius: 10px;
     width: 80vw;
     box-sizing: border-box;   
-    
+    position: relative;
 }
 
 .photo-one {
@@ -68,7 +68,7 @@
     justify-content: space-between;
     /* box-sizing: border-box;
     border-bottom: 1px solid #cccccc; */
-     width: 80vw; 
+     width: 47vw; 
     /* height: 100px; */ 
 }
 
