@@ -12,6 +12,12 @@ const BookingCalendar = ({ avgRating, reviews, price }) => {
     const [end, setEnd] = useState(null); 
     const [focusedInput, setFocusedInput] = useState(null);
 
+    const onReserve = () => {
+        const startDate = start._d.toISOString().slice(0, 10);
+        const endDate = end._d.toISOString().slice(0, 10);
+
+    }
+
     return (
         <div className="booking-container">
             <div className="booking-title">
@@ -47,7 +53,7 @@ const BookingCalendar = ({ avgRating, reviews, price }) => {
                             focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
                             onFocusChange={focusedInput => setFocusedInput(focusedInput)} // PropTypes.func.isRequired,
                         />
-                        {/* <div className="booking-info-guest">
+                        <div className="booking-info-guest">
                             <select className="booking-info-guest-select">
                                 <option value="">-- Select Number of Guests --</option>
                                 <option value="1">1</option>
@@ -59,10 +65,16 @@ const BookingCalendar = ({ avgRating, reviews, price }) => {
                                 <option value="7">7</option>
                                 <option value="8">8</option>
                             </select>
-                        </div> */}
+                        </div>
                     </div>
-                    <div className="booking-info-cfbtn">
+                    <div className="booking-info-cfbtn" onClick={onReserve}>
                         <span>Reserve</span>
+                    </div>
+                    <div className="booking-info-cfstm">
+                        <span>You won't be charge yet</span>
+                    </div>
+                    <div>
+                        
                     </div>
                 </div>
             </div>

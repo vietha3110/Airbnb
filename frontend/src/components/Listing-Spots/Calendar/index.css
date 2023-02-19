@@ -108,6 +108,16 @@ input:focus{
     display: flex;
 }
 
+.booking-info-cfstm {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.5);
+    font-weight: 300;
+    margin: 5px;
+}
+
 input[type="date"] {
   appearance: none; /* hide the default arrow */
   font-size: 12px; /* set the font size */
