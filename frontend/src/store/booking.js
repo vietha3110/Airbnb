@@ -33,21 +33,75 @@ export function editBooking(booking) {
     }
 }
 
-
-let initializedState = {
-    allSpots: {},
-    singleSpot: {}
+export const fetchUserBookings =  () => async (dispatch) =>{
+    try {
+        const response = await csrfFetch(`/api/bookings/current`);
+        const data = await response.json();
+        dispatch(loadUserBookings(data));
+    } catch (err) {
+        throw err;
+    }
 }
-//fail => start with {}
 
-export default function bookingsReducer(state = initializedState, action) {
+export const makeBooking = (booking) => async (dispatch) => {
+    const spotId = booking.spotId;
+    const { startDate, endDate } = booking;
+    try { 
+        const response = csrfFetch(`/api/spots/#${spotId}/booking`, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({startDate, endDate})
+        });
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(createBooking(data));
+            return data;
+        } else {
+            const data = await response.json();
+            return data;
+        }
+    } catch (err) {
+        throw err;
+    }
+}
+
+export const updateBooking = (booking) => async (dispatch) => {
+    try {
+
+    } catch (err) {
+        throw err;
+    }
+}
+
+export const deleteBooking = (bookingId) => async (dispatch) => { 
+    try {
+
+    } catch (err) {
+
+    }
+}
+let initialState = {
+    bookings: {}
+}
+export default function bookingsReducer(state = initialState, action) {
+    let newState;
     switch (action.type) {
-        // case LOAD_BOOKINGS: {
-        
-        // }
+        case LOAD_BOOKINGS: {
+            newState = { ...state };
+            for (let booking of action.bookings) {
+                newState.bookings[booking.id] = booking;
+            };
+            return newState
+        }
             
-        // case CREATE_BOOKING: {            
-        // }
+        case CREATE_BOOKING: {      
+            newState = { ...state };
+            const booking = action.booking;
+            newState.bookings[booking.id] = booking;
+            return newState;
+        }
            
        
        

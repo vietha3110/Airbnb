@@ -1,20 +1,32 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import './index.css';
 import 'react-dates/lib/css/_datepicker.css';
+import * as bookingAction from '../../../store/booking';
 
 
-const BookingCalendar = ({ avgRating, reviews, price }) => {
+const BookingCalendar = ({ avgRating, reviews, price, id }) => {
     // let objDate = new Date();
     // let dateFormat = objDate.getMonth() + "/" + objDate.getDate() + "/" + objDate.getFullYear();
     const [start, setStart] = useState(null);
     const [end, setEnd] = useState(null); 
     const [focusedInput, setFocusedInput] = useState(null);
+    const dispatch = useDispatch();
 
     const onReserve = () => {
         const startDate = start._d.toISOString().slice(0, 10);
         const endDate = end._d.toISOString().slice(0, 10);
+        const bookingInfo = { startDate, endDate, spotId: id };
+        const response = dispatch(bookingAction.createBooking(bookingInfo))
+            .then(() => {
+            
+            })
+            .catch((err) => {
+                throw err;
+            })
+
 
     }
 
