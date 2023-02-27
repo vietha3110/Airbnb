@@ -6,6 +6,7 @@ import * as reviewsAction from '../../store/reviews';
 import ReviewSpotModal from "../Reviews/ReviewForm/ReviewFormModal";
 import DeleteReviewModal from "../Reviews/DeleteReviewModal";
 import BookingCalendar from "./Calendar";
+import * as bookingAction from '../../store/booking';
 
 import './ListingSpotDetail.css';
 export function SpotDetail() {
@@ -15,6 +16,8 @@ export function SpotDetail() {
     const spot = spotObj.singleSpot;
     const reviewObj = useSelector(state => state.reviews);
     const spotReviews = Object.values(reviewObj.spot);
+    const spotBooking = useSelector(state => state.bookings.spot);
+    console.log('spotBooking', spotBooking)
     // console.log(spotReviews);
     let sum = 0;
     let avgRating = 0;
@@ -32,6 +35,9 @@ export function SpotDetail() {
         dispatch(reviewsAction.fetchSpotReviews(spotId))
     }, [dispatch, spotId]);
     
+    useEffect(() => {
+        dispatch(bookingAction.fetchSpotBookings(spotId));
+    }, [dispatch, spotId]);
   
 
     if (spot && spot.statusCode) return (
@@ -87,7 +93,7 @@ export function SpotDetail() {
                 </div>
                 <div className="spot-price">
                     {/* ${spot.price} <span style={{fontWeight:300}}>/night</span> */}
-                    <BookingCalendar avgRating={avgRating} reviews={spotReviews.length} price={spot.price} />
+                    <BookingCalendar avgRating={avgRating} reviews={spotReviews.length} price={spot.price} id={spot.id} spotBooking={spotBooking} />
                 </div>
                 <div className="spot-mockup1">
                     <div className="mockup-item">

@@ -412,7 +412,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
         }
     });
     if (review) {
-        // console.log(`here`)
         return res.status(403).json({
             "message": "User already has a review for this spot",
             "statusCode": 403

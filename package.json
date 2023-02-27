@@ -25,5 +25,10 @@
   "dependencies": {
     "pg": "^8.8.0",
     "react-dates": "^21.8.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.21.2",
+    "@types/moment": "^2.13.0",
+    "moment": "^2.29.4"
   }
 }

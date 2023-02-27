@@ -70,6 +70,9 @@ export default function ProfileButton({ user, setLogin, setShowModal }) {
                             <Link to='/hosting' className="hosting">Manage Listing</Link>
                         </div>
                         <div className="dropdown-link">
+                            <Link to='/bookings' className="hosting">My bookings</Link>
+                        </div>
+                        <div className="dropdown-link">
                         
                             <button onClick={logout} className='dropdown-btn'>Sign out</button>
         

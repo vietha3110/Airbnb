@@ -1,21 +1,54 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+import { useHistory } from "react-router-dom/";
 import './index.css';
 import 'react-dates/lib/css/_datepicker.css';
+import * as bookingAction from '../../../store/booking';
 
 
-const BookingCalendar = ({ avgRating, reviews, price }) => {
+const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking }) => {
     // let objDate = new Date();
     // let dateFormat = objDate.getMonth() + "/" + objDate.getDate() + "/" + objDate.getFullYear();
     const [start, setStart] = useState(null);
     const [end, setEnd] = useState(null); 
     const [focusedInput, setFocusedInput] = useState(null);
-
+    const moment = extendMoment(Moment);
+    const history = useHistory();
+    const dispatch = useDispatch();
     const onReserve = () => {
         const startDate = start._d.toISOString().slice(0, 10);
         const endDate = end._d.toISOString().slice(0, 10);
+        
+        const bookingInfo = { startDate, endDate, spotId: id };
+        console.log(bookingInfo)
+        dispatch(bookingAction.makeBooking(bookingInfo))
+            .then(() => {
+                history.push('/bookings');
+            })
+            .catch((err) => {
+                throw err;
+            })
+    }
 
+    const blockDays = (date) => {
+        let blocked = [];
+        let bookedRanges = [];
+        spotBooking.forEach((booking) => {
+            bookedRanges = [
+                ...bookedRanges,
+                moment.range(booking.startDate, booking.endDate),
+              ];
+            });
+        
+            blocked = bookedRanges.find((range) => {
+              return range.contains(date);
+            });
+            return blocked; 
     }
 
     return (
@@ -52,8 +85,10 @@ const BookingCalendar = ({ avgRating, reviews, price }) => {
                             }}// PropTypes.func.isRequired,
                             focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
                             onFocusChange={focusedInput => setFocusedInput(focusedInput)} // PropTypes.func.isRequired,
+                            isDayBlocked={blockDays}
+                            minimumNights={1}
                         />
-                        <div className="booking-info-guest">
+                        {/* <div className="booking-info-guest">
                             <select className="booking-info-guest-select">
                                 <option value="">-- Select Number of Guests --</option>
                                 <option value="1">1</option>
@@ -65,11 +100,21 @@ const BookingCalendar = ({ avgRating, reviews, price }) => {
                                 <option value="7">7</option>
                                 <option value="8">8</option>
                             </select>
-                        </div>
+                        </div> */}
                     </div>
-                    <div className="booking-info-cfbtn" onClick={onReserve}>
+                    {
+                        (start === null || end === null) && 
+                        <div className="booking-info-disabledbtn " >
                         <span>Reserve</span>
                     </div>
+                    }
+                    {
+                        start && end && 
+                        <div className="booking-info-cfbtn" onClick={onReserve}>
+                        <span>Reserve</span>
+                    </div>
+                    }
+                   
                     <div className="booking-info-cfstm">
                         <span>You won't be charge yet</span>
                     </div>
