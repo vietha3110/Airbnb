@@ -108,7 +108,9 @@ export default function bookingsReducer(state = initialState, action) {
     switch (action.type) {
         case LOAD_USERBOOKINGS: {
             newState = { ...state };
-            for (let booking of action.bookings) {
+            console.log(action.bookings);
+            const bookings = action.bookings.Bookings;
+            for (let booking of bookings) {
                 newState.user[booking.id] = booking;
             };
             return newState;

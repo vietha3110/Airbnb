@@ -9,6 +9,7 @@ import { CreateSpotForm } from './components/CreateNewSpot/CreateSpotForm';
 import { SpotDetail } from './components/Listing-Spots/ListingSpotDetail';
 import { UserSpots } from './components/UserSpots';
 import { Footer } from './components/Footer';
+import { UserProfile } from './components/UserProfile';
 function App() {
 
   const dispatch = useDispatch();
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path='/hosting'>
             <UserSpots/>
+          </Route>
+          <Route path='/bookings'>
+            <UserProfile/>
           </Route>
           <Route >
             <div className='not-found'>

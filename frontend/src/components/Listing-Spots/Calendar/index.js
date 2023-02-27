@@ -5,7 +5,7 @@ import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
-
+import { useHistory } from "react-router-dom/";
 import './index.css';
 import 'react-dates/lib/css/_datepicker.css';
 import * as bookingAction from '../../../store/booking';
@@ -18,16 +18,17 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking }) => {
     const [end, setEnd] = useState(null); 
     const [focusedInput, setFocusedInput] = useState(null);
     const moment = extendMoment(Moment);
-
+    const history = useHistory();
     const dispatch = useDispatch();
     const onReserve = () => {
         const startDate = start._d.toISOString().slice(0, 10);
         const endDate = end._d.toISOString().slice(0, 10);
+        
         const bookingInfo = { startDate, endDate, spotId: id };
         console.log(bookingInfo)
         dispatch(bookingAction.makeBooking(bookingInfo))
             .then(() => {
-                console.log('redirext')
+                history.push('/bookings');
             })
             .catch((err) => {
                 throw err;
@@ -47,7 +48,6 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking }) => {
             blocked = bookedRanges.find((range) => {
               return range.contains(date);
             });
-            console.log(50,blocked)
             return blocked; 
     }
 
