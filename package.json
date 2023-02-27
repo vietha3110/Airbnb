@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/vietha3110/Airbnb#readme",
   "dependencies": {
+    "heroku-ssl-redirect": "^0.1.1",
     "pg": "^8.8.0",
     "react-dates": "^21.8.0"
   },

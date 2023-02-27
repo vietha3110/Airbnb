@@ -6,11 +6,15 @@ const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { environment } = require('./config');
+const sslRedirect = require('heroku-ssl-redirect');
 //Create a variable called isProduction that will be true if the environment is in production or not by checking the environment key in the configuration file (backend/config/index.js):
 const isProduction = environment === 'production';
 const app = express();
 
 const { ValidationError } = require('sequelize');
+
+
+app.use(sslRedirect());
 
 //Connect the morgan middleware for logging information about requests and responses:
 app.use(morgan('dev'));
