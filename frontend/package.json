@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "js-cookie": "^3.0.1",
+    "moment-range": "^4.0.2",
     "react": "^18.2.0",
     "react-calendar": "^4.0.0",
     "react-dom": "^18.2.0",
@@ -38,6 +39,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.21.2",
+    "@types/moment": "^2.13.0",
+    "moment": "^2.29.4",
     "redux-logger": "^3.0.6"
   },
   "proxy": "http://localhost:8000"

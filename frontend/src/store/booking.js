@@ -1,13 +1,21 @@
 import { csrfFetch } from './csrf';
 
-const LOAD_BOOKINGS = 'bookings/loadBookings'; 
+const LOAD_USERBOOKINGS = 'bookings/loadUserBookings';
+const LOAD_SPOTBOOKINGS = 'bookings/loadSpotBookings'; 
 const CREATE_BOOKING = 'bookings/createBooking';
 const REMOVE_BOOKING = 'bookings/removeBooking';
 const EDIT_BOOKING = 'bookings/editBooking';
 
 export function loadUserBookings(bookings) {
     return {
-        type: LOAD_BOOKINGS,
+        type: LOAD_USERBOOKINGS,
+        bookings
+    }
+}
+
+export function loadSpotBookings(bookings) {
+    return {
+        type: LOAD_SPOTBOOKINGS,
         bookings
     }
 }
@@ -43,11 +51,21 @@ export const fetchUserBookings =  () => async (dispatch) =>{
     }
 }
 
+export const fetchSpotBookings = (spotId) => async (dispatch) => {
+    console.log(55, spotId)
+    try {
+        const response = await csrfFetch(`/api/spots/${spotId}/bookings`);
+        const data = await response.json(); 
+        dispatch(loadSpotBookings(data))
+    } catch (err) {
+        throw err;
+    }
+}
+
 export const makeBooking = (booking) => async (dispatch) => {
-    const spotId = booking.spotId;
-    const { startDate, endDate } = booking;
+    const { startDate, endDate, spotId } = booking;
     try { 
-        const response = csrfFetch(`/api/spots/#${spotId}/booking`, {
+        const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
@@ -83,23 +101,30 @@ export const deleteBooking = (bookingId) => async (dispatch) => {
     }
 }
 let initialState = {
-    bookings: {}
+    user: {}, spot: {}
 }
 export default function bookingsReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
-        case LOAD_BOOKINGS: {
+        case LOAD_USERBOOKINGS: {
             newState = { ...state };
             for (let booking of action.bookings) {
-                newState.bookings[booking.id] = booking;
+                newState.user[booking.id] = booking;
             };
-            return newState
+            return newState;
         }
+        
+        case LOAD_SPOTBOOKINGS: {
+            newState = { ...state };
+            const bookings = action.bookings.Bookings;
+            newState.spot = bookings;
+            return newState;
+        }    
             
         case CREATE_BOOKING: {      
             newState = { ...state };
             const booking = action.booking;
-            newState.bookings[booking.id] = booking;
+            newState.user[booking.id] = booking;
             return newState;
         }
            
