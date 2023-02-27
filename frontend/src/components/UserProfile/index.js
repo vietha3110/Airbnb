@@ -9,19 +9,15 @@ import { useState } from 'react';
 
 export function UserProfile() {
     const dispatch = useDispatch();
-    // const reviews = useSelector(state => state.userReviews);
     const sessionUser = useSelector(state => state.session.user);
     const userBooking = useSelector(state => state.bookings.user);
-    const spots = useSelector(state => state.spots.allSpots);
     
   
     useEffect(() => {
         dispatch(bookingAction.fetchUserBookings());
-    }, [dispatch])
+    }, [dispatch]);
     
-    useEffect(() => {
-        dispatch(spotAction.fetchSpots());
-    }, [dispatch])
+
 
     return (
         <>
@@ -39,15 +35,15 @@ export function UserProfile() {
                             <h2>Trips</h2>
                             <div className='booking-trips-info'>
                                 {
-                                    spots && userBooking && Object.values(userBooking).map(booking => (
+                                    userBooking && Object.values(userBooking).map(booking => (
                                         <div>
                                             <Link className='booking-trip-detail' to={`/spots/${booking.spotId}`}>
                                                 <div className='booking-trip-img'>
-                                                    <img src={spots[booking.spotId].previewImage}></img>
+                                                    <img src={booking.Spot.previewImage}></img>
                                                 </div>
                                                 <div className='booking-trip-content'>
                                                     <span className='booking-city'>
-                                                        {spots[booking.spotId].city}
+                                                        {booking.Spot.city}
                                                     </span>
                                                     <div className='booking-date-info'>
                                                         <span className='booking-date'>{booking.startDate.substring(0,10)}</span>
