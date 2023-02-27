@@ -5,26 +5,23 @@ import * as spotAction from '../../store/spots';
 import './index.css';
 import { Link } from 'react-router-dom';
 import CancelTripModal from './CancelModal/CancelModal';
-
+import { useState } from 'react';
 
 export function UserProfile() {
     const dispatch = useDispatch();
     // const reviews = useSelector(state => state.userReviews);
     const sessionUser = useSelector(state => state.session.user);
     const userBooking = useSelector(state => state.bookings.user);
-    const spots = useSelector(state => state.spots.allSpots)
-    // if (!sessionUser) return (
-    //     <div>
-    //         Please login to see this page!
-    //     </div>
-    // )
-    if (userBooking) {
-        console.log(Object.values(userBooking))
-    }
+    const spots = useSelector(state => state.spots.allSpots);
+    
+  
     useEffect(() => {
         dispatch(bookingAction.fetchUserBookings());
+    }, [dispatch])
+    
+    useEffect(() => {
         dispatch(spotAction.fetchSpots());
-    },[dispatch])
+    }, [dispatch])
 
     return (
         <>
@@ -42,7 +39,7 @@ export function UserProfile() {
                             <h2>Trips</h2>
                             <div className='booking-trips-info'>
                                 {
-                                    userBooking && Object.values(userBooking).map(booking => (
+                                    spots && userBooking && Object.values(userBooking).map(booking => (
                                         <div>
                                             <Link className='booking-trip-detail' to={`/spots/${booking.spotId}`}>
                                                 <div className='booking-trip-img'>

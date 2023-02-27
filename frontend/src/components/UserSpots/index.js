@@ -39,6 +39,9 @@ export function UserSpots() {
                     </div>
                     {spots.length > 0 && spots.map(spot => 
                         <div key={spot.id} className='managespot-container'>
+                            <div>
+                                <img src={spot.previewImage} style={{height:"200px"}}></img>
+                            </div>
                             <div className='managespot-name'>
                                 <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
                             </div>
@@ -50,7 +53,8 @@ export function UserSpots() {
                                     <DeleteSpotModal spot={spot}/>
                                 </div>
                             </div>
-                        </div>)}
+                        </div>
+                    )}
                 </div>
             }
         </div>
