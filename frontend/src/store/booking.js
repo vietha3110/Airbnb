@@ -95,9 +95,20 @@ export const updateBooking = (booking) => async (dispatch) => {
 
 export const deleteBooking = (bookingId) => async (dispatch) => { 
     try {
-
+        const response = await csrfFetch(`/api/bookings/${bookingId}`, {
+            method: "DELETE",
+        });
+        if (response.ok) {
+            console.log('here');
+            const data = await response.json();
+            dispatch(removeBooking(bookingId))
+            return data;
+        } else {
+            const data = await response.json();
+            return data;
+        }
     } catch (err) {
-
+        throw err;
     }
 }
 let initialState = {
@@ -107,7 +118,7 @@ export default function bookingsReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
         case LOAD_USERBOOKINGS: {
-            newState = { ...state };
+            newState = deepCopy(state)
             console.log(action.bookings);
             const bookings = action.bookings.Bookings;
             for (let booking of bookings) {
@@ -117,14 +128,14 @@ export default function bookingsReducer(state = initialState, action) {
         }
         
         case LOAD_SPOTBOOKINGS: {
-            newState = { ...state };
+            newState = deepCopy(state);
             const bookings = action.bookings.Bookings;
             newState.spot = bookings;
             return newState;
         }    
             
         case CREATE_BOOKING: {      
-            newState = { ...state };
+            newState = deepCopy(state);
             const booking = action.booking;
             newState.user[booking.id] = booking;
             return newState;
@@ -139,13 +150,28 @@ export default function bookingsReducer(state = initialState, action) {
         //     return newState;
         // }
             
-        // case REMOVE_BOOKING: {
-        //     newState = { ...state };
-        //     // const spotId = action.spotId;
-        //     delete newState.allSpots[action.spotId];
-        //     return newState;
-        // }    
+        case REMOVE_BOOKING: {
+            newState = deepCopy(state);
+            const bookingId = action.bookingId;
+            delete newState.user[bookingId];
+            return newState;
+        }    
         default: 
             return state
+    }
+}
+function deepCopy(value) {
+    if (typeof value === 'object') {
+        if (Array.isArray(value)) {
+            return value.map(element => deepCopy(element));
+        } else {
+            const result = {};
+            Object.entries(value).forEach(entry => {
+                result[entry[0]] = deepCopy(entry[1]);
+            });
+            return result;
+        }
+    } else {
+        return value;
     }
 }

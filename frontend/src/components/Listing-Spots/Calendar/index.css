@@ -172,3 +172,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .booking-info-time-label > label {
     padding: 3px
 }
+
+.booking-condition-user {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #FF385C;
+}

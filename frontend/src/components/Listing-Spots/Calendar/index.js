@@ -11,7 +11,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import * as bookingAction from '../../../store/booking';
 
 
-const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking }) => {
+const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) => {
     // let objDate = new Date();
     // let dateFormat = objDate.getMonth() + "/" + objDate.getDate() + "/" + objDate.getFullYear();
     const [start, setStart] = useState(null);
@@ -67,6 +67,12 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking }) => {
                     <span style={{paddingLeft:"0.3rem"}}>{reviews} reviews</span>
                 </div>
             </div>
+            {
+                !user && 
+                <div className="booking-condition-user">
+                        Please login to reserve this place!
+                </div>
+            }
             <div className="booking-content">
                 <div className="booking-info">
                     <div className="booking-info-box">
@@ -103,13 +109,13 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking }) => {
                         </div> */}
                     </div>
                     {
-                        (start === null || end === null) && 
+                        (!user || start === null || end === null) && 
                         <div className="booking-info-disabledbtn " >
                         <span>Reserve</span>
                     </div>
                     }
                     {
-                        start && end && 
+                       user && start && end && 
                         <div className="booking-info-cfbtn" onClick={onReserve}>
                         <span>Reserve</span>
                     </div>

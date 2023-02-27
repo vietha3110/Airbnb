@@ -93,7 +93,7 @@ export function SpotDetail() {
                 </div>
                 <div className="spot-price">
                     {/* ${spot.price} <span style={{fontWeight:300}}>/night</span> */}
-                    <BookingCalendar avgRating={avgRating} reviews={spotReviews.length} price={spot.price} id={spot.id} spotBooking={spotBooking} />
+                    <BookingCalendar avgRating={avgRating} reviews={spotReviews.length} price={spot.price} id={spot.id} spotBooking={spotBooking} user={sessionUser} />
                 </div>
                 <div className="spot-mockup1">
                     <div className="mockup-item">
