@@ -11,7 +11,6 @@ export function CancelTrip(props) {
     const dispatch = useDispatch();
     const handleYesButton = (e) => {
         e.preventDefault();
-        console.log(bookingId)
         setValidationErrors("");
         dispatch(bookingAction.deleteBooking(bookingId))
             .then(() => modal())

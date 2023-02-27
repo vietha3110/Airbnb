@@ -76,10 +76,10 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
             <div className="booking-content">
                 <div className="booking-info">
                     <div className="booking-info-box">
-                        <div className="booking-info-time">
+                        {/* <div className="booking-info-time">
                                 <div className="booking-info-time-label left"><label>Checkin</label></div>
                                 <div className="booking-info-time-label"><label>Checkout</label></div>
-                        </div>
+                        </div> */}
                         <DateRangePicker
                             startDate={start} // momentPropTypes.momentObj or null,
                             startDateId="startDate" // PropTypes.string.isRequired,

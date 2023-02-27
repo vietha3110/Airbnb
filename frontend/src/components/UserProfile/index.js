@@ -66,6 +66,12 @@ export function UserProfile() {
                                         )
                                     )
                                 }
+                                {
+                                    !userBooking && 
+                                    <div>
+                                            You have no trips.
+                                    </div>
+                                }
                             </div>    
                         </div>    
 

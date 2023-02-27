@@ -52,7 +52,6 @@ export const fetchUserBookings =  () => async (dispatch) =>{
 }
 
 export const fetchSpotBookings = (spotId) => async (dispatch) => {
-    console.log(55, spotId)
     try {
         const response = await csrfFetch(`/api/spots/${spotId}/bookings`);
         const data = await response.json(); 
@@ -99,7 +98,6 @@ export const deleteBooking = (bookingId) => async (dispatch) => {
             method: "DELETE",
         });
         if (response.ok) {
-            console.log('here');
             const data = await response.json();
             dispatch(removeBooking(bookingId))
             return data;
@@ -119,7 +117,6 @@ export default function bookingsReducer(state = initialState, action) {
     switch (action.type) {
         case LOAD_USERBOOKINGS: {
             newState = deepCopy(state)
-            console.log(action.bookings);
             const bookings = action.bookings.Bookings;
             for (let booking of bookings) {
                 newState.user[booking.id] = booking;
