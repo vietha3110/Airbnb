@@ -11,8 +11,7 @@ export function UserProfile() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const userBooking = useSelector(state => state.bookings.user);
-    
-  
+    console.log(userBooking);
     useEffect(() => {
         dispatch(bookingAction.fetchUserBookings());
     }, [dispatch]);
@@ -25,17 +24,11 @@ export function UserProfile() {
                 sessionUser && 
                 <>
                     <div className='bookings-container'>
-                        {/* <div className='bookings-header'>
-                            <h2>Trips</h2>
-                        </div>
-                        <div className='bookings-upcoming'>
-                            Upcomming Trip        
-                        </div> */}
                         <div className='booking-trips'>
                             <h2>Trips</h2>
                             <div className='booking-trips-info'>
                                 {
-                                    userBooking && Object.values(userBooking).map(booking => (
+                                    Object.values(userBooking).length > 0 && Object.values(userBooking).map(booking => (
                                         <div>
                                             <Link className='booking-trip-detail' to={`/spots/${booking.spotId}`}>
                                                 <div className='booking-trip-img'>
@@ -60,7 +53,7 @@ export function UserProfile() {
                                     )
                                 }
                                 {
-                                    !userBooking && 
+                                    Object.values(userBooking).length === 0 && 
                                     <div>
                                             You have no trips.
                                     </div>

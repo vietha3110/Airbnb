@@ -73,7 +73,8 @@ export const makeBooking = (booking) => async (dispatch) => {
         });
         if (response.ok) {
             const data = await response.json();
-            dispatch(createBooking(data));
+            // dispatch(createBooking(data));
+            dispatch(fetchUserBookings());
             return data;
         } else {
             const data = await response.json();
