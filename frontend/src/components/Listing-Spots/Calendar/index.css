@@ -180,3 +180,38 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-weight: 600;
     color: #FF385C;
 }
+
+.booking-err {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #FF385C;
+    height: 20px;
+}
+
+.booking-price {
+    font-size: 0.8rem;
+    height: 100px;
+    margin: 10px
+}
+.booking-price-detail, .booking-price-total {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 10px;
+    color: rgb(34, 34, 34);
+}
+.booking-price-detail-title{
+    display: flex;
+    flex-direction: column;
+}
+.booking-price-detail{
+    border-bottom: 1px solid #cccccc;
+    height: 60px;
+    font-weight: 500;
+}
+
+.booking-price-total {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}

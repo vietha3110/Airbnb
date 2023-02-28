@@ -17,6 +17,8 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
     const [start, setStart] = useState(null);
     const [end, setEnd] = useState(null); 
     const [focusedInput, setFocusedInput] = useState(null);
+    const [err, setErr] = useState("");
+    const [durr, setDurr] = useState(0);
     const moment = extendMoment(Moment);
     const history = useHistory();
     const dispatch = useDispatch();
@@ -25,13 +27,13 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
         const endDate = end._d.toISOString().slice(0, 10);
         
         const bookingInfo = { startDate, endDate, spotId: id };
-        console.log(bookingInfo)
         dispatch(bookingAction.makeBooking(bookingInfo))
             .then(() => {
                 history.push('/bookings');
             })
-            .catch((err) => {
-                throw err;
+            .catch(async (error) => {
+                const data = await error.json();
+                setErr(data.message)
             })
     }
 
@@ -50,7 +52,13 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
             });
             return blocked; 
     }
-
+    const duration = (startDate, endDate) => {
+        const moment1 = moment(startDate._d);
+        const moment2 = moment(endDate._d);
+        const diff = moment2.diff(moment1);
+        const diffInDays = moment.duration(diff).asDays();
+        setDurr(diffInDays.toFixed(0));
+    }
     return (
         <div className="booking-container">
             <div className="booking-title">
@@ -73,6 +81,13 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
                         Please login to reserve this place!
                 </div>
             }
+            <div className="booking-err">
+                {
+                    err && 
+                            <span>{err}</span>
+                    
+                }
+            </div>
             <div className="booking-content">
                 <div className="booking-info">
                     <div className="booking-info-box">
@@ -87,7 +102,8 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
                             endDateId="endDate" // PropTypes.string.isRequired,
                             onDatesChange={({ startDate, endDate }) => {
                                 setStart(startDate);
-                                setEnd(endDate)
+                                setEnd(endDate);
+                                duration(startDate, endDate);
                             }}// PropTypes.func.isRequired,
                             focusedInput={focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
                             onFocusChange={focusedInput => setFocusedInput(focusedInput)} // PropTypes.func.isRequired,
@@ -124,8 +140,58 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
                     <div className="booking-info-cfstm">
                         <span>You won't be charge yet</span>
                     </div>
-                    <div>
-                        
+                    <div className="booking-price">
+                        {
+                            user && start && end && 
+                            <>
+                                <div className="booking-price-detail">
+                                    <div className="booking-price-detail-title">
+                                        <span>${price} x {durr} nights</span>
+                                        <span>Cleaning Fee</span>
+                                        <span>Service Fee</span>
+                                    </div>
+                                    <div className="booking-price-detail-title">
+                                        <span>$ {price * durr}</span>
+                                        <span>$ 0</span>
+                                        <span>$ {price * 0.01}</span>
+                                    </div>
+                                </div>
+                            <div className="booking-price-total">
+                                <span>
+                                    Total
+                                </span>
+                                <span>
+                                    $ {price * durr + price * 0.01}
+                                </span>
+                            </div>
+                        </>
+                        }
+                        {
+                            user && !start && !end && 
+                            <>
+                                <div className="booking-price-detail">
+                                    <div className="booking-price-detail-title">
+                                        <span>${price} x 1 nights</span>
+                                        <span>Cleaning Fee</span>
+                                        <span>Service Fee</span>
+                                    </div>
+                                    <div className="booking-price-detail-title">
+                                        <span>$ {price * 1}</span>
+                                        <span>$ 0</span>
+                                        <span>$ {price * 0.01}</span>
+                                    </div>
+                                </div>
+                            <div className="booking-price-total">
+                                <span>
+                                    Total before taxes
+                                </span>
+                                <span>
+                                    $ {price + price * 0.01}
+                                </span>
+                            </div>
+                        </>
+                        }
+
                     </div>
                 </div>
             </div>
