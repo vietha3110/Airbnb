@@ -9,13 +9,19 @@ import SignUpForm from "../SignupFormModal/SignupForm";
 import LoginForm from "../LoginFormModal/LoginForm";
 import './Navigation.css';
 import logo from './logo-hairbnb.png';
-import NewSpot
-    from "../CreateNewSpot";
+import NewSpot from "../CreateNewSpot";
+import SearchBox from "./Search";
+
 export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user); 
     const [showModal, setShowModal] = useState(false);
     const [login, setLogin] = useState(true);
+    const [showSearchBox, setShowSearchBox] = useState(false)
 
+
+    const onClick = (showSearchBox) => () => {
+        setShowSearchBox(!showSearchBox);
+    }
     return (
         <div className="navigation">
             <div className="navigation-logo">
@@ -30,14 +36,20 @@ export default function Navigation({ isLoaded }) {
                         <span>Any week</span>
                     </div>
                     <div className="search-guest">
-                        <div>
-                            <span>Add guests</span>
+                        <div onClick={onClick(showSearchBox)}>
+                            <span>Any Price</span>
                         </div>
                         <div className="btn-container">
                             <button className="btn-search"><i className="fa-solid fa-magnifying-glass" style={{fontSize:14}}></i></button>
                         </div>
                     </div>
                 </div>
+                {
+                    showSearchBox && 
+                    <div className="search-input">
+                        <SearchBox/>
+                    </div>
+                }
             </div>
             <div className="navigation-bar">
                 {isLoaded && (

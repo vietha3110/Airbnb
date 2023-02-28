@@ -77,7 +77,8 @@ router.get('/',validateQuery, async (req, res, next) => {
         pagination.limit = size; 
         pagination.offset = size * (page - 1);
     }
-   
+    minPrice = parseFloat(minPrice);
+    maxPrice = parseFloat(maxPrice);
 
     const spots = await Spot.findAll({
         attributes: {
@@ -93,6 +94,11 @@ router.get('/',validateQuery, async (req, res, next) => {
                 attributes: []
             },
         ],
+        where: {
+            ...(minPrice && maxPrice ? { price: { [Op.between]: [minPrice, maxPrice] } } : {}),
+            ...(minPrice && !maxPrice ? { price: { [Op.gte]: minPrice } } : {}),
+            ...(!minPrice && maxPrice ? { price: { [Op.lte]: maxPrice } } : {}),
+          },
         group: ['Spot.id'],
         raw: true,
         ...pagination,
@@ -528,5 +534,7 @@ router.post('/:spotId/bookings', requireAuth, requireAuthorCreateBooking, async 
     });
     res.json(newBooking)
 })
+
+router.get('/search/:keyword')
 
 module.exports = router;

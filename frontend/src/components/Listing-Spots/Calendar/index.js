@@ -7,7 +7,6 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import { useHistory } from "react-router-dom/";
 import './index.css';
-import 'react-dates/lib/css/_datepicker.css';
 import * as bookingAction from '../../../store/booking';
 
 
