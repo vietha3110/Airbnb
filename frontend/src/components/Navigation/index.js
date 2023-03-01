@@ -11,6 +11,7 @@ import './Navigation.css';
 import logo from './logo-hairbnb.png';
 import NewSpot from "../CreateNewSpot";
 import SearchBox from "./Search";
+import LabelledButton from "../LabelledButton";
 
 export default function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user); 
@@ -24,20 +25,24 @@ export default function Navigation({ isLoaded }) {
             </div>
             <div className="navigation-mid">
                 <div className="search-container">
-                    <div className="search-where">
-                        <span>Anywhere</span>
-                    </div>
-                    <div className="search-time">
-                        <span>Any week</span>
-                    </div>
-                    <div className="search-guest">
-                        <div>
-                            <span>Any Price</span>
+                    <LabelledButton child={
+                        <div className="search-where">
+                            <span>Anywhere</span>
                         </div>
-                        <div className="btn-container">
-                            <button className="btn-search"><i className="fa-solid fa-magnifying-glass" style={{fontSize:14}}></i></button>
+                    } />
+                    <LabelledButton child={
+                        <div className="search-time">
+                            <span>Any week</span>
                         </div>
-                    </div>
+                    } />
+                    <LabelledButton child={
+                        <div className="search-guest">
+                                <span>Any Price</span>
+                            <div className="btn-container">
+                                <button className="btn-search"><i className="fa-solid fa-magnifying-glass" style={{ fontSize: 14 }}></i></button>
+                            </div>
+                        </div>
+                    }/>
                 </div>
                
             </div>

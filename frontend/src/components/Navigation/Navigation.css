@@ -48,7 +48,9 @@
 .search-guest {
     display: flex;
     justify-content: space-around;
-    color: #cccccc
+    color: #cccccc;
+    height: 20px;
+    align-items: center;
 }
 
 .search-input {
