@@ -39,3 +39,69 @@
     font-size: 0.6rem;
     margin: 2px;
 }
+
+.cancel-err {
+    text-align: center;
+    color: red;
+    font-size: 0.8rem;
+}
+
+.cancel-component {
+    width: 400px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cancel-question {
+}
+
+.cancel-err {
+    height: 20px
+}
+.cancel-cancel {
+    background-color: #cccccc;
+    color: #fff;
+    border:none; 
+    font-weight: 700;
+    border-radius:10px; 
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.cancel-ok {
+    background-color: #cccccc;
+    color: #fff;
+    border:none; 
+    font-weight: 700;
+    border-radius:10px; 
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.cancel-delete {
+    background-color: #cccccc;
+    color: #fff;
+    border:none; 
+    font-weight: 700;
+    border-radius:10px; 
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 10px;
+
+}
+.cancel-cancel:hover {
+    background: black;
+}
+
+.cancel-delete:hover, .cancel-ok:hover {
+    background:#db2137;
+}

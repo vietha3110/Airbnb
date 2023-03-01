@@ -5,21 +5,18 @@ import { Link } from 'react-router-dom';
 import SpotHead from './SpotHead';
 import './listingSpots.css';
 
-export function ListingSpots() {
+export function FilterSpotsPage() {
     const dispatch = useDispatch();
     
     const spotsObj = useSelector(state => state.spots);
     const spots = Object.values(spotsObj.allSpots);
-    useEffect(() => {
-        dispatch(fetchSpots());
-    }, [dispatch]);
     
     return (
         <>  
             <div className='spothead-container'>
                 <SpotHead dispatch={dispatch} />
             </div>
-            <div className='spots-container'>
+            <div className={spots?.length > 0 ? "spots-container" : "no-spots-container"}>
             {   spots?.length > 0 && spots.map(spot => (
                     <Link to={`/spots/${spot.id}`}>
                         <div key={spot.id} className='spot-card'>
@@ -41,6 +38,17 @@ export function ListingSpots() {
                         </div>
                     </Link>
             ))}
+                {
+                    spots.length === 0 && 
+                    <div className='no-spots'>
+                        <p className='no-spots-para1'>
+                            Sorry, we don't have any spots available at that price.
+                        </p>
+                        <p className='no-spots-para2'>
+                            Can we help you find something else or would you like to <Link to="/"> go back </Link>to the homepage?
+                        </p>
+                    </div>
+                }
             </div>
         </>
     )

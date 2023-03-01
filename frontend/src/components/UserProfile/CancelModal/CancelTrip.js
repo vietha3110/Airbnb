@@ -28,19 +28,32 @@ export function CancelTrip(props) {
         modal();
     }
     return (
-        <div className="delete-component">
-            <div className="delete-question">
+        <div className="cancel-component">
+            <div className="cancel-question">
                 Do you want to cancel the trip?
             </div>
-            {
-                validationErrors && 
-                <div>
-                        {validationErrors}
-                </div>
-            }
-            <div className="delete-btn">
-                <button onClick={handleYesButton} className='btn-delete'>Yes</button>
-                <button onClick={handleCancelButton}className='btn-cancel'>No</button>
+            <div className="cancel-err">
+                {
+                    validationErrors && 
+                    
+                    <span> {validationErrors}</span>
+                
+                }
+            </div>
+            <div className="cancel-btn">
+                {  
+                    !validationErrors && 
+                    <>
+                        <button onClick={handleYesButton} className='cancel-delete'>Yes</button>
+                        <button onClick={handleCancelButton}className='cancel-cancel'>No</button>
+                    </>
+                }
+                {
+                    validationErrors && 
+                    <button onClick={handleCancelButton}className='cancel-ok'>Ok
+                    </button>
+                }
+               
             </div>
             
         </div>

@@ -11,6 +11,7 @@ import { UserSpots } from './components/UserSpots';
 import { Footer } from './components/Footer';
 import { UserProfile } from './components/UserProfile';
 import { SearchResults } from './components/Navigation/Search/SearchResults';
+import { FilterSpotsPage } from './components/Listing-Spots/FilterSpotsPage';
 function App() {
 
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function App() {
             <UserProfile/>
           </Route>
           <Route path='/filtered-spots'>
-            <SearchResults/>
+            <FilterSpotsPage/>
           </Route>
           <Route >
             <div className='not-found'>

@@ -63,3 +63,16 @@ img {
     height: 100%;
     object-fit: cover;
 }
+
+.no-spots {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 30px;
+}
+
+.no-spots-para1 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}

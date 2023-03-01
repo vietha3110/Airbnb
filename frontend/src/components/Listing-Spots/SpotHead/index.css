@@ -18,6 +18,11 @@
     align-items: center;
 }
 
+.spothead-icon:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 5px;
+}
+
 .filter-box {
     border: 1px solid #cccccc;
     border-radius: 5px;

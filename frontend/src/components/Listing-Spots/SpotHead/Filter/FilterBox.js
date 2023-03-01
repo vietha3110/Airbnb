@@ -1,10 +1,13 @@
 import { useState } from "react";
 import * as spotAction from "../../../../store/spots";
 import "./filterbox.css";
+import { useHistory } from "react-router-dom";
+
 const FilterBox = ({onClose, dispatch}) => {
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
     const [err, setErr] = useState("");
+    const history = useHistory();
     const closeBox = () => {
         onClose();
     }
@@ -22,6 +25,7 @@ const FilterBox = ({onClose, dispatch}) => {
         } else {
             dispatch(spotAction.filterSpots({ minPrice, maxPrice }))
                 .then(() => {
+                    history.push("/filtered-spots");
                     onClose();
                 }).catch(async (err) => {
                     setErr(err);
