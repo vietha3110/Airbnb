@@ -152,7 +152,7 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
                                     <div className="booking-price-detail-title">
                                         <span>$ {price * durr}</span>
                                         <span>$ 0</span>
-                                        <span>$ {price * 0.01}</span>
+                                        <span>$ 2</span>
                                     </div>
                                 </div>
                             <div className="booking-price-total">
@@ -160,7 +160,7 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
                                     Total
                                 </span>
                                 <span>
-                                    $ {price * durr + price * 0.01}
+                                    $ {price * durr + 2}
                                 </span>
                             </div>
                         </>
