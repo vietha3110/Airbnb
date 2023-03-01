@@ -9,12 +9,12 @@ const FilterBox = ({onClose, dispatch}) => {
     const [err, setErr] = useState("");
     const history = useHistory();
     const closeBox = () => {
+        
         onClose();
     }
 
     const filter = () => {
         setErr("");
-        console.log('18,',typeof minPrice)
         if (!minPrice || !maxPrice) {
             setErr("please input min price or max price.");
         } else if (Number(minPrice) === 0) {

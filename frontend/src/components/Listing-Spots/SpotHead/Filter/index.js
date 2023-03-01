@@ -6,14 +6,16 @@ const FilterModal = ({dispatch}) => {
     const [showModal, setShowModal] = useState(false);
 
     return (
-      <>
-        <div onClick={() => setShowModal(true)} className="filter-span" >Filter</div>
+      <div className="spothead-icon filter-box">
+        <div onClick={() => setShowModal(true)} className="filter-span" >
+          <span>Filter</span>
+        </div>
         {showModal && (
           <Modal>
                     <FilterBox onClose={() => setShowModal(false)} dispatch={dispatch} />
           </Modal>
         )}
-      </>
+      </div>
     );
     
 }

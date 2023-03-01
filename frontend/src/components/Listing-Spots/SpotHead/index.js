@@ -77,9 +77,9 @@ const SpotHead = ({dispatch}) => {
                 </div>
             }/>
             
-            <div className="spothead-icon filter-box">
+            <>
                 <FilterModal dispatch={dispatch} />
-            </div>
+            </>
         </>
     )
 }

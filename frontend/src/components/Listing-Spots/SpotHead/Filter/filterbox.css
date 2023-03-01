@@ -1,5 +1,5 @@
 .filtersearch-box {
-    height: 230px;
+    height: 200px;
     display: flex;
     flex-direction: column;
 }
@@ -75,10 +75,9 @@
 }
 
 .search-input-err {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: red;
     font-weight: 600;
     text-align: center;
     height: 10px;
-    margin: 10px
 }
