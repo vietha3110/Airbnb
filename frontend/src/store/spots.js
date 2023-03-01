@@ -6,6 +6,7 @@ const REMOVE_SPOT = 'spots/removeSpot';
 const LOAD_DETAIL_SPOT = 'spots/loadDetailSpot';
 const LOAD_USER_SPOTS = 'spots/loadUserSpots';
 const EDIT_SPOT = 'spots/editSpot';
+const FILTER_SPOTS = "spots/loadFilterSpots"; 
 
 export function displaySpots(spots) {
     return {
@@ -45,6 +46,13 @@ export function displayDetailedSpot(spot) {
 export function displayUserSpots(spots) {
     return {
         type: LOAD_USER_SPOTS,
+        spots
+    }
+}
+
+export function displayFilterSpots(spots) {
+    return {
+        type: FILTER_SPOTS, 
         spots
     }
 }
@@ -130,8 +138,18 @@ export const deleteSpot = (spot) => async (dispatch) => {
     } else {
         return response
     }
+}
 
-    
+export const filterSpots = (query) => async (dispatch) => {
+    const { minPrice, maxPrice } = query;
+    try {
+        const response = await fetch(`/api/spots/?minPrice=${minPrice}&maxPrice=${maxPrice}`);
+        const data = await response.json(); 
+        dispatch(displayFilterSpots(data));
+        return data;
+    } catch (err) {
+        throw err;
+    }
 }
 let initializedState = {
     allSpots: {},
@@ -147,6 +165,15 @@ export default function spotsReducer(state = initializedState, action) {
             //newState.allSpot = action.spots
             //normalize state
             for (let spot of action.spots) {
+                newState.allSpots[spot.id] = spot
+            }
+            return newState;
+        }
+        
+        case FILTER_SPOTS: {
+            newState = {allSpots: {}, singleSpot: {}};
+            const filterSpots = action.spots.Spots;
+            for (let spot of filterSpots) {
                 newState.allSpots[spot.id] = spot
             }
             return newState;
@@ -192,5 +219,21 @@ export default function spotsReducer(state = initializedState, action) {
         }    
         default: 
             return state
+    }
+}
+
+function deepCopy(value) {
+    if (typeof value === 'object') {
+        if (Array.isArray(value)) {
+            return value.map(element => deepCopy(element));
+        } else {
+            const result = {};
+            Object.entries(value).forEach(entry => {
+                result[entry[0]] = deepCopy(entry[1]);
+            });
+            return result;
+        }
+    } else {
+        return value;
     }
 }

@@ -1,0 +1,28 @@
+.spothead-img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
+.spothead-container {
+    display: flex;
+    flex-direction: row;
+    margin: 1rem;
+    justify-content: space-around;
+}
+.spothead-icon {
+    display: flex;
+    flex-direction: column;
+    width: 6rem;
+    font-size: 0.7rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-box {
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+.filter-span {
+    cursor: pointer;
+    font-weight: 600;
+}

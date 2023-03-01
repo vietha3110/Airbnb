@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import * as spotAction from "../../../store/spots";
-
-
-const SearchBox = ({onClose}) => {
+import * as spotAction from "../../../../store/spots";
+import "./filterbox.css";
+const FilterBox = ({onClose, dispatch}) => {
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
     const [err, setErr] = useState("");
-    const dispatch = useDispatch; 
-    const history = useHistory();
     const closeBox = () => {
         onClose();
     }
@@ -28,7 +23,6 @@ const SearchBox = ({onClose}) => {
             dispatch(spotAction.filterSpots({ minPrice, maxPrice }))
                 .then(() => {
                     onClose();
-                    history.push("/filtered-spots");
                 }).catch(async (err) => {
                     setErr(err);
                 })
@@ -36,7 +30,7 @@ const SearchBox = ({onClose}) => {
     }
     
     return (
-        <>  
+        <div className="filtersearch-box">  
             <div className="search-input-title">
                 <i className="fa-solid fa-xmark" onClick={closeBox}></i>
                 <div className="search-input-title-span"><span>Filters</span></div>
@@ -78,9 +72,9 @@ const SearchBox = ({onClose}) => {
                     </span>
                 </button>
             </div>
-        </>
+        </div>
         
     )
 }
 
-export default SearchBox
+export default FilterBox;

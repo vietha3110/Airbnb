@@ -54,10 +54,10 @@
 .search-input {
     position: absolute;
     right: 2rem;
-    bottom: -180px;
+    bottom: -200px;
     border: 1px solid #cccccc;
     width: 20rem;
-    height: 200px;
+    height: 220px;
     z-index: 9999;
     background-color: #fff;
     border-radius: 10px;

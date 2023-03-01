@@ -10,6 +10,7 @@ import { SpotDetail } from './components/Listing-Spots/ListingSpotDetail';
 import { UserSpots } from './components/UserSpots';
 import { Footer } from './components/Footer';
 import { UserProfile } from './components/UserProfile';
+import { SearchResults } from './components/Navigation/Search/SearchResults';
 function App() {
 
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ function App() {
           </Route>
           <Route path='/bookings'>
             <UserProfile/>
+          </Route>
+          <Route path='/filtered-spots'>
+            <SearchResults/>
           </Route>
           <Route >
             <div className='not-found'>

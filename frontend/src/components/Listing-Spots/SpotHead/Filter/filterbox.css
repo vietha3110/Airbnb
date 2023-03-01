@@ -1,7 +1,12 @@
+.filtersearch-box {
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+}
+
+
 .search-input-title {
     display: flex;
-    /* /* justify-content: center;
-    font-weight: 600; */
     align-items: center; 
     flex-direction: row;
     margin: 10px;
@@ -60,4 +65,20 @@
     background:#db2137;
     border: 1px solid #db2137;
     color: #fff;
+}
+
+.fa-xmark {
+    cursor: pointer;
+}
+.fa-xmark:hover {
+    color: #db2137;
+}
+
+.search-input-err {
+    font-size: 0.8rem;
+    color: red;
+    font-weight: 600;
+    text-align: center;
+    height: 10px;
+    margin: 10px
 }
