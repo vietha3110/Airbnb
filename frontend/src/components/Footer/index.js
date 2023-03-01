@@ -9,10 +9,10 @@ export function Footer() {
                         2022 Haairbnb
                     </div>
                     <div className='personal-link'>
-                        <a href='https://www.linkedin.com/in/havietng/'>Linkedin</a>
+                        <a href='https://www.linkedin.com/in/havietng/' target="_blank">Linkedin</a>
                     </div>
                     <div className='personal-link'>
-                        <a href='https://github.com/vietha3110'>Github</a>
+                        <a href='https://github.com/vietha3110' target="_blank">Github</a>
                     </div>
                     <div>
                         Destinations

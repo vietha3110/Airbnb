@@ -83,6 +83,7 @@
 
 .dropdown-link {
     width: 230px;
+    height: 30px;
 }
 .dropdown-link:hover {
     font-weight: 700;
