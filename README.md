@@ -1,7 +1,6 @@
 # Welcome to HAAIRBNB
 
-Haairbnb is a website clone, inspired by Airbnb. Haairbnb is an online booking app that lets the user listing their house/condo for vacation rentals and tourism activities. Currently, user can create, update, delete and view their listing and also leave a review to other spots (Reservation feature is coming soon.)
-
+Haairbnb is a website clone, inspired by Airbnb. This project has been developed with the goal of replicating the essential features and functionalities of Airbnb, allowing users to filter and book vacation rentals, as well as to list their own properties for rent.
 It is a fullstack Postgres, Node, React, Redux, CSS application. The majority of the application logic occurs within front end's Redux store and it uses pure css for styling components.
 
 The backend serves the frontend, responds to frontend requests, and fetches data from the Postgres database.
@@ -37,7 +36,7 @@ The backend serves the frontend, responds to frontend requests, and fetches data
 ## Basic Features
 - Home Page 
 
-![HomePage](./images/HomePage.png)
+![HomePage](./images/HaairbnbHomePage.png)
 
 - User Login
 
@@ -61,7 +60,7 @@ The backend serves the frontend, responds to frontend requests, and fetches data
 
 - Spot Detail Page where user can see all the information of the spot(images, info, rating & reviews). Logged in users can leave a review & delete the review they created
 
-![SpotDetails](./images/SpotDetails.png)
+![SpotDetails](./images/HaairbnbSpotDetail.png)
 
 - Add a new review 
 
