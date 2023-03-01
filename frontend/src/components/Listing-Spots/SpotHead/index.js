@@ -70,12 +70,12 @@ const SpotHead = ({dispatch}) => {
                     <span>Trending</span>
                 </div>
             } />
-            <LabelledButton child={
+            {/* <LabelledButton child={
                 <div className="spothead-icon">
                     <img className="spothead-img" src={tiny}></img>
                     <span>Tiny</span>
                 </div>
-            }/>
+            }/> */}
             
             <>
                 <FilterModal dispatch={dispatch} />
