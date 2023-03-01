@@ -11,7 +11,6 @@ export function UserProfile() {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const userBooking = useSelector(state => state.bookings.user);
-    console.log(userBooking);
     useEffect(() => {
         dispatch(bookingAction.fetchUserBookings());
     }, [dispatch]);

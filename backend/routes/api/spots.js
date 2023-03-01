@@ -283,7 +283,6 @@ router.post('/:spotId/images', requireAuth, requireAuthor, async (req, res, next
     const spotId = req.params.spotId;
     const { url, preview } = req.body;
     const spot = await Spot.findByPk(spotId);
-    // console.log(`Backend: here`, spot)
     if (spot) {
         const image = await SpotImage.create({
             url,
@@ -394,7 +393,6 @@ const validateReview = [
 ];
 //create a review for a spot based on 
 router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
-    // console.log(`line390`)
     const userId = req.user.id;
     const spotId = req.params.spotId;
     const spot = await Spot.findByPk(spotId);
@@ -404,7 +402,6 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, ne
             "statusCode": 404
         })
     }
-    // console.log(`line399`)
     const review = await Review.findOne({
         where: {
             [Op.and]: [

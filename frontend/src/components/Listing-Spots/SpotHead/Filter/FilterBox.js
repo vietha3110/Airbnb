@@ -18,7 +18,6 @@ const FilterBox = ({onClose, dispatch}) => {
         if (!minPrice || !maxPrice) {
             setErr("please input min price or max price.");
         } else if (Number(minPrice) === 0) {
-            console.log('here')
             setErr("min price must start from $1");
         } else if (+minPrice >= +maxPrice) {
             setErr("min price must be less than max price.");

@@ -17,8 +17,6 @@ export function SpotDetail() {
     const reviewObj = useSelector(state => state.reviews);
     const spotReviews = Object.values(reviewObj.spot);
     const spotBooking = useSelector(state => state.bookings.spot);
-    console.log('spotBooking', spotBooking)
-    // console.log(spotReviews);
     let sum = 0;
     let avgRating = 0;
     

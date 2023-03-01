@@ -12,7 +12,6 @@ export function DeleteReviewForm(props) {
     const handleYesButton = (e) => {
         e.preventDefault();
         setValidationErrors([]);
-        // console.log(spot)
         dispatch(reviewsActions.deleteReview(reviewId))
         .then(() => modal())
         .catch(async (res) => {

@@ -40,7 +40,6 @@ router.post(
     validateSignup,
     async (req, res) => {
         const { username, password, email, firstName, lastName } = req.body;
-        console.log(`signup route before sign up method +++++++++++++++++++++++++++++++++++++`)
         const user = await User.signup({
             username,
             password,
@@ -48,7 +47,6 @@ router.post(
             firstName,
             lastName
         });
-        console.log(`sinup route after signup method !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`)
         const token = await setTokenCookie(res, user);
         const userData = user.toJSON(); 
         userData.token = token;

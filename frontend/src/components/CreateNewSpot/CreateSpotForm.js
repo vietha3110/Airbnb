@@ -41,9 +41,7 @@ export function CreateSpotForm() {
         // } catch {
         //     (e = async (res) => {
         //         const data = await res.json();
-        //         console.log(`*************`, data)
         //         if (data && data.error) {
-        //             console.log(`here`)
         //             let error = Object.values(data.errors)
         //             setValidationErrors(error);
         //         }
