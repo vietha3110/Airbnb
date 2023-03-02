@@ -185,7 +185,7 @@ const BookingCalendar = ({ avgRating, reviews, price, id, spotBooking, user }) =
                                     Total before taxes
                                 </span>
                                 <span>
-                                    ${price + 2}
+                                    ${+price + 2}
                                 </span>
                             </div>
                         </>
