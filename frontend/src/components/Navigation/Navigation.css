@@ -101,3 +101,23 @@
 .link-content:hover {
     color: #FF5A5F;
 }
+
+
+@media only screen and (max-width: 600px){
+    .navigation {
+        max-width: 600px;
+        min-width: 375px;
+        display: flex;
+        justify-content: center;
+        height: 80px;
+    }
+    .navigation-logo, .navigation-bar {
+        visibility: hidden;
+    }
+    .navigation-mid {
+        max-width: 600px;
+        min-width: 300px;
+        margin-left: 10px;
+        font-size: 10px;
+    }
+}

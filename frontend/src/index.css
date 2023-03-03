@@ -23,3 +23,11 @@ a {
     width: 95vw;
     height: 90vh;
 }
+
+
+@media only screen and (max-width: 600px){
+    body {
+        max-width: 600px;
+    }
+
+}
