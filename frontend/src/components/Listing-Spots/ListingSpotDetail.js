@@ -48,8 +48,8 @@ export function SpotDetail() {
     return (
         <div className="spot-container">
             <div className="spot-info">
-                <h2>{spot.name}</h2>
-                <div>
+                <h2 className="spot-info-firstline">{spot.name}</h2>
+                <div className="spot-info-secondline">
                     <i className="fa-solid fa-star"></i>
                     {avgRating}, {spotReviews.length} reviews, {spot.city}, {spot.state}, {spot.country}
                 </div>

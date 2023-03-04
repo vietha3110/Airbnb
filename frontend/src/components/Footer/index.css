@@ -56,3 +56,36 @@ a:visited {
     }
     
 }
+@media only screen and (max-width: 1024px) and (min-width: 601px) {
+    footer {
+        box-sizing: border-box;
+        border-top: 1px solid #cccccc;
+        
+    }
+    
+    .footer-container {
+        display:grid;
+        grid-template-columns: 1.5fr 0.5fr 1fr;
+        padding: 10px;
+        font-size: 14.5px;
+    }
+    .footer-left, .footer-right {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    
+    .personal-link > a {
+        text-decoration: none;
+    }
+    
+    .personal-link>a:hover {
+        color: #FF5A5F;
+        font-weight: 700;
+    }
+    a:visited {
+        text-decoration: none;
+        color: black
+    }
+    
+}

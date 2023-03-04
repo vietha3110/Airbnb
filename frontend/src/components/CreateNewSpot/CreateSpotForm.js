@@ -41,7 +41,9 @@ export function CreateSpotForm() {
         // } catch {
         //     (e = async (res) => {
         //         const data = await res.json();
+        //         console.log(`*************`, data)
         //         if (data && data.error) {
+        //             console.log(`here`)
         //             let error = Object.values(data.errors)
         //             setValidationErrors(error);
         //         }
@@ -71,10 +73,10 @@ export function CreateSpotForm() {
         <div className='createspot-main'>
             <div className='createspot-video'>
                 <div className='createspot-welcome'>
-                    <h1>It’s easy to get started on Airbnb</h1>
+                    <h1>It’s easy to start on Haairbnb</h1>
                 </div>
                 <div className='createspot-youtube'>
-                    <iframe width="480" height="720" src="https://www.youtube.com/embed/KT9zihN24bE?autoplay=1&rel=0" title="Introducing Airbnb Plus | Airbnb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="480" height="720" src="https://www.youtube.com/embed/KqWUMVLJLLo?autoplay=1&rel=0" title="Introducing Airbnb Plus | Airbnb" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
             <div className='createspot-container'>

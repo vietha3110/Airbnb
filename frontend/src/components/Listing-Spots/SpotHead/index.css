@@ -96,3 +96,52 @@
     }
 
 }
+@media only screen and (max-width: 1024px){
+    .spothead-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        max-width: 1024px;
+        overflow-x: scroll;
+        height: 60px;
+        border-bottom: 1px solid #cccccc;    
+    }
+    .spothead-icon {
+        display: flex;
+        flex-direction: column;
+        width: 80px;
+        font-size: 0.7rem;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+    }
+
+    .spothead-icon:hover {
+        background: rgba(0, 0, 0, 0.08);
+        border-radius: 5px;
+    }
+    
+    .filter-box {
+        border-radius: 5px;
+        cursor: pointer;
+        border: 1px solid #cccccc;
+        height: 38px;
+    }
+    
+    .filter-box:hover {
+        border: 1px solid #db2137;
+        background-color: #db2137;;
+        color: #fff;
+    }
+    
+    .filter-span {
+        cursor: pointer;
+        font-weight: 600;
+        text-align: center;
+        width: 80px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
