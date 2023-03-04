@@ -4,6 +4,7 @@ import { fetchSpots } from '../../store/spots';
 import { Link } from 'react-router-dom';
 import SpotHead from './SpotHead';
 import './listingSpots.css';
+import Spinner from '../CssLoader';
 
 export function ListingSpots() {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export function ListingSpots() {
                 <SpotHead dispatch={dispatch} />
             </div>
             <div className='spots-container'>
-            {   spots?.length > 0 && spots.map(spot => (
+                { spots?.length > 0 && spots.map(spot => (
                     <Link to={`/spots/${spot.id}`}>
                         <div key={spot.id} className='spot-card'>
                             <div className='spot-image'>
@@ -40,8 +41,15 @@ export function ListingSpots() {
                             </div>
                         </div>
                     </Link>
-            ))}
+                ))}
             </div>
+            {
+                spots.length === 0 &&
+                <div className='spot-spinner'>
+                    <Spinner/>
+                </div>
+                    
+            }
         </>
     )
 }
